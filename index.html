@@ -1,5 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><title>Clean Hour</title></head>
-<body><p>Coming soon.</p></body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clean Hour — CA Grid Carbon Intensity</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0f0f0f; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #fff; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; }
+  h1 { font-size: 24px; font-weight: 500; margin-bottom: 6px; text-align: center; }
+  .sub { font-size: 14px; color: #888780; margin-bottom: 2rem; text-align: center; }
+  .card-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 100%; max-width: 640px; margin-bottom: 2rem; }
+  .card { background: #1a1a1a; border: 0.5px solid #2c2c2a; border-radius: 10px; padding: 14px; text-align: center; }
+  .card-label { font-size: 11px; color: #5F5E5A; margin-bottom: 6px; }
+  .card-val { font-size: 22px; font-weight: 500; }
+  .card-sub { font-size: 11px; color: #444441; margin-top: 4px; }
+  .signal { display: inline-block; padding: 10px 28px; border-radius: 8px; font-size: 15px; font-weight: 500; margin-bottom: 2rem; }
+  .signal.good { background: rgba(99,153,34,0.2); color: #97C459; border: 1px solid rgba(99,153,34,0.4); }
+  .signal.bad  { background: rgba(226,75,74,0.2); color: #F09595; border: 1px solid rgba(226,75,74,0.4); }
+  .chart-wrap { position: relative; width: 100%; max-width: 520px; height: 520px; }
+  .legend { display: flex; gap: 20px; margin-top: 1.5rem; font-size: 12px; color: #888780; }
+  .leg { display: flex; align-items: center; gap: 6px; }
+  .leg-dot { width: 10px; height: 10px; border-radius: 2px; }
+  .note { font-size: 11px; color: #444441; margin-top: 1.5rem; text-align: center; max-width: 480px; }
+</style>
+</head>
+<body>
+
+<h1>Clean Hour — California grid</h1>
+<p class="sub">Carbon intensity by hour of day · Spoke length = CO₂ per kWh</p>
+
+<div id="signalBox" class="signal good">Use power now</div>
+
+<div class="card-row">
+  <div class="card">
+    <p class="card-label">Cleanest hour</p>
+    <p class="card-val" style="color:#97C459">1 pm</p>
+    <p class="card-sub">~55 kg CO₂/MWh</p>
+  </div>
+  <div class="card">
+    <p class="card-label">Dirtiest hour</p>
+    <p class="card-val" style="color:#F09595">7 pm</p>
+    <p class="card-sub">~200 kg CO₂/MWh</p>
+  </div>
+  <div class="card">
+    <p class="card-label">Daily gap</p>
+    <p class="card-val" style="color:#fff">3.6x</p>
+    <p class="card-sub">same outlet, same day</p>
+  </div>
+</div>
+
+<div class="chart-wrap">
+  <canvas id="clock" role="img" aria-label="Radial clock chart showing California grid carbon intensity by hour.">
+    Carbon intensity peaks at 7pm (200 kg CO2/MWh) and is lowest at 1pm (55 kg CO2/MWh).
+  </canvas>
+</div>
+
+<div class="legend">
+  <div class="leg"><span class="leg-dot" style="background:#639922"></span> Clean (solar peak)</div>
+  <div class="leg"><span class="leg-dot" style="background:#BA7517"></span> Moderate</div>
+  <div class="leg"><span class="leg-dot" style="background:#E24B4A"></span> Dirty (gas peak)</div>
+</div>
+
+<p class="note">Data: EIA Open Data / CAISO — California hourly average carbon intensity (kg CO₂/MWh). Spoke length = intensity. Color = clean / moderate / dirty. Solar peaks at midday when demand is low; gas fires at 6–9pm when everyone gets home.</p>
+
+<script>
+const hours = [
+  '12am','1am','2am','3am','4am','5am',
+  '6am','7am','8am','9am','10am','11am',
+  '12pm','1pm','2pm','3pm','4pm','5pm',
+  '6pm','7pm','8pm','9pm','10pm','11pm'
+];
+
+const intensity = [
+  90, 85, 82, 80, 82, 88,
+  100,115,125,110, 85, 65,
+  58, 55, 57, 68, 95,140,
+  180,200,195,175,140,110
+];
+
+function getColor(val) {
+  if (val <= 80)  return '#639922';
+  if (val <= 120) return '#BA7517';
+  return '#E24B4A';
+}
+
+const colors = intensity.map(getColor);
+
+const now = new Date().getHours();
+const currentHour = hours[now];
+const currentIntensity = intensity[now];
+const isClean = currentIntensity <= 120;
+
+const signalBox = document.getElementById('signalBox');
+if (isClean) {
+  signalBox.textContent = 'Good time to use power (' + currentHour + ' · ' + currentIntensity + ' kg CO₂/MWh)';
+  signalBox.className = 'signal good';
+} else {
+  signalBox.textContent = 'Wait if you can (' + currentHour + ' · ' + currentIntensity + ' kg CO₂/MWh)';
+  signalBox.className = 'signal bad';
+}
+
+new Chart(document.getElementById('clock'), {
+  type: 'polarArea',
+  data: {
+    labels: hours,
+    datasets: [{
+      data: intensity,
+      backgroundColor: colors.map(c => c + '99'),
+      borderColor: colors,
+      borderWidth: 1.5
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: ctx => ' ' + ctx.label + ': ' + ctx.parsed.r + ' kg CO₂/MWh',
+          labelColor: ctx => ({
+            backgroundColor: colors[ctx.dataIndex],
+            borderColor: colors[ctx.dataIndex],
+            borderRadius: 3
+          })
+        },
+        backgroundColor: '#1a1a1a',
+        titleColor: '#D3D1C7',
+        bodyColor: '#888780',
+        borderColor: '#2c2c2a',
+        borderWidth: 1,
+        padding: 10,
+        cornerRadius: 6
+      }
+    },
+    scales: {
+      r: {
+        min: 0,
+        max: 220,
+        ticks: { display: false },
+        grid: { color: 'rgba(255,255,255,0.06)' },
+        pointLabels: {
+          display: true,
+          color: ctx => {
+            const i = ctx.index;
+            if (i === now) return '#ffffff';
+            const v = intensity[i];
+            if (v <= 80)  return '#639922';
+            if (v <= 120) return '#888780';
+            return '#E24B4A';
+          },
+          font: { size: 11 }
+        }
+      }
+    },
+    animation: { duration: 1200, easing: 'easeInOutQuart' }
+  }
+});
+</script>
+</body>
 </html>
