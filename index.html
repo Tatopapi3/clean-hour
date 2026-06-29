@@ -30,30 +30,28 @@
 <h1>Clean Hour — California grid</h1>
 <p class="sub">Carbon intensity by hour of day · Spoke length = CO₂ per kWh</p>
 
-<div id="signalBox" class="signal good">Use power now</div>
+<div id="signalBox" class="signal good">Loading…</div>
 
 <div class="card-row">
   <div class="card">
-    <p class="card-label">Cleanest hour</p>
-    <p class="card-val" style="color:#97C459">1 pm</p>
-    <p class="card-sub">~55 kg CO₂/MWh</p>
+    <p class="card-label">Cleanest window</p>
+    <p class="card-val" id="cleanestVal" style="color:#97C459">—</p>
+    <p class="card-sub" id="cleanestSub">—</p>
   </div>
   <div class="card">
-    <p class="card-label">Dirtiest hour</p>
-    <p class="card-val" style="color:#F09595">7 pm</p>
-    <p class="card-sub">~200 kg CO₂/MWh</p>
+    <p class="card-label">Dirtiest window</p>
+    <p class="card-val" id="dirtiesttVal" style="color:#F09595">—</p>
+    <p class="card-sub" id="dirtiestSub">—</p>
   </div>
   <div class="card">
-    <p class="card-label">Daily gap</p>
-    <p class="card-val" style="color:#fff">3.6x</p>
-    <p class="card-sub">same outlet, same day</p>
+    <p class="card-label">Daily swing</p>
+    <p class="card-val" id="swingVal" style="color:#fff">—</p>
+    <p class="card-sub" id="swingSub">—</p>
   </div>
 </div>
 
 <div class="chart-wrap">
-  <canvas id="clock" role="img" aria-label="Radial clock chart showing California grid carbon intensity by hour.">
-    Carbon intensity peaks at 7pm (200 kg CO2/MWh) and is lowest at 1pm (55 kg CO2/MWh).
-  </canvas>
+  <canvas id="clock" role="img" aria-label="Radial clock chart showing California grid carbon intensity by hour."></canvas>
 </div>
 
 <div class="legend">
@@ -62,21 +60,14 @@
   <div class="leg"><span class="leg-dot" style="background:#E24B4A"></span> Dirty (gas peak)</div>
 </div>
 
-<p class="note">Data: EIA Open Data / CAISO — California hourly average carbon intensity (kg CO₂/MWh). Spoke length = intensity. Color = clean / moderate / dirty. Solar peaks at midday when demand is low; gas fires at 6–9pm when everyone gets home.</p>
+<p class="note">Data: EIA Open Data / CAISO — California hourly average carbon intensity (kg CO₂/MWh). Spoke length = intensity. Color = clean / moderate / dirty. Solar peaks at midday when demand is low; gas fires at evening when everyone gets home.</p>
 
 <script>
-const hours = [
+const HOUR_LABELS = [
   '12am','1am','2am','3am','4am','5am',
   '6am','7am','8am','9am','10am','11am',
   '12pm','1pm','2pm','3pm','4pm','5pm',
   '6pm','7pm','8pm','9pm','10pm','11pm'
-];
-
-const intensity = [
-  90, 85, 82, 80, 82, 88,
-  100,115,125,110, 85, 65,
-  58, 55, 57, 68, 95,140,
-  180,200,195,175,140,110
 ];
 
 function getColor(val) {
@@ -85,79 +76,90 @@ function getColor(val) {
   return '#E24B4A';
 }
 
-const colors = intensity.map(getColor);
+fetch('data/ca_insight.json')
+  .then(r => r.json())
+  .then(d => {
+    const intensity = d.hourly_avg.map(h => h.carbon_intensity);
+    const colors    = intensity.map(getColor);
+    const now       = new Date().getHours();
 
-const now = new Date().getHours();
-const currentHour = hours[now];
-const currentIntensity = intensity[now];
-const isClean = currentIntensity <= 120;
+    // Signal box
+    const signalBox = document.getElementById('signalBox');
+    const isClean   = d.signal === 'use_now' || d.signal === 'moderate' && d.current_intensity <= 120;
+    signalBox.textContent = d.signal_label + ' · ' + HOUR_LABELS[d.current_hour] + ' · ' + d.current_intensity + ' kg CO₂/MWh';
+    signalBox.className   = (d.signal === 'wait') ? 'signal bad' : 'signal good';
 
-const signalBox = document.getElementById('signalBox');
-if (isClean) {
-  signalBox.textContent = 'Good time to use power (' + currentHour + ' · ' + currentIntensity + ' kg CO₂/MWh)';
-  signalBox.className = 'signal good';
-} else {
-  signalBox.textContent = 'Wait if you can (' + currentHour + ' · ' + currentIntensity + ' kg CO₂/MWh)';
-  signalBox.className = 'signal bad';
-}
+    // Stat cards
+    document.getElementById('cleanestVal').textContent = d.cleanest_window;
+    document.getElementById('cleanestSub').textContent = '~' + d.min_intensity + ' kg CO₂/MWh';
+    document.getElementById('dirtiesttVal').textContent = d.dirtiest_window;
+    document.getElementById('dirtiestSub').textContent  = '~' + d.max_intensity + ' kg CO₂/MWh';
+    document.getElementById('swingVal').textContent     = d.daily_swing_pct + '%';
+    document.getElementById('swingSub').textContent     = '~' + d.kg_saved_yr + ' kg CO₂/yr saved · ' + d.verdict_label;
 
-new Chart(document.getElementById('clock'), {
-  type: 'polarArea',
-  data: {
-    labels: hours,
-    datasets: [{
-      data: intensity,
-      backgroundColor: colors.map(c => c + '99'),
-      borderColor: colors,
-      borderWidth: 1.5
-    }]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: { display: false },
-      tooltip: {
-        callbacks: {
-          label: ctx => ' ' + ctx.label + ': ' + ctx.parsed.r + ' kg CO₂/MWh',
-          labelColor: ctx => ({
-            backgroundColor: colors[ctx.dataIndex],
-            borderColor: colors[ctx.dataIndex],
-            borderRadius: 3
-          })
+    // Chart
+    new Chart(document.getElementById('clock'), {
+      type: 'polarArea',
+      data: {
+        labels: HOUR_LABELS,
+        datasets: [{
+          data: intensity,
+          backgroundColor: colors.map(c => c + '99'),
+          borderColor: colors,
+          borderWidth: 1.5
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: ctx => ' ' + ctx.label + ': ' + ctx.parsed.r + ' kg CO₂/MWh',
+              labelColor: ctx => ({
+                backgroundColor: colors[ctx.dataIndex],
+                borderColor: colors[ctx.dataIndex],
+                borderRadius: 3
+              })
+            },
+            backgroundColor: '#1a1a1a',
+            titleColor: '#D3D1C7',
+            bodyColor: '#888780',
+            borderColor: '#2c2c2a',
+            borderWidth: 1,
+            padding: 10,
+            cornerRadius: 6
+          }
         },
-        backgroundColor: '#1a1a1a',
-        titleColor: '#D3D1C7',
-        bodyColor: '#888780',
-        borderColor: '#2c2c2a',
-        borderWidth: 1,
-        padding: 10,
-        cornerRadius: 6
+        scales: {
+          r: {
+            min: 0,
+            max: Math.ceil(d.max_intensity / 20) * 20 + 20,
+            ticks: { display: false },
+            grid: { color: 'rgba(255,255,255,0.06)' },
+            pointLabels: {
+              display: true,
+              color: ctx => {
+                const i = ctx.index;
+                if (i === now) return '#ffffff';
+                const v = intensity[i];
+                if (v <= 80)  return '#639922';
+                if (v <= 120) return '#888780';
+                return '#E24B4A';
+              },
+              font: { size: 11 }
+            }
+          }
+        },
+        animation: { duration: 1200, easing: 'easeInOutQuart' }
       }
-    },
-    scales: {
-      r: {
-        min: 0,
-        max: 220,
-        ticks: { display: false },
-        grid: { color: 'rgba(255,255,255,0.06)' },
-        pointLabels: {
-          display: true,
-          color: ctx => {
-            const i = ctx.index;
-            if (i === now) return '#ffffff';
-            const v = intensity[i];
-            if (v <= 80)  return '#639922';
-            if (v <= 120) return '#888780';
-            return '#E24B4A';
-          },
-          font: { size: 11 }
-        }
-      }
-    },
-    animation: { duration: 1200, easing: 'easeInOutQuart' }
-  }
-});
+    });
+  })
+  .catch(err => {
+    document.getElementById('signalBox').textContent = 'Could not load data';
+    console.error(err);
+  });
 </script>
 </body>
 </html>
