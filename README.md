@@ -2,6 +2,8 @@
 
 > Same outlet. Same lifestyle. A fraction of the carbon.
 
+**Live site:** https://clean-hour.vercel.app
+
 **Clean Hour** tells you whether carbon-aware charging is worth it where you live — and by how much. It shows California's hourly grid carbon intensity on a 24-hour radial clock, so the timing mismatch between clean supply and dirty demand is visible in one glance.
 
 🔗 **Live at:** [tatopapi3.github.io/clean-hour](https://tatopapi3.github.io/clean-hour)
