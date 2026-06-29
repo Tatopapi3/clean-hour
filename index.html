@@ -40,7 +40,7 @@
   </div>
   <div class="card">
     <p class="card-label">Dirtiest window</p>
-    <p class="card-val" id="dirtiesttVal" style="color:#F09595">—</p>
+    <p class="card-val" id="dirtiestVal" style="color:#F09595">—</p>
     <p class="card-sub" id="dirtiestSub">—</p>
   </div>
   <div class="card">
@@ -76,34 +76,76 @@ function getColor(val) {
   return '#E24B4A';
 }
 
+function fmtHour(h) {
+  const suffix  = h < 12 ? 'am' : 'pm';
+  const display = h === 0 ? 12 : h > 12 ? h - 12 : h;
+  return display + suffix;
+}
+
+function fmtWindow(startH) {
+  return fmtHour(startH) + '–' + fmtHour((startH + 3) % 24);
+}
+
 fetch('data/ca_insight.json')
   .then(r => r.json())
   .then(d => {
-    const intensity = d.hourly_avg.map(h => h.carbon_intensity);
-    const colors    = intensity.map(getColor);
-    const now       = new Date().getHours();
+    // ── Timezone correction ────────────────────────────────────────────────
+    // EIA data is stored in UTC. Shift each hour to the browser's local time
+    // so the clock labels and windows match what the user actually sees.
+    const tzShift = -Math.round(new Date().getTimezoneOffset() / 60); // e.g. -7 for PDT
 
-    // Signal box
+    const localIntensity = Array(24).fill(0);
+    d.hourly_avg.forEach(item => {
+      const localHour = ((item.hour + tzShift) % 24 + 24) % 24;
+      localIntensity[localHour] = item.carbon_intensity;
+    });
+
+    // ── Current hour (browser local time) ─────────────────────────────────
+    const localNow         = new Date().getHours();
+    const nowIntensity     = localIntensity[localNow];
+    const allVals          = [...localIntensity].sort((a, b) => a - b);
+    const lowCutoff        = allVals[7];   // bottom third (~8 hours)
+    const highCutoff       = allVals[15];  // top third
+
+    let signalLabel, signalClass;
+    if (nowIntensity <= lowCutoff) {
+      signalLabel = 'Good time to use power';
+      signalClass = 'signal good';
+    } else if (nowIntensity >= highCutoff) {
+      signalLabel = 'Wait if you can';
+      signalClass = 'signal bad';
+    } else {
+      signalLabel = 'Moderate — not ideal, not terrible';
+      signalClass = 'signal good';
+    }
+
     const signalBox = document.getElementById('signalBox');
-    const isClean   = d.signal === 'use_now' || d.signal === 'moderate' && d.current_intensity <= 120;
-    signalBox.textContent = d.signal_label + ' · ' + HOUR_LABELS[d.current_hour] + ' · ' + d.current_intensity + ' kg CO₂/MWh';
-    signalBox.className   = (d.signal === 'wait') ? 'signal bad' : 'signal good';
+    signalBox.textContent = signalLabel + ' · ' + fmtHour(localNow) + ' · ' + Math.round(nowIntensity) + ' kg CO₂/MWh';
+    signalBox.className   = signalClass;
 
-    // Stat cards
-    document.getElementById('cleanestVal').textContent = d.cleanest_window;
-    document.getElementById('cleanestSub').textContent = '~' + d.min_intensity + ' kg CO₂/MWh';
-    document.getElementById('dirtiesttVal').textContent = d.dirtiest_window;
-    document.getElementById('dirtiestSub').textContent  = '~' + d.max_intensity + ' kg CO₂/MWh';
-    document.getElementById('swingVal').textContent     = d.daily_swing_pct + '%';
-    document.getElementById('swingSub').textContent     = '~' + d.kg_saved_yr + ' kg CO₂/yr saved · ' + d.verdict_label;
+    // ── Cleanest / dirtiest in local time ─────────────────────────────────
+    const sortedEntries   = localIntensity.map((v, i) => [i, v]).sort((a, b) => a[1] - b[1]);
+    const cleanestHour    = sortedEntries[0][0];
+    const dirtiestHour    = sortedEntries[23][0];
+    const minIntensity    = Math.round(sortedEntries[0][1]);
+    const maxIntensity    = Math.round(sortedEntries[23][1]);
 
-    // Chart
+    document.getElementById('cleanestVal').textContent = fmtWindow(cleanestHour);
+    document.getElementById('cleanestSub').textContent = '~' + minIntensity + ' kg CO₂/MWh';
+    document.getElementById('dirtiestVal').textContent = fmtWindow(dirtiestHour);
+    document.getElementById('dirtiestSub').textContent = '~' + maxIntensity + ' kg CO₂/MWh';
+    document.getElementById('swingVal').textContent    = d.daily_swing_pct + '%';
+    document.getElementById('swingSub').textContent    = '~' + d.kg_saved_yr + ' kg CO₂/yr saved · ' + d.verdict_label;
+
+    // ── Clock chart ────────────────────────────────────────────────────────
+    const colors = localIntensity.map(getColor);
+
     new Chart(document.getElementById('clock'), {
       type: 'polarArea',
       data: {
         labels: HOUR_LABELS,
         datasets: [{
-          data: intensity,
+          data: localIntensity,
           backgroundColor: colors.map(c => c + '99'),
           borderColor: colors,
           borderWidth: 1.5
@@ -116,7 +158,7 @@ fetch('data/ca_insight.json')
           legend: { display: false },
           tooltip: {
             callbacks: {
-              label: ctx => ' ' + ctx.label + ': ' + ctx.parsed.r + ' kg CO₂/MWh',
+              label: ctx => ' ' + ctx.label + ': ' + Math.round(ctx.parsed.r) + ' kg CO₂/MWh',
               labelColor: ctx => ({
                 backgroundColor: colors[ctx.dataIndex],
                 borderColor: colors[ctx.dataIndex],
@@ -135,20 +177,23 @@ fetch('data/ca_insight.json')
         scales: {
           r: {
             min: 0,
-            max: Math.ceil(d.max_intensity / 20) * 20 + 20,
+            max: Math.ceil(maxIntensity / 20) * 20 + 20,
             ticks: { display: false },
             grid: { color: 'rgba(255,255,255,0.06)' },
             pointLabels: {
               display: true,
               color: ctx => {
                 const i = ctx.index;
-                if (i === now) return '#ffffff';
-                const v = intensity[i];
+                if (i === localNow) return '#ffffff';
+                const v = localIntensity[i];
                 if (v <= 80)  return '#639922';
                 if (v <= 120) return '#888780';
                 return '#E24B4A';
               },
-              font: { size: 11 }
+              font: ctx => ({
+                size: 11,
+                weight: ctx.index === localNow ? 'bold' : 'normal'
+              })
             }
           }
         },
