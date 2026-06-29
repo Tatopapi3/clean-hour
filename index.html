@@ -19,16 +19,20 @@
   .signal.good { background: rgba(99,153,34,0.2); color: #97C459; border: 1px solid rgba(99,153,34,0.4); }
   .signal.bad  { background: rgba(226,75,74,0.2); color: #F09595; border: 1px solid rgba(226,75,74,0.4); }
   .chart-wrap { position: relative; width: 100%; max-width: 520px; height: 520px; }
-  .legend { display: flex; gap: 20px; margin-top: 1.5rem; font-size: 12px; color: #888780; }
+  .legend { display: flex; gap: 20px; margin-top: 1.5rem; font-size: 12px; color: #888780; flex-wrap: wrap; justify-content: center; }
   .leg { display: flex; align-items: center; gap: 6px; }
   .leg-dot { width: 10px; height: 10px; border-radius: 2px; }
+  .tz-row { display: flex; gap: 20px; margin-top: 1rem; font-size: 12px; justify-content: center; flex-wrap: wrap; }
+  .tz-badge { display: flex; align-items: center; gap: 6px; font-weight: 500; }
+  .tz-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+  .tz-label { color: #5F5E5A; font-size: 10px; margin-right: 2px; }
   .note { font-size: 11px; color: #444441; margin-top: 1.5rem; text-align: center; max-width: 480px; }
 </style>
 </head>
 <body>
 
 <h1>Clean Hour — California grid</h1>
-<p class="sub">Carbon intensity by hour of day · Spoke length = CO₂ per kWh</p>
+<p class="sub">Carbon intensity by hour of day · Spoke length = CO₂ per kWh · All times Pacific</p>
 
 <div id="signalBox" class="signal good">Loading…</div>
 
@@ -51,8 +55,11 @@
 </div>
 
 <div class="chart-wrap">
-  <canvas id="clock" role="img" aria-label="Radial clock chart showing California grid carbon intensity by hour."></canvas>
+  <canvas id="clock" role="img" aria-label="Radial clock chart showing California grid carbon intensity by hour, Pacific time."></canvas>
 </div>
+
+<!-- Timezone "now" strip -->
+<div class="tz-row" id="tzRow"></div>
 
 <div class="legend">
   <div class="leg"><span class="leg-dot" style="background:#639922"></span> Clean (solar peak)</div>
@@ -60,7 +67,7 @@
   <div class="leg"><span class="leg-dot" style="background:#E24B4A"></span> Dirty (gas peak)</div>
 </div>
 
-<p class="note">Data: EIA Open Data / CAISO — California hourly average carbon intensity (kg CO₂/MWh). Spoke length = intensity. Color = clean / moderate / dirty. Solar peaks at midday when demand is low; gas fires at evening when everyone gets home.</p>
+<p class="note">Data: EIA Open Data / CAISO — California hourly average carbon intensity (kg CO₂/MWh). Clock is in Pacific Time. Dots on clock show "now" for PT · CT · ET.</p>
 
 <script>
 const HOUR_LABELS = [
@@ -70,6 +77,9 @@ const HOUR_LABELS = [
   '6pm','7pm','8pm','9pm','10pm','11pm'
 ];
 
+// Colors per timezone "now" marker
+const TZ_COLOR = { PT: '#ffffff', CT: '#60A5FA', ET: '#FB923C' };
+
 function getColor(val) {
   if (val <= 80)  return '#639922';
   if (val <= 120) return '#BA7517';
@@ -77,36 +87,54 @@ function getColor(val) {
 }
 
 function fmtHour(h) {
-  const suffix  = h < 12 ? 'am' : 'pm';
-  const display = h === 0 ? 12 : h > 12 ? h - 12 : h;
+  const h24 = ((h % 24) + 24) % 24;
+  const suffix  = h24 < 12 ? 'am' : 'pm';
+  const display = h24 === 0 ? 12 : h24 > 12 ? h24 - 12 : h24;
   return display + suffix;
 }
 
 function fmtWindow(startH) {
-  return fmtHour(startH) + '–' + fmtHour((startH + 3) % 24);
+  return fmtHour(startH) + '–' + fmtHour(startH + 3);
+}
+
+// Get current hour in a named IANA timezone
+function tzHour(tz) {
+  return parseInt(new Intl.DateTimeFormat('en-US', {
+    timeZone: tz, hour: 'numeric', hour12: false
+  }).format(new Date()), 10) % 24;
+}
+
+// Get UTC offset in hours for a timezone (to shift EIA UTC data → PT display)
+function tzShift(tz) {
+  const now = new Date();
+  const utc = new Date(now.toLocaleString('en-US', { timeZone: 'UTC' }));
+  const local = new Date(now.toLocaleString('en-US', { timeZone: tz }));
+  return Math.round((local - utc) / 3600000);
 }
 
 fetch('data/ca_insight.json')
   .then(r => r.json())
   .then(d => {
-    // ── Timezone correction ────────────────────────────────────────────────
-    // EIA data is stored in UTC. Shift each hour to the browser's local time
-    // so the clock labels and windows match what the user actually sees.
-    const tzShift = -Math.round(new Date().getTimezoneOffset() / 60); // e.g. -7 for PDT
+    // ── Pin clock to Pacific Time ──────────────────────────────────────────
+    const ptShift = tzShift('America/Los_Angeles'); // e.g. -7 PDT
 
-    const localIntensity = Array(24).fill(0);
+    const ptIntensity = Array(24).fill(0);
     d.hourly_avg.forEach(item => {
-      const localHour = ((item.hour + tzShift) % 24 + 24) % 24;
-      localIntensity[localHour] = item.carbon_intensity;
+      const ptHourIdx = ((item.hour + ptShift) % 24 + 24) % 24;
+      ptIntensity[ptHourIdx] = item.carbon_intensity;
     });
 
-    // ── Current hour (browser local time) ─────────────────────────────────
-    const localNow         = new Date().getHours();
-    const nowIntensity     = localIntensity[localNow];
-    const allVals          = [...localIntensity].sort((a, b) => a - b);
-    const lowCutoff        = allVals[7];   // bottom third (~8 hours)
-    const highCutoff       = allVals[15];  // top third
+    // ── Current hour in each timezone ─────────────────────────────────────
+    const ptNow = tzHour('America/Los_Angeles');
+    const ctNow = tzHour('America/Chicago');
+    const etNow = tzHour('America/New_York');
 
+    const nowIntensity = ptIntensity[ptNow];
+    const allVals      = [...ptIntensity].sort((a, b) => a - b);
+    const lowCutoff    = allVals[7];
+    const highCutoff   = allVals[15];
+
+    // ── Signal box (uses PT) ───────────────────────────────────────────────
     let signalLabel, signalClass;
     if (nowIntensity <= lowCutoff) {
       signalLabel = 'Good time to use power';
@@ -120,32 +148,55 @@ fetch('data/ca_insight.json')
     }
 
     const signalBox = document.getElementById('signalBox');
-    signalBox.textContent = signalLabel + ' · ' + fmtHour(localNow) + ' · ' + Math.round(nowIntensity) + ' kg CO₂/MWh';
+    signalBox.textContent = signalLabel + ' · ' + fmtHour(ptNow) + ' PT · ' + Math.round(nowIntensity) + ' kg CO₂/MWh';
     signalBox.className   = signalClass;
 
-    // ── Cleanest / dirtiest in local time ─────────────────────────────────
-    const sortedEntries   = localIntensity.map((v, i) => [i, v]).sort((a, b) => a[1] - b[1]);
-    const cleanestHour    = sortedEntries[0][0];
-    const dirtiestHour    = sortedEntries[23][0];
-    const minIntensity    = Math.round(sortedEntries[0][1]);
-    const maxIntensity    = Math.round(sortedEntries[23][1]);
+    // ── Stat cards ─────────────────────────────────────────────────────────
+    const sorted       = ptIntensity.map((v, i) => [i, v]).sort((a, b) => a[1] - b[1]);
+    const cleanestHour = sorted[0][0];
+    const dirtiestHour = sorted[23][0];
+    const minIntensity = Math.round(sorted[0][1]);
+    const maxIntensity = Math.round(sorted[23][1]);
 
     document.getElementById('cleanestVal').textContent = fmtWindow(cleanestHour);
-    document.getElementById('cleanestSub').textContent = '~' + minIntensity + ' kg CO₂/MWh';
+    document.getElementById('cleanestSub').textContent = '~' + minIntensity + ' kg CO₂/MWh PT';
     document.getElementById('dirtiestVal').textContent = fmtWindow(dirtiestHour);
-    document.getElementById('dirtiestSub').textContent = '~' + maxIntensity + ' kg CO₂/MWh';
+    document.getElementById('dirtiestSub').textContent = '~' + maxIntensity + ' kg CO₂/MWh PT';
     document.getElementById('swingVal').textContent    = d.daily_swing_pct + '%';
-    document.getElementById('swingSub').textContent    = '~' + d.kg_saved_yr + ' kg CO₂/yr saved · ' + d.verdict_label;
+    document.getElementById('swingSub').textContent    = '~' + d.kg_saved_yr + ' kg CO₂/yr · ' + d.verdict_label;
+
+    // ── Timezone strip ─────────────────────────────────────────────────────
+    document.getElementById('tzRow').innerHTML = [
+      ['PT', ptNow, TZ_COLOR.PT],
+      ['CT', ctNow, TZ_COLOR.CT],
+      ['ET', etNow, TZ_COLOR.ET],
+    ].map(([label, h, color]) => `
+      <div class="tz-badge">
+        <span class="tz-dot" style="background:${color}"></span>
+        <span class="tz-label">${label}</span>
+        <span style="color:${color}">${fmtHour(h)}</span>
+      </div>`).join('');
 
     // ── Clock chart ────────────────────────────────────────────────────────
-    const colors = localIntensity.map(getColor);
+    const tzNows  = new Set([ptNow, ctNow, etNow]);
+    const colors  = ptIntensity.map(getColor);
+
+    function labelColor(i) {
+      if (i === ptNow) return TZ_COLOR.PT;
+      if (i === ctNow) return TZ_COLOR.CT;
+      if (i === etNow) return TZ_COLOR.ET;
+      const v = ptIntensity[i];
+      if (v <= 80)  return '#639922';
+      if (v <= 120) return '#555552';
+      return '#7a3535';
+    }
 
     new Chart(document.getElementById('clock'), {
       type: 'polarArea',
       data: {
         labels: HOUR_LABELS,
         datasets: [{
-          data: localIntensity,
+          data: ptIntensity,
           backgroundColor: colors.map(c => c + '99'),
           borderColor: colors,
           borderWidth: 1.5
@@ -158,7 +209,7 @@ fetch('data/ca_insight.json')
           legend: { display: false },
           tooltip: {
             callbacks: {
-              label: ctx => ' ' + ctx.label + ': ' + Math.round(ctx.parsed.r) + ' kg CO₂/MWh',
+              label: ctx => ' ' + ctx.label + ' PT: ' + Math.round(ctx.parsed.r) + ' kg CO₂/MWh',
               labelColor: ctx => ({
                 backgroundColor: colors[ctx.dataIndex],
                 borderColor: colors[ctx.dataIndex],
@@ -179,20 +230,13 @@ fetch('data/ca_insight.json')
             min: 0,
             max: Math.ceil(maxIntensity / 20) * 20 + 20,
             ticks: { display: false },
-            grid: { color: 'rgba(255,255,255,0.06)' },
+            grid: { color: 'rgba(255,255,255,0.05)' },
             pointLabels: {
               display: true,
-              color: ctx => {
-                const i = ctx.index;
-                if (i === localNow) return '#ffffff';
-                const v = localIntensity[i];
-                if (v <= 80)  return '#639922';
-                if (v <= 120) return '#888780';
-                return '#E24B4A';
-              },
+              color: ctx => labelColor(ctx.index),
               font: ctx => ({
-                size: 11,
-                weight: ctx.index === localNow ? 'bold' : 'normal'
+                size: tzNows.has(ctx.index) ? 12 : 10,
+                weight: tzNows.has(ctx.index) ? 'bold' : 'normal'
               })
             }
           }
