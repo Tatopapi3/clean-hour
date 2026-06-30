@@ -83,7 +83,7 @@
  .src{ position:absolute; bottom:84px; left:0; right:0; text-align:center; font-size:10px; color:rgba(255,255,255,.4); z-index:1; }
 
  /* Map & location */
- #map{ height:220px; border-radius:0 0 16px 16px; overflow:hidden; }
+ #map{ height:200px; border-radius:16px; overflow:hidden; }
  .leaflet-container{ background:#0d1425 !important; }
  .map-marker{ width:40px; height:40px; border-radius:50%;
    background:rgba(255,255,255,.12); backdrop-filter:blur(12px);
@@ -119,6 +119,7 @@
    </div>
    <svg id="clock" viewBox="0 0 240 240"></svg>
    <div class="legend"><span><span class="sw" style="background:#5fd38a"></span>Clean</span><span><span class="sw" style="background:#e0a93c"></span>Moderate</span><span><span class="sw" style="background:#ff6b81"></span>Dirty</span></div>
+   <div class="glass" style="overflow:hidden;margin-top:14px;"><div id="map"></div></div>
    <div class="glass window"><div class="vlabel">Today's cleanest window</div><div class="vbig" id="winTxt">—</div><div class="nudge" id="nudge"></div></div>
   </section>
 
@@ -160,8 +161,6 @@
      <input class="zip-input" id="zipInput" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="5" placeholder="ZIP code" />
      <button class="zip-btn" onclick="lookupZip()"><i class="ti ti-search" style="font-size:16px;vertical-align:middle"></i> Find</button>
     </div>
-    <div style="padding:0 14px 8px; font-size:11px; color:rgba(255,255,255,.4);">Or tap a region on the map</div>
-    <div id="map"></div>
     <div class="row"><span class="rl"><i class="ti ti-current-location"></i> Use my location</span><button class="iconbtn" style="font-size:18px" onclick="useGeo()"><i class="ti ti-chevron-right"></i></button></div>
    </div>
    <div class="hint" id="locHint"></div>
@@ -200,7 +199,6 @@ function go(v){
  document.getElementById('v-'+v).classList.add('on');
  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on', t.dataset.v===v));
  if(v==='now') setTimeout(()=>document.getElementById('clock').classList.add('in'),30);
- if(v==='set') initMap();
 }
 
 // ── Render ────────────────────────────────────────────────────────────────────
@@ -314,7 +312,6 @@ function selectRegion(zone){
  _activeZone = zone;
  Object.entries(_markerEls).forEach(([z,el])=> el.classList.toggle('active', z===zone));
  load('?zone='+zone);
- go('now');
 }
 
 // ── ZIP lookup ────────────────────────────────────────────────────────────────
@@ -352,6 +349,7 @@ if(localStorage.getItem('notif')==='1' && typeof Notification !== 'undefined' &&
 }
 
 load('?zone=US-CAL-CISO');
+setTimeout(initMap, 300);
 if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js').catch(()=>{}); }
 </script>
 </body>
