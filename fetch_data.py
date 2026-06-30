@@ -1,20 +1,30 @@
 """
 fetch_data.py
-Pulls hourly electricity generation by fuel type for California (CAISO)
-from the EIA Open Data API and saves it to data/ca_hourly.json
+Pulls hourly electricity generation by fuel type for an EIA region
+from the EIA Open Data API and saves it to data/{region}_hourly.json
+
+Usage:
+  python fetch_data.py              # defaults to CAL
+  python fetch_data.py --region TEX
+  EIA_REGION=NY python fetch_data.py
 """
 
+import argparse
 import requests
 import json
 import os
 from datetime import datetime, timedelta
 
 # ── Config ────────────────────────────────────────────────────────────────────
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--region", default=os.environ.get("EIA_REGION", "CAL"),
+                        help="EIA respondent region code (default: CAL)")
+    return parser.parse_args()
+
 API_KEY   = os.environ.get("EIA_API_KEY", "YOUR_API_KEY_HERE")
-REGION    = "CAL"   # California CAISO
 DAYS_BACK = 14      # 2 weeks of hourly data
 OUT_DIR   = "data"
-OUT_FILE  = os.path.join(OUT_DIR, "ca_hourly.json")
 
 # Carbon intensity factors (kg CO2 per MWh) by fuel type
 # Source: EIA / IPCC lifecycle estimates
@@ -38,15 +48,15 @@ def get_date_range():
     return start.strftime("%Y-%m-%dT%H"), end.strftime("%Y-%m-%dT%H")
 
 
-def fetch_generation_by_fuel():
-    """Pull hourly net generation by fuel type for CAISO."""
+def fetch_generation_by_fuel(region):
+    """Pull hourly net generation by fuel type for the given EIA region."""
     start, end = get_date_range()
     url = "https://api.eia.gov/v2/electricity/rto/fuel-type-data/data/"
     params = {
         "api_key":          API_KEY,
         "frequency":        "hourly",
         "data[0]":          "value",
-        "facets[respondent][]": REGION,
+        "facets[respondent][]": region,
         "start":            start,
         "end":              end,
         "sort[0][column]":  "period",
@@ -55,7 +65,7 @@ def fetch_generation_by_fuel():
         "length":           5000,
     }
 
-    print(f"Fetching EIA data for {REGION} from {start} to {end}...")
+    print(f"Fetching EIA data for {region} from {start} to {end}...")
     resp = requests.get(url, params=params, timeout=30)
     resp.raise_for_status()
     data = resp.json()
@@ -111,17 +121,18 @@ def compute_carbon_intensity(rows):
     return results
 
 
-def save(data):
+def save(data, region):
+    out_file = os.path.join(OUT_DIR, f"{region.lower()}_hourly.json")
     os.makedirs(OUT_DIR, exist_ok=True)
-    with open(OUT_FILE, "w") as f:
+    with open(out_file, "w") as f:
         json.dump({
-            "region":     REGION,
+            "region":     region,
             "fetched_at": datetime.utcnow().isoformat() + "Z",
             "days_back":  DAYS_BACK,
             "records":    len(data),
             "data":       data,
         }, f, indent=2)
-    print(f"  ✓ Saved {len(data)} records to {OUT_FILE}")
+    print(f"  ✓ Saved {len(data)} records to {out_file}")
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────
@@ -132,7 +143,8 @@ if __name__ == "__main__":
         print("  Get one free at: https://www.eia.gov/opendata/register.php")
         exit(1)
 
-    rows     = fetch_generation_by_fuel()
+    args     = parse_args()
+    rows     = fetch_generation_by_fuel(args.region)
     computed = compute_carbon_intensity(rows)
-    save(computed)
+    save(computed, args.region)
     print("Done.")

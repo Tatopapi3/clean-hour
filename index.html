@@ -200,7 +200,9 @@ function render(d){
  document.getElementById('winTxt').textContent = w ? `${w.start} – ${w.end}` : '—';
  document.getElementById('nudge').textContent = w ? `Charge then to cut ~${w.savings_pct}% of emissions.` : '';
  document.getElementById('locName').textContent=(d.zone||'').replace(/ \(sample\)/,'');
- document.getElementById('src').textContent = d._live ? 'Live · Electricity Maps' : 'Sample data · deploy with API key for live';
+ let srcLabel = 'Sample data · deploy with API key for live';
+ if(d._live) srcLabel = d.source==='eia-fallback' ? 'Historical · EIA (live data unavailable)' : 'Live · Electricity Maps';
+ document.getElementById('src').textContent = srcLabel;
 }
 
 async function load(params){
