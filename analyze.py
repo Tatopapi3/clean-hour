@@ -1,27 +1,37 @@
 """
 analyze.py
-Reads data/ca_hourly.json produced by fetch_data.py and outputs:
-  data/ca_insight.json  → hour-by-hour averages + verdict for the frontend
+Reads data/{region}_hourly.json produced by fetch_data.py and outputs:
+  data/{region}_insight.json  → hour-by-hour averages + verdict for the frontend
+
+Usage:
+  python analyze.py              # defaults to CAL
+  python analyze.py --region TEX
+  EIA_REGION=NY python analyze.py
 """
 
+import argparse
 import json
 import os
 from collections import defaultdict
 from datetime import datetime
 
-IN_FILE  = os.path.join("data", "ca_hourly.json")
-OUT_FILE = os.path.join("data", "ca_insight.json")
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--region", default=os.environ.get("EIA_REGION", "CAL"),
+                        help="EIA region code matching what fetch_data.py used (default: CAL)")
+    return parser.parse_args()
 
 # ── Verdict thresholds ────────────────────────────────────────────────────────
 WORTH_IT_THRESHOLD = 30   # ≥30% swing → charging timing makes a real difference
 MODERATE_THRESHOLD = 15   # 15–29%    → moderate benefit
 
-def load():
-    if not os.path.exists(IN_FILE):
+def load(region):
+    in_file = os.path.join("data", f"{region.lower()}_hourly.json")
+    if not os.path.exists(in_file):
         raise FileNotFoundError(
-            f"{IN_FILE} not found. Run fetch_data.py first."
+            f"{in_file} not found. Run: python fetch_data.py --region {region}"
         )
-    with open(IN_FILE) as f:
+    with open(in_file) as f:
         return json.load(f)
 
 
@@ -123,17 +133,21 @@ def now_signal(avg_intensity):
     return current_hour, round(intensity, 1), signal, signal_label
 
 
-def save(insight):
+def save(insight, region):
+    out_file = os.path.join("data", f"{region.lower()}_insight.json")
     os.makedirs("data", exist_ok=True)
-    with open(OUT_FILE, "w") as f:
+    with open(out_file, "w") as f:
         json.dump(insight, f, indent=2)
-    print(f"  ✓ Saved insight to {OUT_FILE}")
+    print(f"  ✓ Saved insight to {out_file}")
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 if __name__ == "__main__":
+    args = parse_args()
+    region = args.region.upper()
+
     print("Loading data...")
-    raw = load()
+    raw = load(region)
     records = raw["data"]
     print(f"  ✓ {len(records)} records loaded")
 
@@ -157,7 +171,7 @@ if __name__ == "__main__":
     current_hour, current_intensity, signal, signal_label = now_signal(avg_intensity)
 
     insight = {
-        "region":           raw.get("region", "CAL"),
+        "region":           region,
         "analyzed_at":      datetime.utcnow().isoformat() + "Z",
         "days_analyzed":    raw.get("days_back", 14),
         "verdict":          verdict,
@@ -185,9 +199,10 @@ if __name__ == "__main__":
         ],
     }
 
-    save(insight)
+    save(insight, region)
 
     print("\n── Clean Hour Insight ───────────────────────────────")
+    print(f"  Region:         {region}")
     print(f"  Verdict:        {label}")
     print(f"  Daily swing:    {swing_pct}%")
     print(f"  Cleanest hour:  {cleanest_window} ({min_intensity} kg CO₂/MWh)")
@@ -195,4 +210,4 @@ if __name__ == "__main__":
     print(f"  Yearly savings: ~{kg_saved_yr} kg CO₂ if you always charge clean")
     print(f"  Right now:      {signal_label} ({current_intensity} kg CO₂/MWh)")
     print("─────────────────────────────────────────────────────")
-    print("Done. Feed data/ca_insight.json to your frontend.")
+    print(f"Done. Feed data/{region.lower()}_insight.json to your frontend.")

@@ -112,7 +112,7 @@ function tzShift(tz) {
   return Math.round((local - utc) / 3600000);
 }
 
-fetch('data/ca_insight.json')
+fetch('data/cal_insight.json')
   .then(r => r.json())
   .then(d => {
     // ── Pin clock to Pacific Time ──────────────────────────────────────────

@@ -11,6 +11,7 @@
 <link rel="manifest" href="manifest.json" />
 <link rel="apple-touch-icon" href="icon-192.png" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.7.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
  *{ box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
  :root{ --safe-top:env(safe-area-inset-top,0px); --safe-bot:env(safe-area-inset-bottom,0px); }
@@ -71,7 +72,7 @@
  .seg{ display:flex; background:rgba(255,255,255,.1); border:0.5px solid rgba(255,255,255,.2); border-radius:9px; overflow:hidden; }
  .seg span{ font-size:12px; padding:5px 12px; color:rgba(255,255,255,.65); cursor:pointer; }
  .seg .on{ background:rgba(255,255,255,.9); color:#0a0e18; font-weight:500; }
- .toggle{ width:44px; height:26px; border-radius:999px; background:#34c759; position:relative; cursor:pointer; }
+ .toggle{ width:44px; height:26px; border-radius:999px; background:#34c759; position:relative; cursor:pointer; transition:background .2s; }
  .toggle::after{ content:""; position:absolute; right:2px; top:2px; width:22px; height:22px; border-radius:50%; background:#fff; transition:.2s; }
  .toggle.off{ background:rgba(255,255,255,.25); } .toggle.off::after{ right:20px; }
 
@@ -80,6 +81,24 @@
  .tab i{ display:block; font-size:21px; margin-bottom:2px; }
  .tab.on{ color:#fff; background:rgba(255,255,255,.16); }
  .src{ position:absolute; bottom:84px; left:0; right:0; text-align:center; font-size:10px; color:rgba(255,255,255,.4); z-index:1; }
+
+ /* Map & location */
+ #map{ height:200px; border-radius:16px; overflow:hidden; }
+ .leaflet-container{ background:#0d1425 !important; }
+ .map-marker{ width:40px; height:40px; border-radius:50%;
+   background:rgba(255,255,255,.12); backdrop-filter:blur(12px);
+   border:1.5px solid rgba(255,255,255,.3);
+   display:flex; align-items:center; justify-content:center;
+   font-size:9px; font-weight:700; color:#fff; text-align:center;
+   line-height:1.2; cursor:pointer; transition:background .2s, border-color .2s; }
+ .map-marker.active{ background:rgba(95,211,138,.4); border-color:#5fd38a; color:#aef0c2; }
+ .zip-row{ display:flex; gap:8px; padding:12px 14px; }
+ .zip-input{ flex:1; background:rgba(255,255,255,.1); border:0.5px solid rgba(255,255,255,.2);
+   border-radius:10px; color:#fff; padding:9px 12px; font-size:14px; outline:none; }
+ .zip-input::placeholder{ color:rgba(255,255,255,.35); }
+ .zip-btn{ background:rgba(255,255,255,.16); border:0.5px solid rgba(255,255,255,.25);
+   border-radius:10px; color:#fff; padding:9px 14px; font-size:14px; cursor:pointer; white-space:nowrap; }
+ .hint{ font-size:11px; color:rgba(255,255,255,.45); padding:0 16px 10px; min-height:18px; }
 </style>
 </head>
 <body>
@@ -87,6 +106,7 @@
  <div class="bg"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div></div>
 
  <div class="views">
+  <!-- Now tab -->
   <section class="view on" id="v-now">
    <div class="nav">
     <div><h1>Clean Hour</h1><div class="loc"><i class="ti ti-map-pin" style="font-size:12px"></i> <span id="locName">Locating…</span></div></div>
@@ -99,9 +119,11 @@
    </div>
    <svg id="clock" viewBox="0 0 240 240"></svg>
    <div class="legend"><span><span class="sw" style="background:#5fd38a"></span>Clean</span><span><span class="sw" style="background:#e0a93c"></span>Moderate</span><span><span class="sw" style="background:#ff6b81"></span>Dirty</span></div>
+   <div class="glass" style="overflow:hidden;margin-top:14px;"><div id="map"></div></div>
    <div class="glass window"><div class="vlabel">Today's cleanest window</div><div class="vbig" id="winTxt">—</div><div class="nudge" id="nudge"></div></div>
   </section>
 
+  <!-- Impact tab -->
   <section class="view" id="v-impact">
    <div class="nav"><h1>Your impact</h1></div>
    <div class="glass hero"><div class="vlabel">CO₂ saved this month</div><div class="hbig">8.2 kg</div><div class="heq">≈ 33 km not driven · 14 clean charges</div></div>
@@ -116,29 +138,32 @@
    </div>
   </section>
 
+  <!-- Settings tab -->
   <section class="view" id="v-set">
    <div class="nav"><h1>Settings</h1></div>
+
    <div class="grouphdr">Notifications</div>
    <div class="glass">
-    <div class="row"><span class="rl"><i class="ti ti-bell"></i> Clean-hour alerts</span><span class="toggle" onclick="this.classList.toggle('off')"></span></div>
-    <div class="row"><span class="rl"><i class="ti ti-clock-hour-4"></i> Remind me before</span><span class="rv">15 min <i class="ti ti-chevron-right"></i></span></div>
+    <div class="row"><span class="rl"><i class="ti ti-bell"></i> Clean-hour alerts</span><span class="toggle off" id="notifToggle" onclick="toggleNotif(this)"></span></div>
+    <div class="row"><span class="rl"><i class="ti ti-clock-hour-4"></i> Fires at</span><span class="rv" id="notifTime">—</span></div>
    </div>
+   <div class="hint" id="notifHint"></div>
+
    <div class="grouphdr">Preferences</div>
    <div class="glass">
     <div class="row"><span class="rl"><i class="ti ti-scale"></i> Units</span><span class="seg"><span class="on">kg</span><span>lb</span></span></div>
     <div class="row"><span class="rl"><i class="ti ti-leaf"></i> Optimize for</span><span class="seg"><span class="on">Carbon</span><span>Cost</span></span></div>
    </div>
+
    <div class="grouphdr">Location</div>
-   <div class="glass">
-    <div class="row"><span class="rl"><i class="ti ti-map-pin"></i> Region</span>
-      <select id="regionSel" style="background:rgba(255,255,255,.12);color:#fff;border:0.5px solid rgba(255,255,255,.25);border-radius:8px;padding:5px 8px;font-size:13px;">
-        <option value="US-CAL-CISO">California (CAISO)</option>
-        <option value="US-TEX-ERCO">Texas (ERCOT)</option>
-        <option value="US-NY-NYIS">New York (NYISO)</option>
-        <option value="US-MIDA-PJM">Mid-Atlantic (PJM)</option>
-      </select></div>
+   <div class="glass" style="overflow:hidden; padding:0;">
+    <div class="zip-row">
+     <input class="zip-input" id="zipInput" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="5" placeholder="ZIP code" />
+     <button class="zip-btn" onclick="lookupZip()"><i class="ti ti-search" style="font-size:16px;vertical-align:middle"></i> Find</button>
+    </div>
     <div class="row"><span class="rl"><i class="ti ti-current-location"></i> Use my location</span><button class="iconbtn" style="font-size:18px" onclick="useGeo()"><i class="ti ti-chevron-right"></i></button></div>
    </div>
+   <div class="hint" id="locHint"></div>
   </section>
  </div>
 
@@ -150,6 +175,7 @@
  </div>
 </div>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 const SAMPLE={zone:"US-CAL-CISO (sample)",current:60,
  hourly:[104,108,111,101,100,99,100,99,97,101,72,63,60,59,56,51,51,50,50,50,50,62,89,104],
@@ -165,6 +191,9 @@ const pt=(deg,r)=>{const x=(-90+deg)*Math.PI/180;return[CX+r*Math.cos(x), CY+r*M
 const sec=(d0,d1,r)=>{const[x0,y0]=pt(d0,r),[x1,y1]=pt(d1,r);return`M ${CX} ${CY} L ${x0.toFixed(1)} ${y0.toFixed(1)} A ${r.toFixed(1)} ${r.toFixed(1)} 0 0 1 ${x1.toFixed(1)} ${y1.toFixed(1)} Z`;};
 const fmtH=i=>{let hr=i%12||12, ap=i<12?'am':'pm';return hr+ap;};
 
+let _lastData = null;
+
+// ── Navigation ────────────────────────────────────────────────────────────────
 function go(v){
  document.querySelectorAll('.view').forEach(s=>s.classList.remove('on'));
  document.getElementById('v-'+v).classList.add('on');
@@ -172,7 +201,9 @@ function go(v){
  if(v==='now') setTimeout(()=>document.getElementById('clock').classList.add('in'),30);
 }
 
+// ── Render ────────────────────────────────────────────────────────────────────
 function render(d){
+ _lastData = d;
  const arr=(d.hourly&&d.hourly.length===24)?d.hourly.map(x=>x==null?0:x):SAMPLE.hourly;
  VMAX=Math.max(130, Math.max(...arr)*1.08);
  const svg=document.getElementById('clock'); svg.innerHTML="";
@@ -186,6 +217,7 @@ function render(d){
  setTimeout(()=>svg.classList.add('in'),30);
 
  let mi=0,ma=0; arr.forEach((v,i)=>{if(v<arr[mi])mi=i; if(v>arr[ma])ma=i;});
+ d._cleanHour = mi;
  document.getElementById('cleanH').textContent=fmtH(mi); document.getElementById('cleanV').textContent=arr[mi]+' gCO₂';
  document.getElementById('dirtyH').textContent=fmtH(ma); document.getElementById('dirtyV').textContent=arr[ma]+' gCO₂';
 
@@ -200,26 +232,124 @@ function render(d){
  document.getElementById('winTxt').textContent = w ? `${w.start} – ${w.end}` : '—';
  document.getElementById('nudge').textContent = w ? `Charge then to cut ~${w.savings_pct}% of emissions.` : '';
  document.getElementById('locName').textContent=(d.zone||'').replace(/ \(sample\)/,'');
- document.getElementById('src').textContent = d._live ? 'Live · Electricity Maps' : 'Sample data · deploy with API key for live';
+ let srcLabel = 'Sample data · deploy with API key for live';
+ if(d._live) srcLabel = d.source==='eia-fallback' ? 'Historical · EIA (live data unavailable)' : 'Live · Electricity Maps';
+ document.getElementById('src').textContent = srcLabel;
+
+ const notifTime = document.getElementById('notifTime');
+ if(notifTime) notifTime.textContent = fmtH(mi);
 }
 
+// ── Load ──────────────────────────────────────────────────────────────────────
 async function load(params){
  try{
   const r=await fetch('/api/grid'+(params||''));
   if(!r.ok) throw 0;
   const d=await r.json(); d._live=true; render(d);
+  if(localStorage.getItem('notif')==='1') scheduleNotif();
  }catch(e){ render(SAMPLE); }
 }
+
+// ── Notifications ─────────────────────────────────────────────────────────────
+async function toggleNotif(el){
+ if(el.classList.contains('off')){
+  if(!('Notification' in window)){ setHint('notifHint','Notifications not supported on this browser.'); return; }
+  const perm = await Notification.requestPermission();
+  if(perm !== 'granted'){ setHint('notifHint','Permission denied — enable in browser settings.'); return; }
+  el.classList.remove('off');
+  localStorage.setItem('notif','1');
+  setHint('notifHint', _lastData ? `You'll be notified at ${fmtH(_lastData._cleanHour)}, the cleanest hour.` : 'Alerts enabled.');
+  scheduleNotif();
+ } else {
+  el.classList.add('off');
+  localStorage.setItem('notif','0');
+  setHint('notifHint','');
+ }
+}
+
+function scheduleNotif(){
+ if(!_lastData || _lastData._cleanHour == null) return;
+ if(!('serviceWorker' in navigator)) return;
+ navigator.serviceWorker.ready.then(sw=>{
+  if(sw.active) sw.active.postMessage({
+   type: 'SCHEDULE_NOTIFICATION',
+   cleanHour: _lastData._cleanHour,
+   zone: _lastData.zone || 'your grid',
+   savingsPct: (_lastData.cleanest && _lastData.cleanest.savings_pct) || 0,
+  });
+ });
+}
+
+// ── Map ───────────────────────────────────────────────────────────────────────
+const REGIONS = [
+ { zone:'US-CAL-CISO', label:'CA',  sub:'Grid', lat:36.7,  lon:-120.0 },
+ { zone:'US-TEX-ERCO', label:'TX',  sub:'Grid', lat:31.5,  lon:-99.0  },
+ { zone:'US-NY-NYIS',  label:'NY',  sub:'Grid', lat:42.8,  lon:-75.5  },
+ { zone:'US-MIDA-PJM', label:'PJM', sub:'Grid', lat:39.5,  lon:-77.5  },
+];
+
+let _map = null, _markerEls = {}, _activeZone = 'US-CAL-CISO';
+
+function initMap(){
+ if(_map){ _map.invalidateSize(); return; }
+ _map = L.map('map',{ zoomControl:false, attributionControl:false, scrollWheelZoom:false })
+         .setView([38.5, -97], 3);
+ L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{
+  maxZoom:10, subdomains:'abcd'
+ }).addTo(_map);
+
+ REGIONS.forEach(r=>{
+  const el = document.createElement('div');
+  el.className = 'map-marker' + (r.zone === _activeZone ? ' active' : '');
+  el.innerHTML = `<span>${r.label}<br><span style="font-size:8px;opacity:.7">${r.sub}</span></span>`;
+  const icon = L.divIcon({ html:el, className:'', iconSize:[40,40], iconAnchor:[20,20] });
+  L.marker([r.lat, r.lon], { icon }).addTo(_map).on('click', ()=> selectRegion(r.zone));
+  _markerEls[r.zone] = el;
+ });
+}
+
+function selectRegion(zone){
+ _activeZone = zone;
+ Object.entries(_markerEls).forEach(([z,el])=> el.classList.toggle('active', z===zone));
+ load('?zone='+zone);
+}
+
+// ── ZIP lookup ────────────────────────────────────────────────────────────────
+async function lookupZip(){
+ const zip = (document.getElementById('zipInput').value||'').trim();
+ if(!/^\d{5}$/.test(zip)){ setHint('locHint','Enter a valid 5-digit ZIP code.'); return; }
+ setHint('locHint','Looking up…');
+ try{
+  const r = await fetch(`https://api.zippopotam.us/us/${zip}`);
+  if(!r.ok) throw 0;
+  const d = await r.json();
+  const p = d.places[0];
+  setHint('locHint', p['place name'] + ', ' + p['state abbreviation']);
+  load(`?lat=${parseFloat(p.latitude).toFixed(3)}&lon=${parseFloat(p.longitude).toFixed(3)}`);
+  go('now');
+ }catch(e){ setHint('locHint','ZIP not found. Try another code.'); }
+}
+
+document.getElementById('zipInput').addEventListener('keydown', e=>{ if(e.key==='Enter') lookupZip(); });
+
 function useGeo(){
  if(!navigator.geolocation) return;
  navigator.geolocation.getCurrentPosition(p=>{
   load('?lat='+p.coords.latitude.toFixed(3)+'&lon='+p.coords.longitude.toFixed(3));
   go('now');
- }, ()=>{});
+ }, ()=>{ setHint('locHint','Location access denied.'); });
 }
-document.getElementById('regionSel').addEventListener('change',e=>{ load('?zone='+e.target.value); go('now'); });
+
+function setHint(id, msg){ const el=document.getElementById(id); if(el) el.textContent=msg; }
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+if(localStorage.getItem('notif')==='1' && typeof Notification !== 'undefined' && Notification.permission === 'granted'){
+ document.getElementById('notifToggle').classList.remove('off');
+ setHint('notifHint','Alerts enabled — you\'ll be notified at the cleanest hour.');
+}
 
 load('?zone=US-CAL-CISO');
+setTimeout(initMap, 300);
 if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js').catch(()=>{}); }
 </script>
 </body>

@@ -1,0 +1,24 @@
+name: API Health Check
+
+on:
+  schedule:
+    - cron: '30 * * * *'   # every hour at :30 (offset from data refresh at :00)
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping /api/grid
+        run: |
+          RESPONSE=$(curl -sf "https://clean-hour.vercel.app/api/grid?zone=US-CAL-CISO")
+          echo "$RESPONSE" | python3 -c "
+          import sys, json
+          d = json.load(sys.stdin)
+          source = d.get('source', 'live')
+          live_error = d.get('live_error', '')
+          if source == 'eia-fallback':
+              print(f'DEGRADED: serving EIA fallback data. live_error={live_error!r}')
+              sys.exit(1)
+          print(f'OK: live data from zone={d.get(\"zone\")} current={d.get(\"current\")} gCO2/kWh')
+          "

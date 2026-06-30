@@ -27,15 +27,15 @@ jobs:
       - name: Fetch EIA data
         env:
           EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
-        run: python fetch_data.py
+        run: python fetch_data.py --region CAL
 
       - name: Run analysis
-        run: python analyze.py
+        run: python analyze.py --region CAL
 
       - name: Commit updated data
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/ca_hourly.json data/ca_insight.json
-          git diff --cached --quiet || git commit -m "chore: update CA grid data $(date -u '+%Y-%m-%d %H:%M UTC')"
+          git add data/cal_hourly.json data/cal_insight.json
+          git diff --cached --quiet || git commit -m "chore: update CAL grid data $(date -u '+%Y-%m-%d %H:%M UTC')"
           git push
