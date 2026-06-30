@@ -1,5 +1,4 @@
-// Minimal service worker so Clean Hour is installable and loads instantly.
-const CACHE = "clean-hour-v1";
+const CACHE = "clean-hour-v2";
 const ASSETS = ["./", "./index.html", "./manifest.json", "./icon-192.png", "./icon-512.png"];
 
 self.addEventListener("install", (e) => {
@@ -12,8 +11,53 @@ self.addEventListener("activate", (e) => {
 
 self.addEventListener("fetch", (e) => {
   const url = new URL(e.request.url);
-  // Always go to network for live data
   if (url.pathname.startsWith("/api/")) return;
-  // Cache-first for app shell
   e.respondWith(caches.match(e.request).then((hit) => hit || fetch(e.request)));
+});
+
+// ── Notification scheduling (client-side, fires when SW is alive) ─────────────
+let _notifTimer = null;
+
+self.addEventListener("message", (e) => {
+  if (!e.data || e.data.type !== "SCHEDULE_NOTIFICATION") return;
+  const { cleanHour, zone, savingsPct } = e.data;
+  clearTimeout(_notifTimer);
+  const now = new Date();
+  const target = new Date();
+  target.setHours(cleanHour, 0, 0, 0);
+  if (target <= now) target.setDate(target.getDate() + 1);
+  const delay = target - now;
+  _notifTimer = setTimeout(() => {
+    self.registration.showNotification("Clean Hour now! ⚡", {
+      body: `Grid is at its cleanest. Charge now to cut ~${savingsPct}% of emissions.`,
+      icon: "/icon-192.png",
+      badge: "/icon-192.png",
+      tag: "clean-hour-alert",
+      renotify: true,
+    });
+  }, delay);
+});
+
+// ── VAPID server push handler (future) ────────────────────────────────────────
+self.addEventListener("push", (e) => {
+  const d = e.data ? e.data.json() : {};
+  e.waitUntil(
+    self.registration.showNotification(d.title || "Clean Hour now! ⚡", {
+      body: d.body || "The grid is at its cleanest. Good time to charge.",
+      icon: "/icon-192.png",
+      badge: "/icon-192.png",
+      tag: "clean-hour-alert",
+    })
+  );
+});
+
+self.addEventListener("notificationclick", (e) => {
+  e.notification.close();
+  e.waitUntil(
+    clients.matchAll({ type: "window", includeUncontrolled: true }).then((cs) => {
+      const win = cs.find((c) => c.url.includes(self.location.origin));
+      if (win) return win.focus();
+      return clients.openWindow("/");
+    })
+  );
 });
