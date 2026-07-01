@@ -122,8 +122,9 @@
    <div class="glass" style="overflow:hidden;margin-top:14px;">
     <div class="zip-row">
      <input class="zip-input" id="zipInputNow" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="5" placeholder="ZIP code" />
-     <button class="zip-btn" onclick="lookupZip('zipInputNow')"><i class="ti ti-search" style="font-size:16px;vertical-align:middle"></i> Find</button>
+     <button class="zip-btn" id="zipBtnNow" onclick="lookupZip('zipInputNow','zipHintNow','zipBtnNow')"><i class="ti ti-search" style="font-size:16px;vertical-align:middle"></i> Find</button>
     </div>
+    <div class="hint" id="zipHintNow" style="padding:0 14px 8px;"></div>
     <div id="map"></div>
    </div>
    <div class="glass window"><div class="vlabel">Today's cleanest window</div><div class="vbig" id="winTxt">—</div><div class="nudge" id="nudge"></div></div>
@@ -254,6 +255,7 @@ async function load(params){
   const d=await r.json(); d._live=true; render(d);
   if(localStorage.getItem('notif')==='1') scheduleNotif();
  }catch(e){ render(SAMPLE); }
+ return true;
 }
 
 // ── Notifications ─────────────────────────────────────────────────────────────
@@ -322,24 +324,27 @@ function selectRegion(zone){
 }
 
 // ── ZIP lookup ────────────────────────────────────────────────────────────────
-async function lookupZip(inputId){
- const id = inputId || 'zipInput';
- const zip = (document.getElementById(id).value||'').trim();
- if(!/^\d{5}$/.test(zip)){ setHint('locHint','Enter a valid 5-digit ZIP code.'); return; }
- setHint('locHint','Looking up…');
+async function lookupZip(inputId, hintId, btnId){
+ const zip = (document.getElementById(inputId).value||'').trim();
+ const hint = hintId || 'locHint';
+ const btn = btnId ? document.getElementById(btnId) : null;
+ if(!/^\d{5}$/.test(zip)){ setHint(hint,'Enter a valid 5-digit ZIP code.'); return; }
+ setHint(hint,'Looking up…');
+ if(btn) btn.disabled = true;
  try{
   const r = await fetch(`https://api.zippopotam.us/us/${zip}`);
   if(!r.ok) throw 0;
   const d = await r.json();
   const p = d.places[0];
-  setHint('locHint', p['place name'] + ', ' + p['state abbreviation']);
-  load(`?lat=${parseFloat(p.latitude).toFixed(3)}&lon=${parseFloat(p.longitude).toFixed(3)}`);
+  setHint(hint, p['place name'] + ', ' + p['state abbreviation']);
+  await load(`?lat=${parseFloat(p.latitude).toFixed(3)}&lon=${parseFloat(p.longitude).toFixed(3)}`);
   document.querySelector('.views').scrollTo({ top: 0, behavior: 'smooth' });
- }catch(e){ setHint('locHint','ZIP not found. Try another code.'); }
+ }catch(e){ setHint(hint,'ZIP not found. Try another code.'); }
+ finally{ if(btn) btn.disabled = false; }
 }
 
-document.getElementById('zipInput').addEventListener('keydown', e=>{ if(e.key==='Enter') lookupZip('zipInput'); });
-document.getElementById('zipInputNow').addEventListener('keydown', e=>{ if(e.key==='Enter') lookupZip('zipInputNow'); });
+document.getElementById('zipInput').addEventListener('keydown', e=>{ if(e.key==='Enter') lookupZip('zipInput','locHint'); });
+document.getElementById('zipInputNow').addEventListener('keydown', e=>{ if(e.key==='Enter') lookupZip('zipInputNow','zipHintNow','zipBtnNow'); });
 
 function useGeo(){
  if(!navigator.geolocation) return;
