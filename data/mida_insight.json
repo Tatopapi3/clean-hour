@@ -1,21 +1,21 @@
 {
   "region": "MIDA",
-  "analyzed_at": "2026-07-01T03:17:25.838079Z",
+  "analyzed_at": "2026-07-01T05:40:22.621861Z",
   "days_analyzed": 14,
   "verdict": "skip",
   "verdict_label": "Skip it",
-  "verdict_reason": "Your grid only swings 13.4% daily \u2014 timing barely matters here. Your grid is already relatively flat.",
-  "daily_swing_pct": 13.4,
+  "verdict_reason": "Your grid only swings 13.9% daily \u2014 timing barely matters here. Your grid is already relatively flat.",
+  "daily_swing_pct": 13.9,
   "cleanest_hour": 15,
   "dirtiest_hour": 3,
   "cleanest_window": "3pm\u20136pm",
   "dirtiest_window": "3am\u20136am",
   "min_intensity": 332.5,
-  "max_intensity": 384.1,
-  "pct_saved": 13.4,
-  "kg_saved_yr": 386.4,
-  "current_hour": 3,
-  "current_intensity": 384.1,
+  "max_intensity": 386.1,
+  "pct_saved": 13.9,
+  "kg_saved_yr": 401.4,
+  "current_hour": 5,
+  "current_intensity": 369.6,
   "signal": "wait",
   "signal_label": "Wait if you can",
   "hourly_avg": [
@@ -33,11 +33,11 @@
     },
     {
       "hour": 3,
-      "carbon_intensity": 384.1
+      "carbon_intensity": 386.1
     },
     {
       "hour": 4,
-      "carbon_intensity": 379.3
+      "carbon_intensity": 380.8
     },
     {
       "hour": 5,
