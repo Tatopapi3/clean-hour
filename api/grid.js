@@ -39,11 +39,11 @@ async function em(path, params, token) {
   return r.json();
 }
 
-// Maps Electricity Maps zone codes → EIA region codes used by the Python pipeline
+// Maps Electricity Maps zone codes → EIA respondent codes (must match fetch_data.py --region)
 const ZONE_TO_EIA = {
   "US-CAL-CISO": "cal",
   "US-TEX-ERCO": "tex",
-  "US-NY-NYIS":  "ny",
+  "US-NY-NYIS":  "nyis",
   "US-MIDA-PJM": "mida",
   "US-MIDW-MISO":"midw",
   "US-NW-PACW":  "nw",
@@ -51,10 +51,21 @@ const ZONE_TO_EIA = {
   "US-SW-PNM":   "sw",
 };
 
-function eiaFallback(zone) {
-  const region = (zone && ZONE_TO_EIA[zone]) || "cal";
+// Rough geographic bounding boxes → EIA region (for lat/lon fallback when no zone given)
+function latLonToRegion(lat, lon) {
+  lat = parseFloat(lat); lon = parseFloat(lon);
+  if (lon < -114)                                  return "cal";   // California
+  if (lat < 37 && lon > -107 && lon < -93)         return "tex";   // Texas
+  if (lat > 40 && lon > -80  && lon < -69)         return "nyis";  // New York
+  if (lat > 36 && lat < 43  && lon > -85 && lon < -74) return "mida"; // PJM Mid-Atlantic
+  return "cal";
+}
+
+function eiaFallback(zone, lat, lon) {
+  const region = (zone && ZONE_TO_EIA[zone]) ||
+                 (lat && lon ? latLonToRegion(lat, lon) : null) ||
+                 "cal";
   let filePath = join(process.cwd(), "data", `${region}_insight.json`);
-  // fall back to cal if the requested region file doesn't exist
   try { readFileSync(filePath); } catch { filePath = join(process.cwd(), "data", "cal_insight.json"); }
   const raw = JSON.parse(readFileSync(filePath, "utf8"));
   const hourly = new Array(24).fill(null);
@@ -87,7 +98,7 @@ export default async function handler(req, res) {
   if (!token) {
     try {
       res.setHeader("Cache-Control", "s-maxage=3600, stale-while-revalidate");
-      return res.status(200).json(eiaFallback(zone));
+      return res.status(200).json(eiaFallback(zone, lat, lon));
     } catch (e) {
       return res.status(500).json({ error: "No token and EIA insight file unavailable" });
     }
@@ -148,7 +159,7 @@ export default async function handler(req, res) {
   } catch (e) {
     try {
       res.setHeader("Cache-Control", "s-maxage=3600, stale-while-revalidate");
-      return res.status(200).json({ ...eiaFallback(zone), live_error: String(e.message || e) });
+      return res.status(200).json({ ...eiaFallback(zone, lat, lon), live_error: String(e.message || e) });
     } catch {
       res.status(502).json({ error: String(e.message || e) });
     }

@@ -1,4 +1,4 @@
-name: Update CA Grid Data
+name: Update Grid Data (all regions)
 
 on:
   schedule:
@@ -28,16 +28,16 @@ jobs:
         env:
           EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
         run: |
-          python fetch_data.py --region CAL
-          python fetch_data.py --region TEX
-          python fetch_data.py --region NY
-          python fetch_data.py --region MIDA
+          python fetch_data.py --region CAL   # California CAISO
+          python fetch_data.py --region TEX   # Texas ERCOT
+          python fetch_data.py --region NYIS  # New York ISO
+          python fetch_data.py --region MIDA  # PJM Mid-Atlantic
 
       - name: Run analysis (all regions)
         run: |
           python analyze.py --region CAL
           python analyze.py --region TEX
-          python analyze.py --region NY
+          python analyze.py --region NYIS
           python analyze.py --region MIDA
 
       - name: Commit updated data
