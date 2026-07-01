@@ -312,6 +312,7 @@ function selectRegion(zone){
  _activeZone = zone;
  Object.entries(_markerEls).forEach(([z,el])=> el.classList.toggle('active', z===zone));
  load('?zone='+zone);
+ document.querySelector('.views').scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ── ZIP lookup ────────────────────────────────────────────────────────────────
