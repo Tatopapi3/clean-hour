@@ -83,7 +83,7 @@
  .src{ position:absolute; bottom:84px; left:0; right:0; text-align:center; font-size:10px; color:rgba(255,255,255,.4); z-index:1; }
 
  /* Map & location */
- #map{ height:200px; border-radius:16px; overflow:hidden; }
+ #map{ height:240px; border-radius:16px; overflow:hidden; }
  .leaflet-container{ background:#0d1425 !important; }
  .map-marker{ width:40px; height:40px; border-radius:50%;
    background:rgba(255,255,255,.12); backdrop-filter:blur(12px);
@@ -119,7 +119,7 @@
    </div>
    <svg id="clock" viewBox="0 0 240 240"></svg>
    <div class="legend"><span><span class="sw" style="background:#5fd38a"></span>Clean</span><span><span class="sw" style="background:#e0a93c"></span>Moderate</span><span><span class="sw" style="background:#ff6b81"></span>Dirty</span></div>
-   <div class="glass" style="overflow:hidden;margin-top:14px;">
+   <div class="glass" id="mapCard" style="overflow:hidden;margin-top:14px;">
     <div class="zip-row">
      <input class="zip-input" id="zipInputNow" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="5" placeholder="ZIP code" />
      <button class="zip-btn" id="zipBtnNow" onclick="lookupZip('zipInputNow','zipHintNow','zipBtnNow')"><i class="ti ti-search" style="font-size:16px;vertical-align:middle"></i> Find</button>
@@ -316,6 +316,8 @@ function selectRegion(zone){
  _activeZone = zone;
  Object.entries(_markerEls).forEach(([z,el])=> el.classList.toggle('active', z===zone));
  load('?zone='+zone);
+ const r = REGIONS.find(r => r.zone === zone);
+ if(r && _map) _map.flyTo([r.lat, r.lon], 6, { animate: true, duration: 1.4 });
  document.querySelector('.views').scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -332,9 +334,14 @@ async function lookupZip(inputId, hintId, btnId){
   if(!r.ok) throw 0;
   const d = await r.json();
   const p = d.places[0];
+  const lat = parseFloat(p.latitude), lon = parseFloat(p.longitude);
   setHint(hint, p['place name'] + ', ' + p['state abbreviation']);
-  await load(`?lat=${parseFloat(p.latitude).toFixed(3)}&lon=${parseFloat(p.longitude).toFixed(3)}`);
-  document.querySelector('.views').scrollTo({ top: 0, behavior: 'smooth' });
+  // Scroll to map card so the fly-in is visible
+  document.getElementById('mapCard').scrollIntoView({ behavior:'smooth', block:'center' });
+  // Fly into the city
+  if(!_map) initMap();
+  setTimeout(() => { if(_map) _map.flyTo([lat, lon], 11, { animate:true, duration:1.6 }); }, 200);
+  await load(`?lat=${lat.toFixed(3)}&lon=${lon.toFixed(3)}`);
  }catch(e){ setHint(hint,'ZIP not found. Try another code.'); }
  finally{ if(btn) btn.disabled = false; }
 }
