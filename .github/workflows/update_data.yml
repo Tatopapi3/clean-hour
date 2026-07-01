@@ -24,18 +24,26 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
-      - name: Fetch EIA data
+      - name: Fetch EIA data (all regions)
         env:
           EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
-        run: python fetch_data.py --region CAL
+        run: |
+          python fetch_data.py --region CAL
+          python fetch_data.py --region TEX
+          python fetch_data.py --region NY
+          python fetch_data.py --region MIDA
 
-      - name: Run analysis
-        run: python analyze.py --region CAL
+      - name: Run analysis (all regions)
+        run: |
+          python analyze.py --region CAL
+          python analyze.py --region TEX
+          python analyze.py --region NY
+          python analyze.py --region MIDA
 
       - name: Commit updated data
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/cal_hourly.json data/cal_insight.json
-          git diff --cached --quiet || git commit -m "chore: update CAL grid data $(date -u '+%Y-%m-%d %H:%M UTC')"
+          git add data/
+          git diff --cached --quiet || git commit -m "chore: update grid data for all regions $(date -u '+%Y-%m-%d %H:%M UTC')"
           git push

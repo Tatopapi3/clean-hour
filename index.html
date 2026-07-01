@@ -334,6 +334,7 @@ async function lookupZip(inputId){
   const p = d.places[0];
   setHint('locHint', p['place name'] + ', ' + p['state abbreviation']);
   load(`?lat=${parseFloat(p.latitude).toFixed(3)}&lon=${parseFloat(p.longitude).toFixed(3)}`);
+  document.querySelector('.views').scrollTo({ top: 0, behavior: 'smooth' });
  }catch(e){ setHint('locHint','ZIP not found. Try another code.'); }
 }
 

@@ -70,7 +70,7 @@ function eiaFallback(zone) {
     savings_pct: Math.round(raw.pct_saved),
   };
   return {
-    zone: "US-CAL-CISO",
+    zone: zone || "US-CAL-CISO",
     current: raw.current_intensity,
     hourly,
     swing,
