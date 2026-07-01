@@ -117,9 +117,7 @@
     <div class="w glass"><div class="wl"><i class="ti ti-leaf" style="font-size:12px;color:#5fd38a"></i>Cleanest</div><div class="wv" style="color:#7fe6a0" id="cleanH">—</div><div class="ws" id="cleanV"></div></div>
     <div class="w glass"><div class="wl"><i class="ti ti-flame" style="font-size:12px;color:#ff6b81"></i>Dirtiest</div><div class="wv" style="color:#ff8a9a" id="dirtyH">—</div><div class="ws" id="dirtyV"></div></div>
    </div>
-   <svg id="clock" viewBox="0 0 240 240"></svg>
-   <div class="legend"><span><span class="sw" style="background:#5fd38a"></span>Clean</span><span><span class="sw" style="background:#e0a93c"></span>Moderate</span><span><span class="sw" style="background:#ff6b81"></span>Dirty</span></div>
-   <div class="glass" style="overflow:hidden;margin-top:14px;">
+   <div class="glass" style="overflow:hidden;margin-bottom:14px;">
     <div class="zip-row">
      <input class="zip-input" id="zipInputNow" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="5" placeholder="ZIP code" />
      <button class="zip-btn" id="zipBtnNow" onclick="lookupZip('zipInputNow','zipHintNow','zipBtnNow')"><i class="ti ti-search" style="font-size:16px;vertical-align:middle"></i> Find</button>
@@ -127,6 +125,8 @@
     <div class="hint" id="zipHintNow" style="padding:0 14px 8px;"></div>
     <div id="map"></div>
    </div>
+   <svg id="clock" viewBox="0 0 240 240"></svg>
+   <div class="legend"><span><span class="sw" style="background:#5fd38a"></span>Clean</span><span><span class="sw" style="background:#e0a93c"></span>Moderate</span><span><span class="sw" style="background:#ff6b81"></span>Dirty</span></div>
    <div class="glass window"><div class="vlabel">Today's cleanest window</div><div class="vbig" id="winTxt">—</div><div class="nudge" id="nudge"></div></div>
   </section>
 
@@ -164,10 +164,6 @@
 
    <div class="grouphdr">Location</div>
    <div class="glass" style="overflow:hidden; padding:0;">
-    <div class="zip-row">
-     <input class="zip-input" id="zipInput" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="5" placeholder="ZIP code" />
-     <button class="zip-btn" onclick="lookupZip()"><i class="ti ti-search" style="font-size:16px;vertical-align:middle"></i> Find</button>
-    </div>
     <div class="row"><span class="rl"><i class="ti ti-current-location"></i> Use my location</span><button class="iconbtn" style="font-size:18px" onclick="useGeo()"><i class="ti ti-chevron-right"></i></button></div>
    </div>
    <div class="hint" id="locHint"></div>
@@ -343,7 +339,6 @@ async function lookupZip(inputId, hintId, btnId){
  finally{ if(btn) btn.disabled = false; }
 }
 
-document.getElementById('zipInput').addEventListener('keydown', e=>{ if(e.key==='Enter') lookupZip('zipInput','locHint'); });
 document.getElementById('zipInputNow').addEventListener('keydown', e=>{ if(e.key==='Enter') lookupZip('zipInputNow','zipHintNow','zipBtnNow'); });
 
 function useGeo(){
