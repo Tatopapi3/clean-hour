@@ -244,6 +244,9 @@ function render(d){
 
  const notifTime = document.getElementById('notifTime');
  if(notifTime) notifTime.textContent = fmtH(mi);
+
+ // Keep zone overlay + marker label in sync with freshly loaded data
+ if(d.zone){ updateZoneLayer(d.zone, d.current); updateMarkerLabel(d.zone, d.current); }
 }
 
 // ── Load ──────────────────────────────────────────────────────────────────────
@@ -295,7 +298,39 @@ const REGIONS = [
  { zone:'US-MIDA-PJM', label:'PJM', sub:'Grid', lat:39.5,  lon:-77.5  },
 ];
 
+// Approximate bounding boxes for each grid zone
+const REGION_BOUNDS = {
+ 'US-CAL-CISO': [[32.5,-124.5],[42.0,-114.0]],
+ 'US-TEX-ERCO': [[25.8,-106.7],[36.5, -93.5]],
+ 'US-NY-NYIS':  [[40.5, -79.8],[45.1, -71.8]],
+ 'US-MIDA-PJM': [[36.5, -87.0],[42.5, -74.0]],
+};
+
 let _map = null, _markerEls = {}, _activeZone = 'US-CAL-CISO';
+let _zoneLayers = {}, _regionData = {};
+
+function zoneColor(current){
+ if(current==null) return { stroke:'rgba(255,255,255,.3)', fill:'rgba(255,255,255,.06)' };
+ if(current<200)   return { stroke:'#5fd38a', fill:'rgba(95,211,138,.18)' };
+ if(current<=320)  return { stroke:'#e0a93c', fill:'rgba(224,169,60,.18)'  };
+ return                   { stroke:'#ff6b81', fill:'rgba(255,107,129,.18)' };
+}
+
+function updateZoneLayer(zone, current){
+ const layer = _zoneLayers[zone];
+ if(!layer) return;
+ const c = zoneColor(current);
+ layer.setStyle({ color:c.stroke, fillColor:c.fill, fillOpacity:1, weight:1.5, opacity:0.75 });
+}
+
+function updateMarkerLabel(zone, current){
+ const el = _markerEls[zone];
+ const r = REGIONS.find(r=>r.zone===zone);
+ if(!el||!r) return;
+ const c = zoneColor(current);
+ const val = current!=null ? Math.round(current)+'g' : r.sub;
+ el.innerHTML = `<span>${r.label}<br><span style="font-size:8px;color:${c.stroke};font-weight:600">${val}</span></span>`;
+}
 
 function initMap(){
  if(_map){ _map.invalidateSize(); return; }
@@ -305,6 +340,19 @@ function initMap(){
   maxZoom:18, subdomains:'abcd'
  }).addTo(_map);
 
+ // Zone overlays — drawn first so markers sit on top
+ REGIONS.forEach(r=>{
+  const bounds = REGION_BOUNDS[r.zone];
+  if(!bounds) return;
+  const layer = L.rectangle(bounds,{
+   color:'rgba(255,255,255,.25)', weight:1, opacity:0.5,
+   fillColor:'rgba(255,255,255,.06)', fillOpacity:1,
+  }).addTo(_map);
+  layer.on('click',()=>selectRegion(r.zone));
+  _zoneLayers[r.zone] = layer;
+ });
+
+ // Markers on top of overlays
  REGIONS.forEach(r=>{
   const el = document.createElement('div');
   el.className = 'map-marker' + (r.zone === _activeZone ? ' active' : '');
@@ -312,6 +360,19 @@ function initMap(){
   const icon = L.divIcon({ html:el, className:'', iconSize:[40,40], iconAnchor:[20,20] });
   L.marker([r.lat, r.lon], { icon }).addTo(_map).on('click', ()=> selectRegion(r.zone));
   _markerEls[r.zone] = el;
+ });
+
+ // Fetch all regions in parallel to color the overlays
+ Promise.allSettled(
+  REGIONS.map(r=>fetch('/api/grid?zone='+r.zone).then(res=>res.json()))
+ ).then(results=>{
+  results.forEach((res,i)=>{
+   if(res.status==='fulfilled'){
+    _regionData[REGIONS[i].zone] = res.value;
+    updateZoneLayer(REGIONS[i].zone, res.value.current);
+    updateMarkerLabel(REGIONS[i].zone, res.value.current);
+   }
+  });
  });
 }
 
