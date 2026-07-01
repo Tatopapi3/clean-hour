@@ -125,7 +125,10 @@
      <button class="zip-btn" id="zipBtnNow" onclick="lookupZip('zipInputNow','zipHintNow','zipBtnNow')"><i class="ti ti-search" style="font-size:16px;vertical-align:middle"></i> Find</button>
     </div>
     <div class="hint" id="zipHintNow" style="padding:0 14px 8px;"></div>
-    <div id="map"></div>
+    <div style="position:relative;">
+     <div id="map"></div>
+     <button id="zoomOutBtn" onclick="zoomOutMap()" style="position:absolute;bottom:10px;right:10px;z-index:1000;background:rgba(10,14,24,.75);backdrop-filter:blur(12px);border:0.5px solid rgba(255,255,255,.25);color:#fff;border-radius:10px;padding:6px 11px;font-size:12px;cursor:pointer;align-items:center;gap:5px;display:none;"><i class="ti ti-zoom-out" style="font-size:14px"></i> Zoom out</button>
+    </div>
    </div>
    <div class="glass window"><div class="vlabel">Today's cleanest window</div><div class="vbig" id="winTxt">—</div><div class="nudge" id="nudge"></div></div>
   </section>
@@ -299,7 +302,7 @@ function initMap(){
  _map = L.map('map',{ zoomControl:false, attributionControl:false, scrollWheelZoom:false })
          .setView([38.5, -97], 3);
  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{
-  maxZoom:10, subdomains:'abcd'
+  maxZoom:18, subdomains:'abcd'
  }).addTo(_map);
 
  REGIONS.forEach(r=>{
@@ -319,6 +322,17 @@ function selectRegion(zone){
  const r = REGIONS.find(r => r.zone === zone);
  if(r && _map) _map.flyTo([r.lat, r.lon], 6, { animate: true, duration: 1.4 });
  document.querySelector('.views').scrollTo({ top: 0, behavior: 'smooth' });
+ setZoomOutBtn(true);
+}
+
+function zoomOutMap(){
+ if(_map) _map.flyTo([38.5, -97], 3, { animate: true, duration: 1.2 });
+ setZoomOutBtn(false);
+}
+
+function setZoomOutBtn(visible){
+ const btn = document.getElementById('zoomOutBtn');
+ if(btn) btn.style.display = visible ? 'flex' : 'none';
 }
 
 // ── ZIP lookup ────────────────────────────────────────────────────────────────
@@ -341,6 +355,7 @@ async function lookupZip(inputId, hintId, btnId){
   // Fly into the city
   if(!_map) initMap();
   setTimeout(() => { if(_map) _map.flyTo([lat, lon], 11, { animate:true, duration:1.6 }); }, 200);
+  setZoomOutBtn(true);
   await load(`?lat=${lat.toFixed(3)}&lon=${lon.toFixed(3)}`);
  }catch(e){ setHint(hint,'ZIP not found. Try another code.'); }
  finally{ if(btn) btn.disabled = false; }
