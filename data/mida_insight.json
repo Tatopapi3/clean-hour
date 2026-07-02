@@ -1,21 +1,21 @@
 {
   "region": "MIDA",
-  "analyzed_at": "2026-07-02T14:50:53.567195Z",
+  "analyzed_at": "2026-07-02T15:50:37.715167Z",
   "days_analyzed": 14,
   "verdict": "skip",
   "verdict_label": "Skip it",
   "verdict_reason": "Your grid only swings 13.2% daily \u2014 timing barely matters here. Your grid is already relatively flat.",
   "daily_swing_pct": 13.2,
-  "cleanest_hour": 14,
+  "cleanest_hour": 15,
   "dirtiest_hour": 3,
-  "cleanest_window": "2pm\u20135pm",
+  "cleanest_window": "3pm\u20136pm",
   "dirtiest_window": "3am\u20136am",
-  "min_intensity": 344.0,
+  "min_intensity": 344.1,
   "max_intensity": 396.4,
   "pct_saved": 13.2,
-  "kg_saved_yr": 392.4,
-  "current_hour": 14,
-  "current_intensity": 344.0,
+  "kg_saved_yr": 391.6,
+  "current_hour": 15,
+  "current_intensity": 344.1,
   "signal": "use_now",
   "signal_label": "Good time to use power",
   "hourly_avg": [
@@ -77,7 +77,7 @@
     },
     {
       "hour": 14,
-      "carbon_intensity": 344.0
+      "carbon_intensity": 345.1
     },
     {
       "hour": 15,
