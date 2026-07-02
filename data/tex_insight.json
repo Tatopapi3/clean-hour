@@ -1,21 +1,21 @@
 {
   "region": "TEX",
-  "analyzed_at": "2026-07-02T03:14:10.029575Z",
+  "analyzed_at": "2026-07-02T05:24:40.420931Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
-  "verdict_reason": "Your grid swings 34.0% daily \u2014 charging at the cleanest hour instead of the dirtiest cuts roughly 27% of your charging emissions.",
-  "daily_swing_pct": 34.0,
+  "verdict_reason": "Your grid swings 33.9% daily \u2014 charging at the cleanest hour instead of the dirtiest cuts roughly 27% of your charging emissions.",
+  "daily_swing_pct": 33.9,
   "cleanest_hour": 16,
   "dirtiest_hour": 3,
   "cleanest_window": "4pm\u20137pm",
   "dirtiest_window": "3am\u20136am",
   "min_intensity": 233.5,
-  "max_intensity": 353.6,
-  "pct_saved": 34.0,
-  "kg_saved_yr": 899.3,
-  "current_hour": 3,
-  "current_intensity": 353.6,
+  "max_intensity": 353.0,
+  "pct_saved": 33.9,
+  "kg_saved_yr": 894.8,
+  "current_hour": 5,
+  "current_intensity": 347.3,
   "signal": "wait",
   "signal_label": "Wait if you can",
   "hourly_avg": [
@@ -33,11 +33,11 @@
     },
     {
       "hour": 3,
-      "carbon_intensity": 353.6
+      "carbon_intensity": 353.0
     },
     {
       "hour": 4,
-      "carbon_intensity": 350.8
+      "carbon_intensity": 350.9
     },
     {
       "hour": 5,
