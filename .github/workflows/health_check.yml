@@ -1,8 +1,6 @@
 name: API Health Check
 
 on:
-  schedule:
-    - cron: '30 * * * *'   # every hour at :30 (offset from data refresh at :00)
   workflow_dispatch:
 
 jobs:
