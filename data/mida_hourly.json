@@ -1,41 +1,9 @@
 {
   "region": "MIDA",
-  "fetched_at": "2026-07-04T01:39:21.947424Z",
+  "fetched_at": "2026-07-04T03:10:31.701663Z",
   "days_back": 14,
-  "records": 315,
+  "records": 313,
   "data": [
-    {
-      "period": "2026-06-20T01",
-      "hour": 1,
-      "total_mwh": 109681.0,
-      "carbon_intensity": 347.1,
-      "fuel_mix": {
-        "COL": 13910.0,
-        "NG": 48787.0,
-        "NUC": 33105.0,
-        "OIL": 820.0,
-        "OTH": 3754.0,
-        "SUN": 1198.0,
-        "WAT": 5032.0,
-        "WND": 3075.0
-      }
-    },
-    {
-      "period": "2026-06-20T02",
-      "hour": 2,
-      "total_mwh": 106953.0,
-      "carbon_intensity": 352.9,
-      "fuel_mix": {
-        "COL": 13941.0,
-        "NG": 48405.0,
-        "NUC": 33012.0,
-        "OIL": 674.0,
-        "OTH": 3675.0,
-        "SUN": 59.0,
-        "WAT": 4557.0,
-        "WND": 2630.0
-      }
-    },
     {
       "period": "2026-06-20T03",
       "hour": 3,
