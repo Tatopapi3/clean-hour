@@ -218,29 +218,32 @@ function valAtHour(arr, h){
 function drawBurst(svg, arr){
  const vmin = Math.min(...arr), vmax = Math.max(...arr);
  const span = Math.max(vmax - vmin, 1);
- // green core: 3 dotted rings inside the hollow edge
+ // green core: 3 evenly spaced dotted rings inside the hollow edge
  for(let k = 0; k < 3; k++){
-  const r = R0 - 5 - k*5;
-  const n = Math.round(2*Math.PI*r/5);
+  const r = R0 - 6 - k*5.5;
+  const n = Math.round(2*Math.PI*r/4.5);
   for(let j = 0; j < n; j++){
    const a = j/n*2*Math.PI;
    svg.appendChild(E('circle',{cx:(CX+r*Math.cos(a)).toFixed(1), cy:(CY+r*Math.sin(a)).toFixed(1),
-     r:1.4, fill:'#5fd38a', 'fill-opacity':0.9}));
+     r:1.3, fill:'#5fd38a', 'fill-opacity':0.85}));
   }
  }
- // 72 spokes (3 per hour) of dots; spoke length = how dirty that time is
- for(let s = 0; s < 72; s++){
-  const h = s/3;
+ // 48 spokes (2 per hour); dots sit on SHARED ring radii so they align in
+ // clean concentric circles. Spoke length = how dirty that time is.
+ const SPOKES = 48, STEP = 6.5, RSTART = R0 + 4;
+ const nRings = Math.floor((RMAX - RSTART)/STEP) + 1;
+ for(let s = 0; s < SPOKES; s++){
+  const h = s*24/SPOKES;
   const v = valAtHour(arr, h);
   const norm = (v - vmin)/span;                 // 0 clean .. 1 dirty
-  const len = 12 + norm*(RMAX - R0 - 6);
+  const maxR = RSTART + STEP + norm*(RMAX - RSTART - STEP);
   const deg = h*15, a = (-90 + deg)*Math.PI/180;
-  const nDots = Math.max(3, Math.round(len/5.5));
-  for(let k = 0; k < nDots; k++){
-   const r = R0 + (k/(nDots-1))*len;
-   const t = (r - R0)/(RMAX - R0);              // radial fraction drives color+size
+  for(let k = 0; k < nRings; k++){
+   const r = RSTART + k*STEP;
+   if(r > maxR) break;
+   const t = (r - RSTART)/(RMAX - RSTART);      // radial fraction drives color+size
    svg.appendChild(E('circle',{cx:(CX + r*Math.cos(a)).toFixed(1), cy:(CY + r*Math.sin(a)).toFixed(1),
-     r:(1.3 + t*1.9).toFixed(2), fill:dotColor(t), 'fill-opacity':0.95}));
+     r:(1.2 + t*2.0).toFixed(2), fill:dotColor(t), 'fill-opacity':0.95}));
   }
  }
 }
@@ -296,13 +299,47 @@ function render(d){
 }
 
 // ── Load ──────────────────────────────────────────────────────────────────────
+// zone/lat-lon → team pipeline region files (mirrors api/grid.js routing)
+const ZONE_TO_REGION={ 'US-CAL-CISO':'cal','US-TEX-ERCO':'tex','US-NY-NYIS':'nyis','US-MIDA-PJM':'mida' };
+const REGION_TO_ZONE={ cal:'US-CAL-CISO', tex:'US-TEX-ERCO', nyis:'US-NY-NYIS', mida:'US-MIDA-PJM' };
+function latLonToRegion(lat,lon){
+ lat=parseFloat(lat); lon=parseFloat(lon);
+ if(lon < -114) return 'cal';
+ if(lat < 37 && lon > -107 && lon < -93) return 'tex';
+ if(lat > 40 && lon > -80 && lon < -69) return 'nyis';
+ if(lat > 36 && lat < 43 && lon > -85 && lon < -74) return 'mida';
+ return 'cal';
+}
+// Reads data/{region}_insight.json (updated hourly by the GitHub Action) and
+// reshapes it for render() — works locally and on any static host, no API needed.
+async function localFallback(params){
+ const q=new URLSearchParams(params||'');
+ const region=ZONE_TO_REGION[q.get('zone')] ||
+   (q.get('lat')&&q.get('lon') ? latLonToRegion(q.get('lat'),q.get('lon')) : 'cal');
+ const r=await fetch(`data/${region}_insight.json?_=${Date.now()}`);
+ if(!r.ok) throw 0;
+ const raw=await r.json();
+ const hourly=new Array(24).fill(null);
+ for(const {hour,carbon_intensity} of raw.hourly_avg) hourly[hour]=Math.round(carbon_intensity);
+ const swing=Math.round(raw.daily_swing_pct);
+ return {
+  zone:REGION_TO_ZONE[region], current:raw.current_intensity, hourly, swing,
+  gridfit: swing>=30?'high':swing>=15?'moderate':'low',
+  cleanest:{ start:fmtH(raw.cleanest_hour), end:fmtH((raw.cleanest_hour+2)%24),
+    value:Math.round(raw.min_intensity), savings_pct:Math.round(raw.pct_saved) },
+  source:'eia-fallback', _live:true,
+ };
+}
 async function load(params){
  try{
   const r=await fetch('/api/grid'+(params||''));
   if(!r.ok) throw 0;
   const d=await r.json(); d._live=true; render(d);
   if(localStorage.getItem('notif')==='1') scheduleNotif();
- }catch(e){ render(SAMPLE); }
+ }catch(e){
+  try{ render(await localFallback(params)); }
+  catch(e2){ render(SAMPLE); }
+ }
  return true;
 }
 
