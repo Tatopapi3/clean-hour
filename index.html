@@ -51,8 +51,25 @@
  .wv{ font-size:20px; font-weight:600; margin-top:2px; }
  .ws{ font-size:11px; color:rgba(255,255,255,.6); }
 
- #clock{ width:100%; max-width:320px; display:block; margin:6px auto 4px; opacity:0; transform:scale(.92); transition:opacity .6s ease, transform .6s cubic-bezier(.2,.8,.2,1); }
+ #clock{ position:relative; width:100%; max-width:280px; aspect-ratio:1; margin:10px auto 8px; opacity:0; transform:scale(.94); transition:opacity .6s ease, transform .6s cubic-bezier(.2,.8,.2,1); }
  #clock.in{ opacity:1; transform:none; }
+ #ring{ position:absolute; inset:0; border-radius:50%; filter:drop-shadow(0 12px 28px rgba(0,0,0,.42));
+   -webkit-mask:radial-gradient(circle closest-side, transparent 59%, #000 61%);
+           mask:radial-gradient(circle closest-side, transparent 59%, #000 61%); }
+ #marker{ position:absolute; inset:0; transition:transform .8s cubic-bezier(.2,.8,.2,1); }
+ #marker::before{ content:""; position:absolute; top:-2px; left:50%; transform:translateX(-50%);
+   border-left:6px solid transparent; border-right:6px solid transparent; border-top:10px solid #fff;
+   filter:drop-shadow(0 1px 2px rgba(0,0,0,.5)); }
+ #center{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:54%; aspect-ratio:1;
+   border-radius:50%; background:rgba(9,13,22,.6); -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px);
+   border:1px solid rgba(255,255,255,.12); box-shadow:inset 0 1px 0 rgba(255,255,255,.15);
+   display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; padding:6px; }
+ #cState{ display:flex; align-items:center; gap:5px; font-size:10px; font-weight:700; letter-spacing:.12em; }
+ #cDot{ width:7px; height:7px; border-radius:50%; }
+ #cDiv{ width:42px; height:1px; background:rgba(255,255,255,.16); margin:1px 0; }
+ #cRange{ font-size:19px; font-weight:700; color:#fff; }
+ #cSub1{ font-size:9px; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.45); }
+ #cSub2{ font-size:10px; color:rgba(255,255,255,.62); }
  .legend{ display:flex; justify-content:center; gap:16px; font-size:12px; color:rgba(255,255,255,.6); margin-top:8px; }
  .legend span{ display:flex; align-items:center; gap:5px; }
  .sw{ width:10px; height:10px; border-radius:3px; }
@@ -117,7 +134,17 @@
     <div class="w glass"><div class="wl"><i class="ti ti-leaf" style="font-size:12px;color:#5fd38a"></i>Cleanest</div><div class="wv" style="color:#7fe6a0" id="cleanH">—</div><div class="ws" id="cleanV"></div></div>
     <div class="w glass"><div class="wl"><i class="ti ti-flame" style="font-size:12px;color:#ff6b81"></i>Dirtiest</div><div class="wv" style="color:#ff8a9a" id="dirtyH">—</div><div class="ws" id="dirtyV"></div></div>
    </div>
-   <svg id="clock" viewBox="0 0 240 240"></svg>
+   <div id="clock">
+    <div id="ring"></div>
+    <div id="marker"></div>
+    <div id="center">
+     <div id="cState"><span id="cDot"></span><span id="cStateTxt">—</span></div>
+     <div id="cDiv"></div>
+     <div id="cRange">—</div>
+     <div id="cSub1">cleanest window</div>
+     <div id="cSub2"></div>
+    </div>
+   </div>
    <div class="legend"><span><span class="sw" style="background:#5fd38a"></span>Clean</span><span><span class="sw" style="background:#e0a93c"></span>Moderate</span><span><span class="sw" style="background:#ff6b81"></span>Dirty</span></div>
    <div class="glass" id="mapCard" style="overflow:hidden;margin-top:14px;">
     <div class="zip-row">
@@ -222,17 +249,34 @@ function arcPath(d0,d1,r0,r1){
 function drawHeatClock(svg, arr){
  const vmin=Math.min(...arr), vmax=Math.max(...arr), span=Math.max(vmax-vmin,1);
  const inner=36, outer=92;
- svg.appendChild(E('circle',{cx:CX,cy:CY,r:inner-6,fill:'rgba(255,255,255,.06)'}));
+ const defs=E('defs',{});
+ defs.innerHTML=`
+  <radialGradient id="clockGlass" cx="34%" cy="24%" r="76%">
+   <stop offset="0%" stop-color="rgba(255,255,255,.34)"/>
+   <stop offset="36%" stop-color="rgba(255,255,255,.10)"/>
+   <stop offset="100%" stop-color="rgba(255,255,255,.03)"/>
+  </radialGradient>
+  <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+   <feGaussianBlur stdDeviation="2.4" result="blur"/>
+   <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>`;
+ svg.appendChild(defs);
+ svg.appendChild(E('circle',{cx:CX,cy:CY,r:outer+9,fill:'rgba(255,255,255,.045)',stroke:'rgba(255,255,255,.18)','stroke-width':1.1}));
+ svg.appendChild(E('circle',{cx:CX,cy:CY,r:inner-6,fill:'url(#clockGlass)',stroke:'rgba(255,255,255,.18)','stroke-width':1}));
  for(let i=0;i<24;i++){
   const t=(arr[i]-vmin)/span;
+  const seg=E('g',{filter:t>.78?'url(#softGlow)':'none'});
   const p=E('path',{d:arcPath(i*15-6.4,i*15+6.4,inner,outer),
-   fill:heatColor(t),'fill-opacity':0.94,stroke:'rgba(255,255,255,.18)','stroke-width':0.7});
+   fill:heatColor(t),'fill-opacity':0.88,stroke:'rgba(255,255,255,.24)','stroke-width':0.75});
   p.appendChild(E('title',{})).textContent=`${fmtH(i)} · ${arr[i]} gCO₂/kWh`;
-  svg.appendChild(p);
+  seg.appendChild(p);
+  seg.appendChild(E('path',{d:arcPath(i*15-5.5,i*15+5.5,inner+3,outer-5),
+   fill:'url(#clockGlass)','fill-opacity':0.18}));
+  svg.appendChild(seg);
  }
  // clean/moderate/dirty guide rings
- [[inner+18,'rgba(95,211,138,.55)'],[inner+36,'rgba(232,196,80,.45)'],[outer,'rgba(255,107,129,.5)']]
-  .forEach(([r,c])=>svg.appendChild(E('circle',{cx:CX,cy:CY,r,fill:'none',stroke:c,'stroke-width':1,'stroke-dasharray':'3 6','stroke-opacity':0.55})));
+ [[inner+18,'rgba(95,211,138,.42)'],[inner+36,'rgba(232,196,80,.35)'],[outer,'rgba(255,107,129,.42)']]
+  .forEach(([r,c])=>svg.appendChild(E('circle',{cx:CX,cy:CY,r,fill:'none',stroke:c,'stroke-width':1,'stroke-dasharray':'3 7','stroke-opacity':0.62})));
 }
 
 // ── Navigation ────────────────────────────────────────────────────────────────
@@ -248,15 +292,23 @@ function render(d){
  _lastData = d;
  const arr=(d.hourly&&d.hourly.length===24)?d.hourly.map(x=>x==null?0:x):SAMPLE.hourly;
  VMAX=Math.max(130, Math.max(...arr)*1.08);
- const svg=document.getElementById('clock'); svg.innerHTML="";
- drawHeatClock(svg, arr);
- const sh={0:'12a',6:'6a',12:'12p',18:'6p'};
- for(const i in sh){const[lx,ly]=pt(i*15,RMAX+16);const t=E('text',{x:lx,y:ly+3,'font-size':10,'text-anchor':'middle',fill:'rgba(255,255,255,.55)'});t.textContent=sh[i];svg.appendChild(t);}
- const now=new Date(), h=now.getHours()+now.getMinutes()/60, deg=h*15;
- const a=(-90+deg)*Math.PI/180, dx=Math.cos(a), dy=Math.sin(a), px=-dy, py=dx;
- const tip=[CX+(RMAX+3)*dx,CY+(RMAX+3)*dy], lf=[CX+(RMAX+13)*dx+5*px,CY+(RMAX+13)*dy+5*py], rg=[CX+(RMAX+13)*dx-5*px,CY+(RMAX+13)*dy-5*py];
- svg.appendChild(E('polygon',{points:`${tip[0].toFixed(1)},${tip[1].toFixed(1)} ${lf[0].toFixed(1)},${lf[1].toFixed(1)} ${rg[0].toFixed(1)},${rg[1].toFixed(1)}`,fill:'#fff'}));
- setTimeout(()=>svg.classList.add('in'),30);
+ // Data-driven gradient ring: each hour colored by its intensity relative to
+ // this grid's own 24h range (green cleanest → red dirtiest). Midnight at top.
+ const vmin=Math.min(...arr), vmax=Math.max(...arr), span=Math.max(vmax-vmin,1);
+ const stops=[];
+ for(let i=0;i<24;i++) stops.push(`${heatColor((arr[i]-vmin)/span)} ${i*15}deg`);
+ stops.push(`${heatColor((arr[0]-vmin)/span)} 360deg`);
+ document.getElementById('ring').style.background=`conic-gradient(from 0deg, ${stops.join(', ')})`;
+ // marker → current time (clockwise from midnight-top)
+ const now=new Date(), curH=now.getHours();
+ document.getElementById('marker').style.transform=`rotate(${((now.getHours()+now.getMinutes()/60)*15).toFixed(1)}deg)`;
+ // center state (based on the current hour's relative position)
+ const tc=(arr[curH]-vmin)/span;
+ const st = tc<0.34 ? ['CLEAN NOW','#5fd38a'] : tc<0.67 ? ['MODERATE','#e0a93c'] : ['DIRTY NOW','#ff6b81'];
+ document.getElementById('cDot').style.background=st[1];
+ document.getElementById('cStateTxt').textContent=st[0];
+ document.getElementById('cState').style.color=st[1];
+ setTimeout(()=>document.getElementById('clock').classList.add('in'),30);
 
  let mi=0,ma=0; arr.forEach((v,i)=>{if(v<arr[mi])mi=i; if(v>arr[ma])ma=i;});
  d._cleanHour = mi;
@@ -273,6 +325,8 @@ function render(d){
  const w=d.cleanest;
  document.getElementById('winTxt').textContent = w ? `${w.start} – ${w.end}` : '—';
  document.getElementById('nudge').textContent = w ? `Charge then to cut ~${w.savings_pct}% of emissions.` : '';
+ document.getElementById('cRange').textContent = w ? `${w.start} – ${w.end}` : '—';
+ document.getElementById('cSub2').textContent = w ? `~${w.savings_pct}% less CO₂` : '';
  document.getElementById('locName').textContent=(d.zone||'').replace(/ \(sample\)/,'');
  let srcLabel = 'Sample data · deploy with API key for live';
  if(d._live) srcLabel = d.source==='eia-fallback' ? 'Historical · EIA (live data unavailable)' : 'Live · Electricity Maps';
