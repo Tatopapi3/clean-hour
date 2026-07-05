@@ -104,15 +104,21 @@
  .src{ position:absolute; bottom:84px; left:0; right:0; text-align:center; font-size:10px; color:rgba(255,255,255,.4); z-index:1; }
 
  /* Map & location */
- #map{ height:240px; border-radius:16px; overflow:hidden; }
+ #map{ height:420px; border-radius:16px; overflow:hidden; }
  .leaflet-container{ background:#0d1425 !important; }
- .map-marker{ width:40px; height:40px; border-radius:50%;
-   background:rgba(255,255,255,.12); backdrop-filter:blur(12px);
-   border:1.5px solid rgba(255,255,255,.3);
-   display:flex; align-items:center; justify-content:center;
-   font-size:9px; font-weight:700; color:#fff; text-align:center;
-   line-height:1.2; cursor:pointer; transition:background .2s, border-color .2s; }
- .map-marker.active{ background:rgba(95,211,138,.4); border-color:#5fd38a; color:#aef0c2; }
+ .leaflet-interactive{ cursor:pointer; }
+ /* EM-style region popup */
+ .em-popup{ background:rgba(12,17,38,.93); backdrop-filter:blur(20px); border:0.5px solid rgba(255,255,255,.16); border-radius:16px; padding:14px 16px; margin-top:10px; }
+ .em-popup-head{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px; }
+ .em-popup-name{ font-size:14px; font-weight:600; color:#fff; }
+ .em-popup-time{ font-size:11px; color:rgba(255,255,255,.45); margin-top:3px; }
+ .em-badge{ font-size:10px; background:rgba(255,255,255,.1); border:0.5px solid rgba(255,255,255,.2); border-radius:6px; padding:3px 8px; color:rgba(255,255,255,.6); white-space:nowrap; }
+ .em-metrics{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+ .em-metric{ text-align:center; }
+ .em-metric-box{ border-radius:10px; padding:10px 4px 8px; display:flex; align-items:center; justify-content:center; flex-direction:column; min-height:66px; }
+ .em-metric-val{ font-size:20px; font-weight:700; line-height:1; }
+ .em-metric-unit{ font-size:8.5px; color:rgba(255,255,255,.65); margin-top:3px; line-height:1.3; }
+ .em-metric-lbl{ font-size:10px; color:rgba(255,255,255,.45); margin-top:6px; line-height:1.2; }
  .zip-row{ display:flex; gap:8px; padding:12px 14px; }
  .zip-input{ flex:1; background:rgba(255,255,255,.1); border:0.5px solid rgba(255,255,255,.2);
    border-radius:10px; color:#fff; padding:9px 12px; font-size:14px; outline:none; }
@@ -290,13 +296,27 @@
 
  <div class="sheet" id="sheet-map">
   <div class="handle"></div>
-  <div class="sheet-h"><div><div class="sheet-t">USA clean energy grid</div><div class="sheet-s">Regional transmission grids</div></div>
+  <div class="sheet-h"><div><div class="sheet-t">USA clean energy grid</div><div class="sheet-s">Tap a region to see live data</div></div>
    <button class="iconbtn" onclick="closeSheet()"><i class="ti ti-x"></i></button></div>
   <div style="position:relative;">
    <div id="map"></div>
-   <button id="zoomOutBtn" onclick="zoomOutMap()" style="position:absolute;bottom:10px;right:10px;z-index:1000;background:rgba(10,14,24,.75);backdrop-filter:blur(12px);border:0.5px solid rgba(255,255,255,.25);color:#fff;border-radius:10px;padding:6px 11px;font-size:12px;cursor:pointer;align-items:center;gap:5px;display:none;"><i class="ti ti-zoom-out" style="font-size:14px"></i> Zoom out</button>
+   <button id="zoomOutBtn" onclick="zoomOutMap()" style="position:absolute;bottom:10px;right:10px;z-index:1000;background:rgba(10,14,24,.85);backdrop-filter:blur(12px);border:0.5px solid rgba(255,255,255,.25);color:#fff;border-radius:10px;padding:6px 11px;font-size:12px;cursor:pointer;align-items:center;gap:5px;display:none;"><i class="ti ti-zoom-out" style="font-size:14px"></i> Zoom out</button>
+   <!-- EM-style legend overlay -->
+   <div style="position:absolute;bottom:10px;left:10px;z-index:1000;background:rgba(10,14,24,.82);backdrop-filter:blur(10px);border:0.5px solid rgba(255,255,255,.18);border-radius:10px;padding:6px 10px;">
+    <div style="font-size:9px;color:rgba(255,255,255,.5);margin-bottom:4px;">Carbon intensity · gCO₂eq/kWh</div>
+    <div style="display:flex;align-items:center;gap:0;height:6px;border-radius:3px;overflow:hidden;width:140px;">
+     <div style="flex:1;background:#3d9e30;height:100%"></div>
+     <div style="flex:1;background:#85b828;height:100%"></div>
+     <div style="flex:1;background:#c8b030;height:100%"></div>
+     <div style="flex:1;background:#d4843c;height:100%"></div>
+     <div style="flex:1;background:#c05020;height:100%"></div>
+     <div style="flex:1;background:#7a2e0a;height:100%"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:8px;color:rgba(255,255,255,.4);margin-top:2px;width:140px;"><span>0</span><span>300</span><span>600+</span></div>
+   </div>
   </div>
-  <div class="legend" style="margin-top:12px;"><span><span class="sw" style="background:#22c55e"></span>Clean</span><span><span class="sw" style="background:#f59e0b"></span>Moderate</span><span><span class="sw" style="background:#f97066"></span>High</span></div>
+  <!-- EM-style region info card (shown on click) -->
+  <div id="regionPopup" style="display:none;"></div>
  </div>
 
  <div class="sheet" id="sheet-reminders">
@@ -471,7 +491,7 @@ function render(d){
  }
 
  document.getElementById('src').textContent = d._live ? (d.source==='eia-fallback'?'Historical · EIA':'Live · Electricity Maps') : 'Sample data';
- if(d.zone){ updateZoneLayer(d.zone, d.current); updateMarkerLabel(d.zone, d.current); }
+ if(d.zone){ updateZoneLayer(d.zone, d.current); }
  renderPriceSignal(d.combined_verdict);
  updateBell();
 }
@@ -588,85 +608,82 @@ function scheduleNotif(){
 
 // ── Map ───────────────────────────────────────────────────────────────────────
 const REGIONS = [
- { zone:'US-CAL-CISO', label:'CA', sub:'Grid', lat:36.7, lon:-120.0 },
- { zone:'US-TEX-ERCO', label:'TX', sub:'Grid', lat:31.5, lon:-99.0  },
- { zone:'US-NY-NYIS',  label:'NY', sub:'Grid', lat:42.8, lon:-75.5  },
- // { zone:'US-MIDA-PJM', label:'PJM', sub:'Grid', lat:39.5, lon:-77.5 }, // PJM dropped
+ { zone:'US-CAL-CISO', label:'CAISO', fullName:'California ISO (USA)', flag:'🇺🇸', lat:37.5, lon:-119.5 },
+ { zone:'US-TEX-ERCO', label:'ERCOT', fullName:'ERCOT (USA)',           flag:'🇺🇸', lat:31.5, lon:-99.0  },
+ { zone:'US-NY-NYIS',  label:'NYISO', fullName:'New York ISO (USA)',    flag:'🇺🇸', lat:43.0, lon:-75.5  },
 ];
 
-// Approximate bounding boxes for each grid zone
-const REGION_BOUNDS = {
- 'US-CAL-CISO': [[32.5,-124.5],[42.0,-114.0]],
- 'US-TEX-ERCO': [[25.8,-106.7],[36.5, -93.5]],
- 'US-NY-NYIS':  [[40.5, -79.8],[45.1, -71.8]],
- // 'US-MIDA-PJM': [[36.5, -87.0],[42.5, -74.0]], // PJM dropped
+// Simplified state polygon coordinates [lng, lat] — recognizable state shapes
+const STATE_COORDS = {
+ 'US-CAL-CISO': [
+  [-124.21,41.99],[-120.00,41.99],[-120.00,39.00],[-117.63,35.00],[-114.63,32.74],
+  [-117.13,32.53],[-118.52,34.03],[-119.50,34.07],[-120.46,34.45],[-121.02,35.46],
+  [-121.98,36.98],[-122.40,37.82],[-122.49,37.97],[-121.42,38.11],[-121.74,39.43],
+  [-122.85,41.18],[-124.21,41.99]
+ ],
+ 'US-TEX-ERCO': [
+  [-106.62,31.90],[-103.00,36.50],[-100.00,36.50],[-94.04,33.47],[-93.53,31.00],
+  [-93.80,29.72],[-95.50,28.90],[-97.00,26.50],[-97.36,26.00],[-99.44,27.74],
+  [-101.70,29.77],[-104.01,29.57],[-106.62,31.90]
+ ],
+ 'US-NY-NYIS': [
+  [-79.76,42.27],[-79.76,43.37],[-76.16,43.37],[-74.70,44.99],[-73.49,45.01],
+  [-71.86,45.01],[-72.00,41.30],[-73.70,40.60],[-74.26,41.13],
+  [-73.66,41.93],[-75.00,42.08],[-79.76,42.27]
+ ]
 };
 
-let _map = null, _markerEls = {}, _activeZone = 'US-CAL-CISO';
-let _zoneLayers = {}, _regionData = {};
+let _map = null, _zoneLayers = {}, _regionData = {}, _activeZone = 'US-CAL-CISO';
 
-function zoneColor(current){
- if(current==null) return { stroke:'rgba(255,255,255,.3)', fill:'rgba(255,255,255,.06)' };
- if(current<200)   return { stroke:'#5fd38a', fill:'rgba(95,211,138,.18)' };
- if(current<=320)  return { stroke:'#e0a93c', fill:'rgba(224,169,60,.18)'  };
- return                   { stroke:'#ff6b81', fill:'rgba(255,107,129,.18)' };
+// EM-style color gradient: green → yellow → orange → dark brown
+function emColor(val){
+ if(val == null) return '#4a4a5a';
+ if(val < 100)   return '#3d9e30';
+ if(val < 200)   return '#85b828';
+ if(val < 300)   return '#c8b030';
+ if(val < 400)   return '#d4843c';
+ if(val < 550)   return '#c05020';
+ return                  '#7a2e0a';
 }
 
 function updateZoneLayer(zone, current){
  const layer = _zoneLayers[zone];
  if(!layer) return;
- const c = zoneColor(current);
- layer.setStyle({ color:c.stroke, fillColor:c.fill, fillOpacity:1, weight:1.5, opacity:0.75 });
-}
-
-function updateMarkerLabel(zone, current){
- const el = _markerEls[zone];
- const r = REGIONS.find(r=>r.zone===zone);
- if(!el||!r) return;
- const c = zoneColor(current);
- const val = current!=null ? Math.round(current)+'g' : r.sub;
- el.innerHTML = `<span>${r.label}<br><span style="font-size:8px;color:${c.stroke};font-weight:600">${val}</span></span>`;
+ const fill = emColor(current);
+ layer.setStyle({ color: fill, fillColor: fill, fillOpacity: 0.55, weight: 1.5, opacity: 0.85 });
 }
 
 function initMap(){
  if(_map){ _map.invalidateSize(); return; }
  _map = L.map('map',{ zoomControl:false, attributionControl:false, scrollWheelZoom:false })
-         .setView([38.5, -97], 3);
+         .setView([37.5, -97], 4);
  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{
   maxZoom:18, subdomains:'abcd'
  }).addTo(_map);
 
- // Zone overlays — drawn first so markers sit on top
- REGIONS.forEach(r=>{
-  const bounds = REGION_BOUNDS[r.zone];
-  if(!bounds) return;
-  const layer = L.rectangle(bounds,{
-   color:'rgba(255,255,255,.25)', weight:1, opacity:0.5,
-   fillColor:'rgba(255,255,255,.06)', fillOpacity:1,
+ // GeoJSON polygon overlays (state shapes, not rectangles)
+ REGIONS.forEach(r => {
+  const coords = STATE_COORDS[r.zone];
+  if(!coords) return;
+  // STATE_COORDS are [lng,lat]; Leaflet polygon expects [lat,lng]
+  const latlngs = coords.map(([lng,lat]) => [lat,lng]);
+  const layer = L.polygon(latlngs, {
+   color: '#4a4a5a', fillColor: '#4a4a5a', fillOpacity: 0.4, weight: 1.5, opacity: 0.7
   }).addTo(_map);
-  layer.on('click',()=>selectRegion(r.zone));
+  layer.on('click', () => selectRegion(r.zone));
+  layer.on('mouseover', () => { if(_activeZone !== r.zone) layer.setStyle({ fillOpacity: 0.65 }); });
+  layer.on('mouseout',  () => { if(_activeZone !== r.zone) layer.setStyle({ fillOpacity: 0.55 }); });
   _zoneLayers[r.zone] = layer;
  });
 
- // Markers on top of overlays
- REGIONS.forEach(r=>{
-  const el = document.createElement('div');
-  el.className = 'map-marker' + (r.zone === _activeZone ? ' active' : '');
-  el.innerHTML = `<span>${r.label}<br><span style="font-size:8px;opacity:.7">${r.sub}</span></span>`;
-  const icon = L.divIcon({ html:el, className:'', iconSize:[40,40], iconAnchor:[20,20] });
-  L.marker([r.lat, r.lon], { icon }).addTo(_map).on('click', ()=> selectRegion(r.zone));
-  _markerEls[r.zone] = el;
- });
-
- // Fetch all regions in parallel to color the overlays
+ // Fetch all regions in parallel to color overlays
  Promise.allSettled(
-  REGIONS.map(r=>fetch('/api/grid?zone='+r.zone).then(res=>res.json()))
- ).then(results=>{
-  results.forEach((res,i)=>{
+  REGIONS.map(r => fetch('/api/grid?zone='+r.zone).then(res=>res.json()))
+ ).then(results => {
+  results.forEach((res,i) => {
    if(res.status==='fulfilled'){
     _regionData[REGIONS[i].zone] = res.value;
     updateZoneLayer(REGIONS[i].zone, res.value.current);
-    updateMarkerLabel(REGIONS[i].zone, res.value.current);
    }
   });
  });
@@ -674,22 +691,96 @@ function initMap(){
 
 function selectRegion(zone){
  _activeZone = zone;
- Object.entries(_markerEls).forEach(([z,el])=> el.classList.toggle('active', z===zone));
+ // Bold border on selected zone
+ Object.entries(_zoneLayers).forEach(([z,layer]) => {
+  layer.setStyle({ weight: z===zone ? 3 : 1.5, opacity: z===zone ? 1 : 0.7 });
+ });
  load('?zone='+zone);
  const r = REGIONS.find(r => r.zone === zone);
- if(r && _map) _map.flyTo([r.lat, r.lon], 6, { animate: true, duration: 1.4 });
- document.querySelector('.views').scrollTo({ top: 0, behavior: 'smooth' });
+ if(r && _map) _map.flyTo([r.lat, r.lon], 6, { animate:true, duration:1.4 });
+ document.querySelector('.views').scrollTo({ top:0, behavior:'smooth' });
  setZoomOutBtn(true);
+ showRegionPopup(zone);
 }
 
 function zoomOutMap(){
- if(_map) _map.flyTo([38.5, -97], 3, { animate: true, duration: 1.2 });
+ if(_map) _map.flyTo([37.5, -97], 4, { animate:true, duration:1.2 });
  setZoomOutBtn(false);
+ document.getElementById('regionPopup').style.display = 'none';
 }
 
 function setZoomOutBtn(visible){
  const btn = document.getElementById('zoomOutBtn');
  if(btn) btn.style.display = visible ? 'flex' : 'none';
+}
+
+function showRegionPopup(zone){
+ const d = _regionData[zone] || {};
+ const r = REGIONS.find(r => r.zone === zone);
+ if(!r) return;
+
+ const current = d.current;
+ const fill = emColor(current);
+ const intensityTxt = current != null ? Math.round(current) : '—';
+
+ // Estimate carbon-free and renewable % from intensity (rough proxy)
+ const cf  = current != null ? Math.max(0, Math.min(100, Math.round(100 - current / 6.5))) : null;
+ const ren = cf != null ? Math.max(0, cf - 18) : null;
+
+ const now = new Date();
+ const timeStr = now.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})
+  + ', ' + now.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true,timeZoneName:'short'});
+ const badge = (d.source==='eia-fallback'||!d._live) ? 'Historical' : 'Live';
+
+ function donut(pct, color){
+  if(pct == null) return `<div style="width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:18px;color:rgba(255,255,255,.3)">?</div>`;
+  const rad = 22, circ = 2*Math.PI*rad;
+  const dash = (pct/100)*circ;
+  return `<svg width="56" height="56" viewBox="0 0 56 56" style="display:block;margin:0 auto">
+   <circle cx="28" cy="28" r="${rad}" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="5"/>
+   <circle cx="28" cy="28" r="${rad}" fill="none" stroke="${color}" stroke-width="5"
+    stroke-dasharray="${dash.toFixed(1)} ${circ.toFixed(1)}" stroke-linecap="round"
+    transform="rotate(-90 28 28)"/>
+   <text x="28" y="33" text-anchor="middle" font-size="11" fill="white" font-weight="700">${pct}%</text>
+  </svg>`;
+ }
+
+ const popup = document.getElementById('regionPopup');
+ popup.innerHTML = `<div class="em-popup">
+  <div class="em-popup-head">
+   <div>
+    <div class="em-popup-name">${r.flag} ${r.fullName}</div>
+    <div class="em-popup-time">${timeStr}</div>
+   </div>
+   <div class="em-badge">${badge}</div>
+  </div>
+  <div class="em-metrics">
+   <div class="em-metric">
+    <div class="em-metric-box" style="background:${fill}28;border:1px solid ${fill}88;">
+     <div class="em-metric-val" style="color:${fill}">${intensityTxt}</div>
+     <div class="em-metric-unit">gCO₂eq/kWh</div>
+    </div>
+    <div class="em-metric-lbl">Carbon intensity</div>
+   </div>
+   <div class="em-metric">
+    <div class="em-metric-box" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);">
+     <div class="em-metric-val" style="color:rgba(255,255,255,.35)">?</div>
+     <div class="em-metric-unit">$/MWh</div>
+    </div>
+    <div class="em-metric-lbl">Electricity price</div>
+   </div>
+   <div class="em-metric">
+    ${donut(cf, '#4ade80')}
+    <div class="em-metric-lbl">Carbon-free</div>
+   </div>
+   <div class="em-metric">
+    ${donut(ren, '#60a5fa')}
+    <div class="em-metric-lbl">Renewable</div>
+   </div>
+  </div>
+  <div style="font-size:9px;color:rgba(255,255,255,.28);margin-top:8px;text-align:right">Carbon-free & renewable are estimated from intensity</div>
+ </div>`;
+ popup.style.display = 'block';
 }
 
 // ── ZIP lookup ────────────────────────────────────────────────────────────────
