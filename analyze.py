@@ -108,6 +108,70 @@ def find_next_clean_window(avg_intensity, current_hour, hours_ahead=24):
             return {"hour": h, "avg_intensity": val, "in_hours": offset}
     return None
 
+def load_price(region):
+    """Optional: load data/{region}_price_hourly.json if fetch_price.py has
+    been run for this region. Returns None if not present -- combined
+    verdict is skipped gracefully rather than erroring."""
+    in_file = os.path.join("data", f"{region.lower()}_price_hourly.json")
+    if not os.path.exists(in_file):
+        return None
+    with open(in_file) as f:
+        raw = json.load(f)
+    return {row["hour"]: row["price"] for row in raw["hourly_avg_price"] if row["price"] is not None}
+
+
+def compute_combined_verdict(avg_intensity, avg_price):
+    """
+    Classify each hour by both carbon and price tercile, then report how
+    often they disagree (the hours where "cheap" and "clean" point in
+    opposite directions). Returns None if price data isn't available.
+    """
+    if not avg_price:
+        return None
+
+    common_hours = sorted(set(avg_intensity) & set(avg_price))
+    if not common_hours:
+        return None
+
+    c_vals = sorted(avg_intensity[h] for h in common_hours)
+    p_vals = sorted(avg_price[h] for h in common_hours)
+    c_low, c_high = c_vals[len(c_vals) // 3], c_vals[2 * len(c_vals) // 3]
+    p_low, p_high = p_vals[len(p_vals) // 3], p_vals[2 * len(p_vals) // 3]
+
+    hourly_quadrant = {}
+    counts = defaultdict(int)
+    for h in common_hours:
+        c, p = avg_intensity[h], avg_price[h]
+        clean, dirty = c <= c_low, c >= c_high
+        cheap, expensive = p <= p_low, p >= p_high
+        if clean and cheap:
+            q = "both_worth_it"
+        elif dirty and expensive:
+            q = "both_skip"
+        elif clean and expensive:
+            q = "clean_but_pricey"
+        elif dirty and cheap:
+            q = "cheap_but_dirty"
+        else:
+            q = "mixed"
+        hourly_quadrant[h] = q
+        counts[q] += 1
+
+    diverging = counts["clean_but_pricey"] + counts["cheap_but_dirty"]
+    divergence_pct = round(diverging / len(common_hours) * 100, 1)
+
+    return {
+        "hourly_quadrant": [{"hour": h, "quadrant": hourly_quadrant[h]} for h in range(24) if h in hourly_quadrant],
+        "quadrant_counts": dict(counts),
+        "divergence_pct": divergence_pct,
+        "note": (
+            "divergence_pct is the share of hours where the cheapest and "
+            "cleanest times of day point in opposite directions -- i.e. "
+            "optimizing for cost alone would not have also optimized for carbon."
+        ),
+    }
+
+
 def compute_verdict(avg_intensity):
     if not avg_intensity:
         return "unknown", 0, "Insufficient data"
@@ -236,6 +300,16 @@ if __name__ == "__main__":
     current_marginal = marginal_avg.get(current_hour)
     next_clean_window = find_next_clean_window(avg_intensity, current_hour)
 
+    print("Checking for price data...")
+    avg_price = load_price(region)
+    combined_verdict = compute_combined_verdict(avg_intensity, avg_price)
+    if combined_verdict:
+        print(f"  ✓ Combined carbon+price verdict computed "
+              f"({combined_verdict['divergence_pct']}% divergence)")
+    else:
+        print(f"  (no data/{region.lower()}_price_hourly.json found -- "
+              f"run fetch_price.py to enable this)")
+
     insight = {
         "region":           region,
         "analyzed_at":      datetime.utcnow().isoformat() + "Z",
@@ -267,6 +341,7 @@ if __name__ == "__main__":
             "not total mix. Approximates which source served incremental demand. "
             "Not a substitute for a true dispatch-order marginal model like WattTime's MOER."
         ),
+        "combined_verdict": combined_verdict,
         "hourly_avg": [
             {
                 "hour":             h,
