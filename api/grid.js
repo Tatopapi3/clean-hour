@@ -44,7 +44,7 @@ const ZONE_TO_EIA = {
   "US-CAL-CISO": "cal",
   "US-TEX-ERCO": "tex",
   "US-NY-NYIS":  "nyis",
-  "US-MIDA-PJM": "mida",
+  // "US-MIDA-PJM": "mida",  // PJM dropped — no API access planned
   "US-MIDW-MISO":"midw",
   "US-NW-PACW":  "nw",
   "US-SE-SERC":  "se",
@@ -57,7 +57,7 @@ function latLonToRegion(lat, lon) {
   if (lon < -114)                                  return "cal";   // California
   if (lat < 37 && lon > -107 && lon < -93)         return "tex";   // Texas
   if (lat > 40 && lon > -80  && lon < -69)         return "nyis";  // New York
-  if (lat > 36 && lat < 43  && lon > -85 && lon < -74) return "mida"; // PJM Mid-Atlantic
+  // PJM Mid-Atlantic dropped — coordinates in that bounding box fall back to "cal"
   return "cal";
 }
 
@@ -80,6 +80,10 @@ function eiaFallback(zone, lat, lon) {
     value: Math.round(raw.min_intensity),
     savings_pct: Math.round(raw.pct_saved),
   };
+  const marginalHourly = new Array(24).fill(null);
+  for (const { hour, marginal_intensity } of raw.marginal_avg || []) {
+    marginalHourly[hour] = marginal_intensity != null ? Math.round(marginal_intensity) : null;
+  }
   return {
     zone: zone || "US-CAL-CISO",
     current: raw.current_intensity,
@@ -87,6 +91,11 @@ function eiaFallback(zone, lat, lon) {
     swing,
     gridfit,
     cleanest,
+    current_marginal: raw.current_marginal_intensity != null ? Math.round(raw.current_marginal_intensity) : null,
+    marginal_hourly: marginalHourly,
+    next_clean_window: raw.next_clean_window || null,
+    marginal_note: raw.marginal_note,
+    combined_verdict: raw.combined_verdict || null,
     source: "eia-fallback",
   };
 }

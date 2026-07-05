@@ -21,6 +21,13 @@ def parse_args():
                         help="EIA region code matching what fetch_data.py used (default: CAL)")
     return parser.parse_args()
 
+# ── Carbon factors (kg CO₂/MWh) ──────────────────────────────────────────────
+CARBON_FACTORS = {
+    "NG": 450, "COL": 1000, "OIL": 700, "NUC": 12, "WAT": 4,
+    "WND": 11, "SUN": 48, "GEO": 38, "BIO": 230, "OTH": 300,
+    "BAT": 50,
+}
+
 # ── Verdict thresholds ────────────────────────────────────────────────────────
 WORTH_IT_THRESHOLD = 30   # ≥30% swing → charging timing makes a real difference
 MODERATE_THRESHOLD = 15   # 15–29%    → moderate benefit
@@ -45,6 +52,123 @@ def avg_by_hour(records):
     return {
         h: round(sum(vals) / len(vals), 1)
         for h, vals in totals.items()
+    }
+
+
+def marginal_for_pair(prev_mix, curr_mix):
+    """
+    Approximate marginal carbon intensity between two consecutive hours:
+    which fuels increased to serve the rise in demand, weighted by how
+    much each contributed to that increase. Fuels that decreased are
+    ignored - they're not what served the incremental load.
+    Returns None for flat/declining hours (no clear marginal signal).
+    """
+    fuels = set(prev_mix) | set(curr_mix)
+    increases = {}
+    for f in fuels:
+        delta = curr_mix.get(f, 0) - prev_mix.get(f, 0)
+        if delta > 0:
+            increases[f] = delta
+    total_increase = sum(increases.values())
+    if total_increase <= 0:
+        return None
+    weighted = sum(v * CARBON_FACTORS.get(f, 300) for f, v in increases.items())
+    return weighted / total_increase
+
+def compute_marginal_series(records):
+    series = []
+    for i in range(1, len(records)):
+        prev, curr = records[i - 1], records[i]
+        m = marginal_for_pair(prev.get("fuel_mix", {}), curr.get("fuel_mix", {}))
+        series.append({
+            "period": curr["period"],
+            "hour": curr["hour"],
+            "marginal_intensity": round(m, 1) if m is not None else None,
+        })
+    return series
+
+def avg_marginal_by_hour(marginal_series):
+    from collections import defaultdict
+    totals = defaultdict(list)
+    for r in marginal_series:
+        h = r["hour"]
+        if r["marginal_intensity"] is not None and 0 <= h <= 23:
+            totals[h].append(r["marginal_intensity"])
+    return {h: round(sum(vals) / len(vals), 1) for h, vals in totals.items()}
+
+def find_next_clean_window(avg_intensity, current_hour, hours_ahead=24):
+    if not avg_intensity:
+        return None
+    all_vals = list(avg_intensity.values())
+    low_cutoff = sorted(all_vals)[len(all_vals) // 3]
+    for offset in range(1, hours_ahead + 1):
+        h = (current_hour + offset) % 24
+        val = avg_intensity.get(h)
+        if val is not None and val <= low_cutoff:
+            return {"hour": h, "avg_intensity": val, "in_hours": offset}
+    return None
+
+def load_price(region):
+    """Optional: load data/{region}_price_hourly.json if fetch_price.py has
+    been run for this region. Returns None if not present -- combined
+    verdict is skipped gracefully rather than erroring."""
+    in_file = os.path.join("data", f"{region.lower()}_price_hourly.json")
+    if not os.path.exists(in_file):
+        return None
+    with open(in_file) as f:
+        raw = json.load(f)
+    return {row["hour"]: row["price"] for row in raw["hourly_avg_price"] if row["price"] is not None}
+
+
+def compute_combined_verdict(avg_intensity, avg_price):
+    """
+    Classify each hour by both carbon and price tercile, then report how
+    often they disagree (the hours where "cheap" and "clean" point in
+    opposite directions). Returns None if price data isn't available.
+    """
+    if not avg_price:
+        return None
+
+    common_hours = sorted(set(avg_intensity) & set(avg_price))
+    if not common_hours:
+        return None
+
+    c_vals = sorted(avg_intensity[h] for h in common_hours)
+    p_vals = sorted(avg_price[h] for h in common_hours)
+    c_low, c_high = c_vals[len(c_vals) // 3], c_vals[2 * len(c_vals) // 3]
+    p_low, p_high = p_vals[len(p_vals) // 3], p_vals[2 * len(p_vals) // 3]
+
+    hourly_quadrant = {}
+    counts = defaultdict(int)
+    for h in common_hours:
+        c, p = avg_intensity[h], avg_price[h]
+        clean, dirty = c <= c_low, c >= c_high
+        cheap, expensive = p <= p_low, p >= p_high
+        if clean and cheap:
+            q = "both_worth_it"
+        elif dirty and expensive:
+            q = "both_skip"
+        elif clean and expensive:
+            q = "clean_but_pricey"
+        elif dirty and cheap:
+            q = "cheap_but_dirty"
+        else:
+            q = "mixed"
+        hourly_quadrant[h] = q
+        counts[q] += 1
+
+    diverging = counts["clean_but_pricey"] + counts["cheap_but_dirty"]
+    divergence_pct = round(diverging / len(common_hours) * 100, 1)
+
+    return {
+        "hourly_quadrant": [{"hour": h, "quadrant": hourly_quadrant[h]} for h in range(24) if h in hourly_quadrant],
+        "quadrant_counts": dict(counts),
+        "divergence_pct": divergence_pct,
+        "note": (
+            "divergence_pct is the share of hours where the cheapest and "
+            "cleanest times of day point in opposite directions -- i.e. "
+            "optimizing for cost alone would not have also optimized for carbon."
+        ),
     }
 
 
@@ -170,6 +294,22 @@ if __name__ == "__main__":
     print("Computing now signal...")
     current_hour, current_intensity, signal, signal_label = now_signal(avg_intensity)
 
+    print("Computing marginal intensity series...")
+    marginal_series = compute_marginal_series(records)
+    marginal_avg = avg_marginal_by_hour(marginal_series)
+    current_marginal = marginal_avg.get(current_hour)
+    next_clean_window = find_next_clean_window(avg_intensity, current_hour)
+
+    print("Checking for price data...")
+    avg_price = load_price(region)
+    combined_verdict = compute_combined_verdict(avg_intensity, avg_price)
+    if combined_verdict:
+        print(f"  ✓ Combined carbon+price verdict computed "
+              f"({combined_verdict['divergence_pct']}% divergence)")
+    else:
+        print(f"  (no data/{region.lower()}_price_hourly.json found -- "
+              f"run fetch_price.py to enable this)")
+
     insight = {
         "region":           region,
         "analyzed_at":      datetime.utcnow().isoformat() + "Z",
@@ -190,6 +330,18 @@ if __name__ == "__main__":
         "current_intensity": current_intensity,
         "signal":           signal,
         "signal_label":     signal_label,
+        "current_marginal_intensity": current_marginal,
+        "next_clean_window": next_clean_window,
+        "marginal_avg": [
+            {"hour": h, "marginal_intensity": marginal_avg.get(h)}
+            for h in range(24)
+        ],
+        "marginal_note": (
+            "Proxy method: weights fuels by their share of each hour's generation increase, "
+            "not total mix. Approximates which source served incremental demand. "
+            "Not a substitute for a true dispatch-order marginal model like WattTime's MOER."
+        ),
+        "combined_verdict": combined_verdict,
         "hourly_avg": [
             {
                 "hour":             h,
