@@ -21,6 +21,13 @@ def parse_args():
                         help="EIA region code matching what fetch_data.py used (default: CAL)")
     return parser.parse_args()
 
+# ── Carbon factors (kg CO₂/MWh) ──────────────────────────────────────────────
+CARBON_FACTORS = {
+    "NG": 450, "COL": 1000, "OIL": 700, "NUC": 12, "WAT": 4,
+    "WND": 11, "SUN": 48, "GEO": 38, "BIO": 230, "OTH": 300,
+    "BAT": 50,
+}
+
 # ── Verdict thresholds ────────────────────────────────────────────────────────
 WORTH_IT_THRESHOLD = 30   # ≥30% swing → charging timing makes a real difference
 MODERATE_THRESHOLD = 15   # 15–29%    → moderate benefit
@@ -47,6 +54,59 @@ def avg_by_hour(records):
         for h, vals in totals.items()
     }
 
+
+def marginal_for_pair(prev_mix, curr_mix):
+    """
+    Approximate marginal carbon intensity between two consecutive hours:
+    which fuels increased to serve the rise in demand, weighted by how
+    much each contributed to that increase. Fuels that decreased are
+    ignored - they're not what served the incremental load.
+    Returns None for flat/declining hours (no clear marginal signal).
+    """
+    fuels = set(prev_mix) | set(curr_mix)
+    increases = {}
+    for f in fuels:
+        delta = curr_mix.get(f, 0) - prev_mix.get(f, 0)
+        if delta > 0:
+            increases[f] = delta
+    total_increase = sum(increases.values())
+    if total_increase <= 0:
+        return None
+    weighted = sum(v * CARBON_FACTORS.get(f, 300) for f, v in increases.items())
+    return weighted / total_increase
+
+def compute_marginal_series(records):
+    series = []
+    for i in range(1, len(records)):
+        prev, curr = records[i - 1], records[i]
+        m = marginal_for_pair(prev.get("fuel_mix", {}), curr.get("fuel_mix", {}))
+        series.append({
+            "period": curr["period"],
+            "hour": curr["hour"],
+            "marginal_intensity": round(m, 1) if m is not None else None,
+        })
+    return series
+
+def avg_marginal_by_hour(marginal_series):
+    from collections import defaultdict
+    totals = defaultdict(list)
+    for r in marginal_series:
+        h = r["hour"]
+        if r["marginal_intensity"] is not None and 0 <= h <= 23:
+            totals[h].append(r["marginal_intensity"])
+    return {h: round(sum(vals) / len(vals), 1) for h, vals in totals.items()}
+
+def find_next_clean_window(avg_intensity, current_hour, hours_ahead=24):
+    if not avg_intensity:
+        return None
+    all_vals = list(avg_intensity.values())
+    low_cutoff = sorted(all_vals)[len(all_vals) // 3]
+    for offset in range(1, hours_ahead + 1):
+        h = (current_hour + offset) % 24
+        val = avg_intensity.get(h)
+        if val is not None and val <= low_cutoff:
+            return {"hour": h, "avg_intensity": val, "in_hours": offset}
+    return None
 
 def compute_verdict(avg_intensity):
     if not avg_intensity:
@@ -170,6 +230,12 @@ if __name__ == "__main__":
     print("Computing now signal...")
     current_hour, current_intensity, signal, signal_label = now_signal(avg_intensity)
 
+    print("Computing marginal intensity series...")
+    marginal_series = compute_marginal_series(records)
+    marginal_avg = avg_marginal_by_hour(marginal_series)
+    current_marginal = marginal_avg.get(current_hour)
+    next_clean_window = find_next_clean_window(avg_intensity, current_hour)
+
     insight = {
         "region":           region,
         "analyzed_at":      datetime.utcnow().isoformat() + "Z",
@@ -190,6 +256,17 @@ if __name__ == "__main__":
         "current_intensity": current_intensity,
         "signal":           signal,
         "signal_label":     signal_label,
+        "current_marginal_intensity": current_marginal,
+        "next_clean_window": next_clean_window,
+        "marginal_avg": [
+            {"hour": h, "marginal_intensity": marginal_avg.get(h)}
+            for h in range(24)
+        ],
+        "marginal_note": (
+            "Proxy method: weights fuels by their share of each hour's generation increase, "
+            "not total mix. Approximates which source served incremental demand. "
+            "Not a substitute for a true dispatch-order marginal model like WattTime's MOER."
+        ),
         "hourly_avg": [
             {
                 "hour":             h,

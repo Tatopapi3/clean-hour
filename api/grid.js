@@ -80,6 +80,10 @@ function eiaFallback(zone, lat, lon) {
     value: Math.round(raw.min_intensity),
     savings_pct: Math.round(raw.pct_saved),
   };
+  const marginalHourly = new Array(24).fill(null);
+  for (const { hour, marginal_intensity } of raw.marginal_avg || []) {
+    marginalHourly[hour] = marginal_intensity != null ? Math.round(marginal_intensity) : null;
+  }
   return {
     zone: zone || "US-CAL-CISO",
     current: raw.current_intensity,
@@ -87,6 +91,10 @@ function eiaFallback(zone, lat, lon) {
     swing,
     gridfit,
     cleanest,
+    current_marginal: raw.current_marginal_intensity != null ? Math.round(raw.current_marginal_intensity) : null,
+    marginal_hourly: marginalHourly,
+    next_clean_window: raw.next_clean_window || null,
+    marginal_note: raw.marginal_note,
     source: "eia-fallback",
   };
 }

@@ -1,6 +1,6 @@
 {
   "region": "TEX",
-  "analyzed_at": "2026-07-05T11:33:54.210549Z",
+  "analyzed_at": "2026-07-05T11:47:38.140524Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
@@ -18,6 +18,111 @@
   "current_intensity": 333.2,
   "signal": "wait",
   "signal_label": "Wait if you can",
+  "current_marginal_intensity": 264.8,
+  "next_clean_window": {
+    "hour": 14,
+    "avg_intensity": 245.9,
+    "in_hours": 3
+  },
+  "marginal_avg": [
+    {
+      "hour": 0,
+      "marginal_intensity": 279.4
+    },
+    {
+      "hour": 1,
+      "marginal_intensity": 262.0
+    },
+    {
+      "hour": 2,
+      "marginal_intensity": 213.7
+    },
+    {
+      "hour": 3,
+      "marginal_intensity": 285.9
+    },
+    {
+      "hour": 4,
+      "marginal_intensity": 257.0
+    },
+    {
+      "hour": 5,
+      "marginal_intensity": 201.8
+    },
+    {
+      "hour": 6,
+      "marginal_intensity": 262.8
+    },
+    {
+      "hour": 7,
+      "marginal_intensity": 226.9
+    },
+    {
+      "hour": 8,
+      "marginal_intensity": 173.6
+    },
+    {
+      "hour": 9,
+      "marginal_intensity": 179.3
+    },
+    {
+      "hour": 10,
+      "marginal_intensity": 210.3
+    },
+    {
+      "hour": 11,
+      "marginal_intensity": 264.8
+    },
+    {
+      "hour": 12,
+      "marginal_intensity": 326.3
+    },
+    {
+      "hour": 13,
+      "marginal_intensity": 61.7
+    },
+    {
+      "hour": 14,
+      "marginal_intensity": 47.3
+    },
+    {
+      "hour": 15,
+      "marginal_intensity": 53.1
+    },
+    {
+      "hour": 16,
+      "marginal_intensity": 132.6
+    },
+    {
+      "hour": 17,
+      "marginal_intensity": 158.5
+    },
+    {
+      "hour": 18,
+      "marginal_intensity": 236.7
+    },
+    {
+      "hour": 19,
+      "marginal_intensity": 355.0
+    },
+    {
+      "hour": 20,
+      "marginal_intensity": 418.1
+    },
+    {
+      "hour": 21,
+      "marginal_intensity": 404.4
+    },
+    {
+      "hour": 22,
+      "marginal_intensity": 375.3
+    },
+    {
+      "hour": 23,
+      "marginal_intensity": 254.1
+    }
+  ],
+  "marginal_note": "Proxy method: weights fuels by their share of each hour's generation increase, not total mix. Approximates which source served incremental demand. Not a substitute for a true dispatch-order marginal model like WattTime's MOER.",
   "hourly_avg": [
     {
       "hour": 0,
