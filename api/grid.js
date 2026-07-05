@@ -44,7 +44,7 @@ const ZONE_TO_EIA = {
   "US-CAL-CISO": "cal",
   "US-TEX-ERCO": "tex",
   "US-NY-NYIS":  "nyis",
-  "US-MIDA-PJM": "mida",
+  // "US-MIDA-PJM": "mida",  // PJM dropped — no API access planned
   "US-MIDW-MISO":"midw",
   "US-NW-PACW":  "nw",
   "US-SE-SERC":  "se",
@@ -57,7 +57,7 @@ function latLonToRegion(lat, lon) {
   if (lon < -114)                                  return "cal";   // California
   if (lat < 37 && lon > -107 && lon < -93)         return "tex";   // Texas
   if (lat > 40 && lon > -80  && lon < -69)         return "nyis";  // New York
-  if (lat > 36 && lat < 43  && lon > -85 && lon < -74) return "mida"; // PJM Mid-Atlantic
+  // PJM Mid-Atlantic dropped — coordinates in that bounding box fall back to "cal"
   return "cal";
 }
 

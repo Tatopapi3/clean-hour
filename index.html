@@ -292,10 +292,10 @@ function scheduleNotif(){
 
 // ── Map ───────────────────────────────────────────────────────────────────────
 const REGIONS = [
- { zone:'US-CAL-CISO', label:'CA',  sub:'Grid', lat:36.7,  lon:-120.0 },
- { zone:'US-TEX-ERCO', label:'TX',  sub:'Grid', lat:31.5,  lon:-99.0  },
- { zone:'US-NY-NYIS',  label:'NY',  sub:'Grid', lat:42.8,  lon:-75.5  },
- { zone:'US-MIDA-PJM', label:'PJM', sub:'Grid', lat:39.5,  lon:-77.5  },
+ { zone:'US-CAL-CISO', label:'CA', sub:'Grid', lat:36.7, lon:-120.0 },
+ { zone:'US-TEX-ERCO', label:'TX', sub:'Grid', lat:31.5, lon:-99.0  },
+ { zone:'US-NY-NYIS',  label:'NY', sub:'Grid', lat:42.8, lon:-75.5  },
+ // { zone:'US-MIDA-PJM', label:'PJM', sub:'Grid', lat:39.5, lon:-77.5 }, // PJM dropped
 ];
 
 // Approximate bounding boxes for each grid zone
@@ -303,7 +303,7 @@ const REGION_BOUNDS = {
  'US-CAL-CISO': [[32.5,-124.5],[42.0,-114.0]],
  'US-TEX-ERCO': [[25.8,-106.7],[36.5, -93.5]],
  'US-NY-NYIS':  [[40.5, -79.8],[45.1, -71.8]],
- 'US-MIDA-PJM': [[36.5, -87.0],[42.5, -74.0]],
+ // 'US-MIDA-PJM': [[36.5, -87.0],[42.5, -74.0]], // PJM dropped
 };
 
 let _map = null, _markerEls = {}, _activeZone = 'US-CAL-CISO';
