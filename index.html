@@ -112,7 +112,15 @@
     <div><h1>Clean Hour</h1><div class="loc"><i class="ti ti-map-pin" style="font-size:12px"></i> <span id="locName">Locating…</span></div></div>
     <button class="iconbtn" onclick="go('set')" aria-label="settings"><i class="ti ti-settings"></i></button>
    </div>
-   <div class="glass verdict" id="verdict"><div class="vlabel">Grid-fit</div><div class="vbig" id="vBig">Checking your grid…</div><div class="vsub" id="vSub"></div></div>
+   <div class="glass verdict" id="verdict">
+    <div class="vlabel">Grid-fit</div>
+    <div class="vbig" id="vBig">Checking your grid…</div>
+    <div class="vsub" id="vSub"></div>
+    <div id="nextClean" style="display:none;margin-top:8px;padding-top:8px;border-top:0.5px solid rgba(255,255,255,.12);font-size:12px;color:rgba(255,255,255,.7);align-items:center;gap:6px;">
+     <i class="ti ti-clock-bolt" style="font-size:14px;color:#7fe6a0;flex-shrink:0"></i>
+     <span id="nextCleanTxt"></span>
+    </div>
+   </div>
    <div class="widgets">
     <div class="w glass"><div class="wl"><i class="ti ti-leaf" style="font-size:12px;color:#5fd38a"></i>Cleanest</div><div class="wv" style="color:#7fe6a0" id="cleanH">—</div><div class="ws" id="cleanV"></div></div>
     <div class="w glass"><div class="wl"><i class="ti ti-flame" style="font-size:12px;color:#ff6b81"></i>Dirtiest</div><div class="wv" style="color:#ff8a9a" id="dirtyH">—</div><div class="ws" id="dirtyV"></div></div>
@@ -253,6 +261,19 @@ function render(d){
  const w=d.cleanest;
  document.getElementById('winTxt').textContent = w ? `${w.start} – ${w.end}` : '—';
  document.getElementById('nudge').textContent = w ? `Charge then to cut ~${w.savings_pct}% of emissions.` : '';
+
+ const ncw = d.next_clean_window;
+ const ncwEl = document.getElementById('nextClean');
+ const ncwTxt = document.getElementById('nextCleanTxt');
+ if(ncw && ncwEl && ncwTxt){
+  const inH = ncw.in_hours;
+  const timeStr = fmtH(ncw.hour);
+  const whenStr = inH === 1 ? 'in 1 hr' : `in ${inH} hrs`;
+  ncwTxt.textContent = `Next clean window: ${timeStr} (${whenStr} · ~${Math.round(ncw.avg_intensity)}g CO₂)`;
+  ncwEl.style.display = 'flex';
+ } else if(ncwEl){
+  ncwEl.style.display = 'none';
+ }
  document.getElementById('locName').textContent=(d.zone||'').replace(/ \(sample\)/,'');
  let srcLabel = 'Sample data · deploy with API key for live';
  if(d._live) srcLabel = d.source==='eia-fallback' ? 'Historical · EIA (live data unavailable)' : 'Live · Electricity Maps';
