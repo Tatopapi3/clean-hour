@@ -22,23 +22,27 @@ jobs:
           cache: 'pip'
 
       - name: Install dependencies
-        run: pip install requests
+        run: pip install -r requirements.txt
 
-      - name: Fetch EIA data (all regions)
+      - name: Fetch EIA carbon data (all regions)
         env:
           EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
         run: |
-          python fetch_data.py --region CAL   # California CAISO
-          python fetch_data.py --region TEX   # Texas ERCOT
-          python fetch_data.py --region NYIS  # New York ISO
-          python fetch_data.py --region MIDA  # PJM Mid-Atlantic
+          python fetch_data.py --region CAL
+          python fetch_data.py --region TEX
+          python fetch_data.py --region NYIS
+
+      - name: Fetch real-time price data (all regions)
+        run: |
+          python fetch_price.py --region CAL
+          python fetch_price.py --region TEX
+          python fetch_price.py --region NYIS
 
       - name: Run analysis (all regions)
         run: |
           python analyze.py --region CAL
           python analyze.py --region TEX
           python analyze.py --region NYIS
-          python analyze.py --region MIDA
 
       - name: Commit updated data
         run: |
