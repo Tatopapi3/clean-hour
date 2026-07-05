@@ -543,7 +543,8 @@ async function renderFinderMetrics(d){
   try{
    const pr = await fetch(`/data/${region}_price_hourly.json`).then(r=>r.json());
    const h = new Date().getHours();
-   const p = Array.isArray(pr.hourly_avg_price) ? pr.hourly_avg_price[h] : null;
+   const entry = (pr.hourly_avg_price || []).find(r => r.hour === h);
+   const p = entry ? entry.price : null;
    if(p != null){
     priceTxt = '$' + Math.round(p);
     priceStyle = 'color:#fff';
@@ -795,7 +796,8 @@ async function showRegionPopup(zone){
   try{
    const pr = await fetch(`/data/${region}_price_hourly.json`).then(res=>res.json());
    const h = new Date().getHours();
-   const p = Array.isArray(pr.hourly_avg_price) ? pr.hourly_avg_price[h] : null;
+   const entry = (pr.hourly_avg_price || []).find(r => r.hour === h);
+   const p = entry ? entry.price : null;
    if(p != null){ priceTxt = '$' + Math.round(p); priceValColor = '#fff'; }
   } catch(e){}
  }
