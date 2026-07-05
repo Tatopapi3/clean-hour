@@ -119,6 +119,30 @@
  .zip-btn{ background:rgba(255,255,255,.16); border:0.5px solid rgba(255,255,255,.25);
    border-radius:10px; color:#fff; padding:9px 14px; font-size:14px; cursor:pointer; white-space:nowrap; }
  .hint{ font-size:11px; color:rgba(255,255,255,.45); padding:0 16px 10px; min-height:18px; }
+ .applogo{ width:34px; height:34px; border-radius:11px; background:rgba(34,197,94,.16); border:1px solid rgba(34,197,94,.4); display:flex; align-items:center; justify-content:center; color:#5fd38a; font-size:18px; }
+ .bell{ position:relative; width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); color:#fff; font-size:18px; cursor:pointer; }
+ #notifDot{ position:absolute; top:8px; right:9px; width:8px; height:8px; border-radius:50%; background:#22c55e; display:none; }
+ .seclabel{ font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:rgba(255,255,255,.4); text-align:center; margin:4px 0; }
+ .card12{ position:absolute; font-size:10px; font-weight:600; color:rgba(255,255,255,.5); }
+ .card12.cn{ top:-6px; left:50%; transform:translateX(-50%); } .card12.cs{ bottom:-6px; left:50%; transform:translateX(-50%); }
+ .card12.ce{ right:-13px; top:50%; transform:translateY(-50%); } .card12.cw{ left:-13px; top:50%; transform:translateY(-50%); }
+ .finder{ padding:14px 16px; margin-top:14px; }
+ .finder-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+ .finder-lbl{ font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.55); display:flex; align-items:center; gap:6px; }
+ .viewmap{ background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16); color:#fff; border-radius:999px; padding:5px 11px; font-size:12px; cursor:pointer; display:flex; align-items:center; gap:3px; }
+ .statrow{ display:flex; gap:12px; margin-top:14px; } .stat2{ flex:1; padding:13px 15px; }
+ .bar{ height:5px; border-radius:3px; background:rgba(255,255,255,.12); margin-top:9px; overflow:hidden; }
+ .bar>div{ height:100%; width:0; background:#22c55e; border-radius:3px; transition:width .6s ease; }
+ .cta{ position:relative; width:100%; margin-top:16px; padding:14px; border:none; border-radius:16px; background:linear-gradient(135deg,#16a34a,#15803d); color:#fff; font-size:15px; font-weight:600; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; }
+ .cta-x{ position:absolute; top:5px; right:11px; font-size:17px; color:rgba(255,255,255,.7); }
+ .toggle.coral:not(.off){ background:#f97066; }
+ #overlay{ position:absolute; inset:0; background:rgba(0,0,0,.5); -webkit-backdrop-filter:blur(2px); backdrop-filter:blur(2px); z-index:20; display:none; }
+ .sheet{ position:absolute; left:0; right:0; bottom:0; z-index:21; background:#0d1228; border-radius:22px 22px 0 0; border-top:1px solid rgba(255,255,255,.12); padding:10px 16px calc(20px + var(--safe-bot)); transform:translateY(112%); transition:transform .35s cubic-bezier(.2,.8,.2,1); max-height:88%; overflow-y:auto; }
+ .sheet.on{ transform:none; }
+ .handle{ width:38px; height:4px; border-radius:3px; background:rgba(255,255,255,.25); margin:2px auto 12px; }
+ .sheet-h{ display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:12px; }
+ .sheet-t{ font-size:18px; font-weight:600; } .sheet-s{ font-size:12px; color:rgba(255,255,255,.55); }
+ .remsub{ padding-top:2px; } .rsel{ background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2); color:#fff; border-radius:8px; padding:5px 8px; font-size:12px; }
 </style>
 </head>
 <body>
@@ -129,14 +153,13 @@
   <!-- Now tab -->
   <section class="view on" id="v-now">
    <div class="nav">
-    <div><h1>Clean Hour</h1><div class="loc"><i class="ti ti-map-pin" style="font-size:12px"></i> <span id="locName">Locating…</span></div></div>
-    <button class="iconbtn" onclick="go('set')" aria-label="settings"><i class="ti ti-settings"></i></button>
+    <div style="display:flex;align-items:center;gap:10px;">
+     <div class="applogo"><i class="ti ti-leaf"></i></div>
+     <div><h1>Clean Hour Energy</h1><div class="loc"><span id="locName">Locating…</span></div></div>
+    </div>
+    <button class="bell" id="notifBell" onclick="openSheet('reminders')" aria-label="reminders"><i class="ti ti-bell"></i><span id="notifDot"></span></button>
    </div>
-   <div class="glass verdict" id="verdict"><div class="vlabel">Grid-fit</div><div class="vbig" id="vBig">Checking your grid…</div><div class="vsub" id="vSub"></div></div>
-   <div class="widgets">
-    <div class="w glass"><div class="wl"><i class="ti ti-leaf" style="font-size:12px;color:#5fd38a"></i>Cleanest</div><div class="wv" style="color:#7fe6a0" id="cleanH">—</div><div class="ws" id="cleanV"></div></div>
-    <div class="w glass"><div class="wl"><i class="ti ti-flame" style="font-size:12px;color:#ff6b81"></i>Dirtiest</div><div class="wv" style="color:#ff8a9a" id="dirtyH">—</div><div class="ws" id="dirtyV"></div></div>
-   </div>
+   <div class="seclabel">24-hour clean energy forecast</div>
    <div id="clock">
     <div id="centerGlow"></div>
     <div id="ringGlow"></div>
@@ -146,23 +169,34 @@
      <div id="cState"><span id="cDot"></span><span id="cStateTxt">—</span></div>
      <div id="cDiv"></div>
      <div id="cRange">—</div>
-     <div id="cSub1">cleanest window</div>
-     <div id="cSub2"></div>
+     <div id="cSub1">Today's clean energy window</div>
+     <div id="cSub2">Best time to run appliances</div>
     </div>
+    <span class="card12 cn">12A</span><span class="card12 ce">6A</span><span class="card12 cs">12P</span><span class="card12 cw">6P</span>
    </div>
-   <div class="legend"><span><span class="sw" style="background:#5fd38a"></span>Clean</span><span><span class="sw" style="background:#e0a93c"></span>Moderate</span><span><span class="sw" style="background:#ff6b81"></span>Dirty</span></div>
-   <div class="glass" id="mapCard" style="overflow:hidden;margin-top:14px;">
+   <div class="legend"><span><span class="sw" style="background:#22c55e"></span>Clean</span><span><span class="sw" style="background:#f59e0b"></span>Moderate</span><span><span class="sw" style="background:#f97066"></span>High</span></div>
+
+   <div class="glass finder">
+    <div class="finder-top">
+     <span class="finder-lbl"><i class="ti ti-map-pin"></i> Grid location finder</span>
+     <button class="viewmap" onclick="openSheet('map')">View map <i class="ti ti-chevron-right" style="font-size:13px"></i></button>
+    </div>
     <div class="zip-row">
-     <input class="zip-input" id="zipInputNow" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="5" placeholder="ZIP code" />
-     <button class="zip-btn" id="zipBtnNow" onclick="lookupZip('zipInputNow','zipHintNow','zipBtnNow')"><i class="ti ti-search" style="font-size:16px;vertical-align:middle"></i> Find</button>
+     <input class="zip-input" id="zipInputNow" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="5" placeholder="Enter ZIP code" />
+     <button class="zip-btn" id="zipBtnNow" onclick="lookupZip('zipInputNow','zipHintNow','zipBtnNow')">Find</button>
     </div>
-    <div class="hint" id="zipHintNow" style="padding:0 14px 8px;"></div>
-    <div style="position:relative;">
-     <div id="map"></div>
-     <button id="zoomOutBtn" onclick="zoomOutMap()" style="position:absolute;bottom:10px;right:10px;z-index:1000;background:rgba(10,14,24,.75);backdrop-filter:blur(12px);border:0.5px solid rgba(255,255,255,.25);color:#fff;border-radius:10px;padding:6px 11px;font-size:12px;cursor:pointer;align-items:center;gap:5px;display:none;"><i class="ti ti-zoom-out" style="font-size:14px"></i> Zoom out</button>
-    </div>
+    <div class="hint" id="zipHintNow" style="padding:8px 2px 0;"></div>
    </div>
-   <div class="glass window"><div class="vlabel">Today's cleanest window</div><div class="vbig" id="winTxt">—</div><div class="nudge" id="nudge"></div></div>
+
+   <div class="statrow">
+    <div class="glass stat2"><div class="wl">Clean hours today</div><div style="margin-top:2px"><span id="cleanHrs" class="snum">—</span> <span class="ws">/ 24 hrs</span></div><div class="bar"><div id="cleanBar"></div></div></div>
+    <div class="glass stat2"><div class="wl">Peak dirty window</div><div id="peakWin" class="snum" style="font-size:17px;margin-top:2px">—</div><div class="ws" style="margin-top:2px">Avoid heavy usage</div></div>
+   </div>
+
+   <button class="cta" id="reminderCTA" onclick="openSheet('reminders')" style="display:none;">
+    <i class="ti ti-clock-hour-4"></i> Set smart energy reminder
+    <span class="cta-x" onclick="event.stopPropagation();dismissCTA()">&times;</span>
+   </button>
   </section>
 
   <!-- Impact tab -->
@@ -203,6 +237,33 @@
    </div>
    <div class="hint" id="locHint"></div>
   </section>
+ </div>
+
+ <div id="overlay" onclick="closeSheet()"></div>
+
+ <div class="sheet" id="sheet-map">
+  <div class="handle"></div>
+  <div class="sheet-h"><div><div class="sheet-t">USA clean energy grid</div><div class="sheet-s">Regional transmission grids</div></div>
+   <button class="iconbtn" onclick="closeSheet()"><i class="ti ti-x"></i></button></div>
+  <div style="position:relative;">
+   <div id="map"></div>
+   <button id="zoomOutBtn" onclick="zoomOutMap()" style="position:absolute;bottom:10px;right:10px;z-index:1000;background:rgba(10,14,24,.75);backdrop-filter:blur(12px);border:0.5px solid rgba(255,255,255,.25);color:#fff;border-radius:10px;padding:6px 11px;font-size:12px;cursor:pointer;align-items:center;gap:5px;display:none;"><i class="ti ti-zoom-out" style="font-size:14px"></i> Zoom out</button>
+  </div>
+  <div class="legend" style="margin-top:12px;"><span><span class="sw" style="background:#22c55e"></span>Clean</span><span><span class="sw" style="background:#f59e0b"></span>Moderate</span><span><span class="sw" style="background:#f97066"></span>High</span></div>
+ </div>
+
+ <div class="sheet" id="sheet-reminders">
+  <div class="handle"></div>
+  <div class="sheet-h"><div><div class="sheet-t">Reminders</div><div class="sheet-s">Notify me when the grid changes</div></div>
+   <button class="iconbtn" onclick="closeSheet()"><i class="ti ti-x"></i></button></div>
+  <div class="glass" style="overflow:hidden;">
+   <div class="row"><span class="rl"><i class="ti ti-clock-hour-4"></i> Before clean hour</span><span class="toggle" id="remBefore" onclick="toggleRem(this,'remBeforeSub')"></span></div>
+   <div class="row remsub" id="remBeforeSub"><span class="rl" style="color:rgba(255,255,255,.6)">Remind me</span><select id="remBeforeMin" class="rsel"><option>15 mins</option><option>30 mins</option><option selected>1 hour</option><option>2 hours</option></select></div>
+   <div class="row"><span class="rl"><i class="ti ti-circle-check"></i> At start of clean hour</span><span class="toggle off" id="remStart" onclick="toggleRem(this)"></span></div>
+   <div class="row"><span class="rl"><i class="ti ti-alert-circle"></i> Before peak (dirty)</span><span class="toggle coral" id="remPeak" onclick="toggleRem(this,'remPeakSub')"></span></div>
+   <div class="row remsub" id="remPeakSub"><span class="rl" style="color:rgba(255,255,255,.6)">Remind me</span><select id="remPeakMin" class="rsel"><option selected>15 mins</option><option>30 mins</option><option>1 hour</option></select></div>
+  </div>
+  <button class="cta" style="position:relative;margin-top:14px;" onclick="saveReminders()">Save reminders</button>
  </div>
 
  <div class="src" id="src"></div>
@@ -293,58 +354,61 @@ function go(v){
 }
 
 // ── Render ────────────────────────────────────────────────────────────────────
+let CITY = null;                       // set by ZIP lookup, shown in header
+const ZONE_NAMES={ 'US-CAL-CISO':'California','US-TEX-ERCO':'Texas','US-NY-NYIS':'New York','US-MIDA-PJM':'Mid-Atlantic' };
+function fmt12(h){ return `${h%12||12} ${h<12?'AM':'PM'}`; }
+// longest contiguous run where mask[hour] is true (wraps past midnight) → [startHour, endHourExclusive]
+function longestRun(mask){
+ let best=null,bl=0,s=-1,run=0;
+ for(let i=0;i<48;i++){ if(mask[i%24]){ if(run===0)s=i%24; run++; if(run>bl){bl=Math.min(run,24);best=[s,(i+1)%24];} } else run=0; }
+ return best;
+}
+
 function render(d){
  _lastData = d;
  const arr=(d.hourly&&d.hourly.length===24)?d.hourly.map(x=>x==null?0:x):SAMPLE.hourly;
- VMAX=Math.max(130, Math.max(...arr)*1.08);
- // Data-driven gradient ring: each hour colored by its intensity relative to
- // this grid's own 24h range (green cleanest → red dirtiest). Midnight at top.
  const vmin=Math.min(...arr), vmax=Math.max(...arr), span=Math.max(vmax-vmin,1);
+ const nrm=v=>(v-vmin)/span;
+ // Data-driven gradient ring (green cleanest → red dirtiest), midnight at top
  const stops=[];
- for(let i=0;i<24;i++) stops.push(`${heatColor((arr[i]-vmin)/span)} ${i*15}deg`);
- stops.push(`${heatColor((arr[0]-vmin)/span)} 360deg`);
+ for(let i=0;i<24;i++) stops.push(`${heatColor(nrm(arr[i]))} ${i*15}deg`);
+ stops.push(`${heatColor(nrm(arr[0]))} 360deg`);
  const grad=`conic-gradient(from 0deg, ${stops.join(', ')})`;
  document.getElementById('ring').style.background=grad;
  document.getElementById('ringGlow').style.background=grad;
- // marker → current time (clockwise from midnight-top)
+ // marker → current time
  const now=new Date(), curH=now.getHours();
- document.getElementById('marker').style.transform=`rotate(${((now.getHours()+now.getMinutes()/60)*15).toFixed(1)}deg)`;
- // center state (based on the current hour's relative position)
- const tc=(arr[curH]-vmin)/span;
- const st = tc<0.34 ? ['CLEAN NOW','#22c55e','rgba(34,197,94,.32)'] : tc<0.67 ? ['MODERATE','#f59e0b','rgba(245,158,11,.28)'] : ['DIRTY NOW','#f97066','rgba(249,112,102,.28)'];
+ document.getElementById('marker').style.transform=`rotate(${((curH+now.getMinutes()/60)*15).toFixed(1)}deg)`;
+ // center state
+ const tc=nrm(arr[curH]);
+ const st = tc<0.34 ? ['CLEAN NOW','#22c55e','rgba(34,197,94,.32)'] : tc<0.67 ? ['MODERATE NOW','#f59e0b','rgba(245,158,11,.28)'] : ['HIGH NOW','#f97066','rgba(249,112,102,.28)'];
  document.getElementById('cDot').style.background=st[1];
  document.getElementById('cStateTxt').textContent=st[0];
  document.getElementById('cState').style.color=st[1];
  document.getElementById('centerGlow').style.background=`radial-gradient(circle, ${st[2]} 8%, transparent 68%)`;
  setTimeout(()=>document.getElementById('clock').classList.add('in'),30);
 
- let mi=0,ma=0; arr.forEach((v,i)=>{if(v<arr[mi])mi=i; if(v>arr[ma])ma=i;});
- d._cleanHour = mi;
- document.getElementById('cleanH').textContent=fmtH(mi); document.getElementById('cleanV').textContent=arr[mi]+' gCO₂';
- document.getElementById('dirtyH').textContent=fmtH(ma); document.getElementById('dirtyV').textContent=arr[ma]+' gCO₂';
+ // clean stretch → center range; dirty stretch → peak window; counts → stats
+ const cleanMask=arr.map(v=>nrm(v)<0.34), dirtyMask=arr.map(v=>nrm(v)>0.66);
+ const cw=longestRun(cleanMask), pw=longestRun(dirtyMask);
+ document.getElementById('cRange').textContent = cw ? `${fmt12(cw[0])} – ${fmt12(cw[1])}` : '—';
+ const cleanCt=cleanMask.filter(Boolean).length;
+ document.getElementById('cleanHrs').textContent = cleanCt;
+ document.getElementById('cleanBar').style.width = Math.round(cleanCt/24*100)+'%';
+ document.getElementById('peakWin').textContent = pw ? `${fmt12(pw[0])} – ${fmt12(pw[1])}` : '—';
 
- const vEl=document.getElementById('verdict'), big=document.getElementById('vBig'), sub=document.getElementById('vSub');
- const sw=d.swing!=null?d.swing:SAMPLE.swing;
- const gf=d.gridfit||(sw>=30?'high':sw>=15?'moderate':'low');
- if(gf==='high'){big.textContent='Worth it here'; sub.textContent=`Your grid swings ${sw}% a day`; vEl.style.background='rgba(95,211,138,.16)';}
- else if(gf==='moderate'){big.textContent='Some benefit'; sub.textContent=`Swings ${sw}% — timing helps a bit`; vEl.style.background='rgba(224,169,60,.16)';}
- else{big.textContent='Skip it here'; sub.textContent=`Only swings ${sw}% — a flat grid`; vEl.style.background='rgba(255,107,129,.14)';}
+ // cleanest hour (for the notification schedule)
+ let mi=0; arr.forEach((v,i)=>{ if(v<arr[mi])mi=i; }); d._cleanHour=mi;
+ const nt=document.getElementById('notifTime'); if(nt) nt.textContent=fmtH(mi);
 
- const w=d.cleanest;
- document.getElementById('winTxt').textContent = w ? `${w.start} – ${w.end}` : '—';
- document.getElementById('nudge').textContent = w ? `Charge then to cut ~${w.savings_pct}% of emissions.` : '';
- document.getElementById('cRange').textContent = w ? `${w.start} – ${w.end}` : '—';
- document.getElementById('cSub2').textContent = w ? `~${w.savings_pct}% less CO₂` : '';
- document.getElementById('locName').textContent=(d.zone||'').replace(/ \(sample\)/,'');
- let srcLabel = 'Sample data · deploy with API key for live';
- if(d._live) srcLabel = d.source==='eia-fallback' ? 'Historical · EIA (live data unavailable)' : 'Live · Electricity Maps';
- document.getElementById('src').textContent = srcLabel;
+ // header: location + date
+ const dateStr=now.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+ const nm=CITY || ZONE_NAMES[(d.zone||'').replace(/ .*/,'')] || 'Your grid';
+ document.getElementById('locName').textContent=`${nm} · ${dateStr}`;
 
- const notifTime = document.getElementById('notifTime');
- if(notifTime) notifTime.textContent = fmtH(mi);
-
- // Keep zone overlay + marker label in sync with freshly loaded data
+ document.getElementById('src').textContent = d._live ? (d.source==='eia-fallback'?'Historical · EIA':'Live · Electricity Maps') : 'Sample data';
  if(d.zone){ updateZoneLayer(d.zone, d.current); updateMarkerLabel(d.zone, d.current); }
+ updateBell();
 }
 
 // ── Load ──────────────────────────────────────────────────────────────────────
@@ -542,14 +606,12 @@ async function lookupZip(inputId, hintId, btnId){
   const d = await r.json();
   const p = d.places[0];
   const lat = parseFloat(p.latitude), lon = parseFloat(p.longitude);
-  setHint(hint, p['place name'] + ', ' + p['state abbreviation']);
-  // Scroll to map card so the fly-in is visible
-  document.getElementById('mapCard').scrollIntoView({ behavior:'smooth', block:'center' });
-  // Fly into the city
-  if(!_map) initMap();
-  setTimeout(() => { if(_map) _map.flyTo([lat, lon], 11, { animate:true, duration:1.6 }); }, 200);
-  setZoomOutBtn(true);
+  CITY = p['place name'] + ', ' + p['state abbreviation'];
+  setHint(hint, 'Grid for ' + CITY);
   await load(`?lat=${lat.toFixed(3)}&lon=${lon.toFixed(3)}`);
+  openSheet('map');
+  setTimeout(() => { if(_map) _map.flyTo([lat, lon], 11, { animate:true, duration:1.6 }); }, 460);
+  setZoomOutBtn(true);
  }catch(e){ setHint(hint,'ZIP not found. Try another code.'); }
  finally{ if(btn) btn.disabled = false; }
 }
@@ -572,8 +634,45 @@ if(localStorage.getItem('notif')==='1' && typeof Notification !== 'undefined' &&
  setHint('notifHint','Alerts enabled — you\'ll be notified at the cleanest hour.');
 }
 
+// ── Bottom sheets ───────────────────────────────────────────────────────────
+function openSheet(name){
+ document.getElementById('overlay').style.display='block';
+ const s=document.getElementById('sheet-'+name); if(s) s.classList.add('on');
+ if(name==='map'){ setTimeout(()=>{ initMap(); if(_map) _map.invalidateSize(); }, 380); }
+}
+function closeSheet(){
+ document.getElementById('overlay').style.display='none';
+ document.querySelectorAll('.sheet').forEach(s=>s.classList.remove('on'));
+}
+function toggleRem(el, subId){
+ el.classList.toggle('off');
+ if(subId) document.getElementById(subId).style.display = el.classList.contains('off') ? 'none' : 'flex';
+}
+function saveReminders(){
+ const anyClean = !document.getElementById('remBefore').classList.contains('off')
+               || !document.getElementById('remStart').classList.contains('off');
+ if(anyClean){
+  if('Notification' in window && Notification.permission!=='granted'){
+   Notification.requestPermission().then(p=>{ if(p==='granted'){ localStorage.setItem('notif','1'); scheduleNotif(); } updateBell(); });
+  } else { localStorage.setItem('notif','1'); scheduleNotif(); }
+ } else { localStorage.setItem('notif','0'); }
+ localStorage.setItem('remPeak', document.getElementById('remPeak').classList.contains('off')?'0':'1');
+ closeSheet(); updateBell();
+}
+function dismissCTA(){ sessionStorage.setItem('ctaHide','1'); const c=document.getElementById('reminderCTA'); if(c) c.style.display='none'; }
+function updateBell(){
+ const on = localStorage.getItem('notif')==='1' || localStorage.getItem('remPeak')==='1';
+ const dot=document.getElementById('notifDot'); if(dot) dot.style.display = on ? 'block' : 'none';
+ const cta=document.getElementById('reminderCTA');
+ if(cta) cta.style.display = (!on && sessionStorage.getItem('ctaHide')!=='1') ? 'flex' : 'none';
+}
+// reflect any saved reminder state into the sheet toggles on load
+(function(){
+ if(localStorage.getItem('notif')!=='1'){ const b=document.getElementById('remBefore'); if(b){ b.classList.add('off'); const s=document.getElementById('remBeforeSub'); if(s) s.style.display='none'; } }
+ if(localStorage.getItem('remPeak')==='0'){ const p=document.getElementById('remPeak'); if(p){ p.classList.add('off'); const s=document.getElementById('remPeakSub'); if(s) s.style.display='none'; } }
+})();
+
 load('?zone=US-CAL-CISO');
-setTimeout(initMap, 300);
 if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js').catch(()=>{}); }
 </script>
 </body>
