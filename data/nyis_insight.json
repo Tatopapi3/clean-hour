@@ -1,6 +1,6 @@
 {
   "region": "NYIS",
-  "analyzed_at": "2026-07-05T12:34:52.504819Z",
+  "analyzed_at": "2026-07-05T13:17:42.186584Z",
   "days_analyzed": 14,
   "verdict": "skip",
   "verdict_label": "Skip it",
@@ -14,15 +14,15 @@
   "max_intensity": 285.7,
   "pct_saved": 11.0,
   "kg_saved_yr": 235.9,
-  "current_hour": 12,
-  "current_intensity": 258.9,
+  "current_hour": 13,
+  "current_intensity": 262.7,
   "signal": "use_now",
   "signal_label": "Good time to use power",
-  "current_marginal_intensity": 289.3,
+  "current_marginal_intensity": 331.6,
   "next_clean_window": {
-    "hour": 13,
-    "avg_intensity": 262.7,
-    "in_hours": 1
+    "hour": 15,
+    "avg_intensity": 265.9,
+    "in_hours": 2
   },
   "marginal_avg": [
     {
@@ -79,7 +79,7 @@
     },
     {
       "hour": 13,
-      "marginal_intensity": 320.7
+      "marginal_intensity": 331.6
     },
     {
       "hour": 14,
@@ -123,6 +123,115 @@
     }
   ],
   "marginal_note": "Proxy method: weights fuels by their share of each hour's generation increase, not total mix. Approximates which source served incremental demand. Not a substitute for a true dispatch-order marginal model like WattTime's MOER.",
+  "combined_verdict": {
+    "hourly_quadrant": [
+      {
+        "hour": 0,
+        "quadrant": "mixed"
+      },
+      {
+        "hour": 1,
+        "quadrant": "cheap_but_dirty"
+      },
+      {
+        "hour": 2,
+        "quadrant": "cheap_but_dirty"
+      },
+      {
+        "hour": 3,
+        "quadrant": "cheap_but_dirty"
+      },
+      {
+        "hour": 4,
+        "quadrant": "mixed"
+      },
+      {
+        "hour": 5,
+        "quadrant": "mixed"
+      },
+      {
+        "hour": 6,
+        "quadrant": "both_worth_it"
+      },
+      {
+        "hour": 7,
+        "quadrant": "both_worth_it"
+      },
+      {
+        "hour": 8,
+        "quadrant": "both_worth_it"
+      },
+      {
+        "hour": 9,
+        "quadrant": "both_worth_it"
+      },
+      {
+        "hour": 10,
+        "quadrant": "mixed"
+      },
+      {
+        "hour": 11,
+        "quadrant": "mixed"
+      },
+      {
+        "hour": 12,
+        "quadrant": "mixed"
+      },
+      {
+        "hour": 13,
+        "quadrant": "clean_but_pricey"
+      },
+      {
+        "hour": 14,
+        "quadrant": "mixed"
+      },
+      {
+        "hour": 15,
+        "quadrant": "clean_but_pricey"
+      },
+      {
+        "hour": 16,
+        "quadrant": "mixed"
+      },
+      {
+        "hour": 17,
+        "quadrant": "mixed"
+      },
+      {
+        "hour": 18,
+        "quadrant": "mixed"
+      },
+      {
+        "hour": 19,
+        "quadrant": "mixed"
+      },
+      {
+        "hour": 20,
+        "quadrant": "both_skip"
+      },
+      {
+        "hour": 21,
+        "quadrant": "both_skip"
+      },
+      {
+        "hour": 22,
+        "quadrant": "mixed"
+      },
+      {
+        "hour": 23,
+        "quadrant": "mixed"
+      }
+    ],
+    "quadrant_counts": {
+      "mixed": 13,
+      "cheap_but_dirty": 3,
+      "both_worth_it": 4,
+      "clean_but_pricey": 2,
+      "both_skip": 2
+    },
+    "divergence_pct": 20.8,
+    "note": "divergence_pct is the share of hours where the cheapest and cleanest times of day point in opposite directions -- i.e. optimizing for cost alone would not have also optimized for carbon."
+  },
   "hourly_avg": [
     {
       "hour": 0,
@@ -174,7 +283,7 @@
     },
     {
       "hour": 12,
-      "carbon_intensity": 258.9
+      "carbon_intensity": 261.8
     },
     {
       "hour": 13,
