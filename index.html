@@ -51,7 +51,7 @@
  .wv{ font-size:20px; font-weight:600; margin-top:2px; }
  .ws{ font-size:11px; color:rgba(255,255,255,.6); }
 
- #clock{ position:relative; width:100%; max-width:280px; aspect-ratio:1; margin:10px auto 8px; opacity:0; transform:scale(.94); transition:opacity .6s ease, transform .6s cubic-bezier(.2,.8,.2,1); }
+ #clock{ position:relative; width:100%; max-width:260px; aspect-ratio:1; margin:30px auto 36px; opacity:0; transform:scale(.94); transition:opacity .6s ease, transform .6s cubic-bezier(.2,.8,.2,1); }
  #clock.in{ opacity:1; transform:none; }
  #centerGlow{ position:absolute; inset:16%; border-radius:50%; filter:blur(26px); opacity:.9; transition:background .5s ease; pointer-events:none; }
  #ringGlow, #ring{ position:absolute; inset:0; border-radius:50%;
@@ -63,15 +63,15 @@
  #marker::before{ content:""; position:absolute; top:1%; left:50%; transform:translateX(-50%);
    border-left:6px solid transparent; border-right:6px solid transparent; border-top:11px solid #fff;
    filter:drop-shadow(0 0 5px rgba(255,255,255,.7)); }
- #center{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:54%; aspect-ratio:1;
+ #center{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:61%; aspect-ratio:1;
    border-radius:50%; background:rgba(9,13,22,.6); -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px);
    border:1px solid rgba(255,255,255,.12); box-shadow:inset 0 1px 0 rgba(255,255,255,.15);
-   display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; padding:6px; }
+   display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; padding:12px; text-align:center; }
  #cState{ display:flex; align-items:center; gap:5px; font-size:10px; font-weight:700; letter-spacing:.12em; }
  #cDot{ width:7px; height:7px; border-radius:50%; }
  #cDiv{ width:42px; height:1px; background:rgba(255,255,255,.16); margin:1px 0; }
  #cRange{ font-size:19px; font-weight:700; color:#fff; }
- #cSub1{ font-size:9px; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.45); }
+ #cSub1{ max-width:108px; font-size:9px; letter-spacing:.08em; line-height:1.25; text-transform:uppercase; color:rgba(255,255,255,.45); text-align:center; }
  #cSub2{ font-size:10px; color:rgba(255,255,255,.62); }
  .legend{ display:flex; justify-content:center; gap:16px; font-size:12px; color:rgba(255,255,255,.6); margin-top:8px; }
  .legend span{ display:flex; align-items:center; gap:5px; }
@@ -124,9 +124,16 @@
  .bell{ position:relative; width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); color:#fff; font-size:18px; cursor:pointer; }
  #notifDot{ position:absolute; top:8px; right:9px; width:8px; height:8px; border-radius:50%; background:#22c55e; display:none; }
  .seclabel{ font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:rgba(255,255,255,.4); text-align:center; margin:4px 0; }
- .card12{ position:absolute; font-size:10px; font-weight:600; color:rgba(255,255,255,.5); }
- .card12.cn{ top:-6px; left:50%; transform:translateX(-50%); } .card12.cs{ bottom:-6px; left:50%; transform:translateX(-50%); }
- .card12.ce{ right:-13px; top:50%; transform:translateY(-50%); } .card12.cw{ left:-13px; top:50%; transform:translateY(-50%); }
+ .clock-time{ position:absolute; font-size:10px; font-weight:700; color:rgba(255,255,255,.58); letter-spacing:.01em; white-space:nowrap; text-shadow:0 1px 10px rgba(0,0,0,.55); transform:translate(-50%,-50%); pointer-events:none; }
+ .clock-time.major{ color:rgba(255,255,255,.72); }
+ .clock-time.t0{ left:50%; top:-6%; }
+ .clock-time.t3{ left:89.6%; top:10.4%; }
+ .clock-time.t6{ left:106%; top:50%; }
+ .clock-time.t9{ left:89.6%; top:89.6%; }
+ .clock-time.t12{ left:50%; top:106%; }
+ .clock-time.t15{ left:10.4%; top:89.6%; }
+ .clock-time.t18{ left:-6%; top:50%; }
+ .clock-time.t21{ left:10.4%; top:10.4%; }
  .finder{ padding:14px 16px; margin-top:14px; }
  .finder-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
  .finder-lbl{ font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.55); display:flex; align-items:center; gap:6px; }
@@ -177,7 +184,14 @@
      <div id="cSub1">Today's clean energy window</div>
      <div id="cSub2">Best time to run appliances</div>
     </div>
-    <span class="card12 cn">12A</span><span class="card12 ce">6A</span><span class="card12 cs">12P</span><span class="card12 cw">6P</span>
+    <span class="clock-time major t0">12 AM</span>
+    <span class="clock-time t3">3 AM</span>
+    <span class="clock-time major t6">6 AM</span>
+    <span class="clock-time t9">9 AM</span>
+    <span class="clock-time major t12">12 PM</span>
+    <span class="clock-time t15">3 PM</span>
+    <span class="clock-time major t18">6 PM</span>
+    <span class="clock-time t21">9 PM</span>
    </div>
    <div class="legend"><span><span class="sw" style="background:#22c55e"></span>Clean</span><span><span class="sw" style="background:#f59e0b"></span>Moderate</span><span><span class="sw" style="background:#f97066"></span>High</span></div>
 
