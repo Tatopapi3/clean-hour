@@ -1,6 +1,6 @@
 {
   "region": "MIDA",
-  "analyzed_at": "2026-07-05T05:24:06.569934Z",
+  "analyzed_at": "2026-07-05T07:13:26.950654Z",
   "days_analyzed": 14,
   "verdict": "skip",
   "verdict_label": "Skip it",
@@ -14,10 +14,10 @@
   "max_intensity": 409.1,
   "pct_saved": 11.8,
   "kg_saved_yr": 360.9,
-  "current_hour": 5,
-  "current_intensity": 393.9,
-  "signal": "wait",
-  "signal_label": "Wait if you can",
+  "current_hour": 7,
+  "current_intensity": 380.3,
+  "signal": "moderate",
+  "signal_label": "Moderate \u2014 not ideal, not terrible",
   "hourly_avg": [
     {
       "hour": 0,
@@ -41,11 +41,11 @@
     },
     {
       "hour": 5,
-      "carbon_intensity": 393.9
+      "carbon_intensity": 397.2
     },
     {
       "hour": 6,
-      "carbon_intensity": 386.4
+      "carbon_intensity": 389.8
     },
     {
       "hour": 7,
