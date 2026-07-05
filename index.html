@@ -218,25 +218,22 @@
     <div class="glass stat2"><div class="wl">Peak dirty window</div><div id="peakWin" class="snum" style="font-size:17px;margin-top:2px">—</div><div class="ws" style="margin-top:2px">Avoid heavy usage</div></div>
    </div>
 
-   <div class="glass window">
-    <div class="vlabel">Today's cleanest window</div>
-    <div class="vbig" id="winTxt">—</div>
-    <div class="nudge" id="nudge"></div>
-    <div id="nextClean" style="display:none;margin-top:10px;padding-top:10px;border-top:0.5px solid rgba(255,255,255,.12);font-size:12px;color:rgba(255,255,255,.7);align-items:center;gap:6px;justify-content:center;">
-     <i class="ti ti-clock-bolt" style="font-size:14px;color:#7fe6a0;flex-shrink:0"></i>
-     <span id="nextCleanTxt"></span>
+   <!-- Next clean window chip (shows only when API data has next_clean_window) -->
+   <div id="nextClean" style="display:none;margin-top:12px;padding:10px 14px;background:rgba(255,255,255,.08);border:0.5px solid rgba(255,255,255,.15);border-radius:14px;font-size:12px;color:rgba(255,255,255,.75);align-items:center;gap:8px;">
+    <i class="ti ti-clock-bolt" style="font-size:15px;color:#7fe6a0;flex-shrink:0"></i>
+    <span id="nextCleanTxt"></span>
+   </div>
+   <!-- Cost vs carbon signal -->
+   <div id="priceSignal" style="display:none;margin-top:10px;padding:12px 14px;background:rgba(255,255,255,.08);border:0.5px solid rgba(255,255,255,.15);border-radius:14px;text-align:center;">
+    <div class="vlabel" style="display:flex;align-items:center;justify-content:center;gap:5px;">
+     Cost vs carbon
+     <span id="priceInfoBtn" style="cursor:pointer;opacity:.55;font-size:13px;" onclick="togglePriceInfo()">ⓘ</span>
     </div>
-    <div id="priceSignal" style="display:none;margin-top:12px;padding-top:12px;border-top:0.5px solid rgba(255,255,255,.12);">
-     <div class="vlabel" style="display:flex;align-items:center;justify-content:center;gap:5px;">
-      Cost vs carbon
-      <span id="priceInfoBtn" style="cursor:pointer;opacity:.55;font-size:13px;" onclick="togglePriceInfo()">ⓘ</span>
-     </div>
-     <div id="quadrantLabel" style="font-size:15px;font-weight:600;margin-top:3px;"></div>
-     <div id="divergenceText" style="font-size:11px;color:rgba(255,255,255,.55);margin-top:3px;"></div>
-     <div id="priceInfo" style="display:none;font-size:11px;color:rgba(255,255,255,.5);margin-top:8px;line-height:1.5;text-align:left;background:rgba(0,0,0,.2);border-radius:10px;padding:10px 12px;">
-      Shows when cheap electricity also happens to be clean. When they conflict, clean wins for the grid.<br>
+    <div id="quadrantLabel" style="font-size:15px;font-weight:600;margin-top:3px;"></div>
+    <div id="divergenceText" style="font-size:11px;color:rgba(255,255,255,.55);margin-top:3px;"></div>
+    <div id="priceInfo" style="display:none;font-size:11px;color:rgba(255,255,255,.5);margin-top:8px;line-height:1.5;text-align:left;background:rgba(0,0,0,.2);border-radius:10px;padding:10px 12px;">
+     Shows when cheap electricity also happens to be clean. When they conflict, clean wins for the grid.<br>
      Prices are 14-day averages from one representative hub per region — not real-time quotes.
-     </div>
     </div>
    </div>
   </section>
@@ -475,8 +472,8 @@ function render(d){
  document.getElementById('locName').textContent=`${nm} · ${dateStr}`;
 
  const w=d.cleanest;
- document.getElementById('winTxt').textContent = w ? `${w.start} – ${w.end}` : '—';
- document.getElementById('nudge').textContent = w ? `Charge then to cut ~${w.savings_pct}% of emissions.` : '';
+ const _wt=document.getElementById('winTxt'); if(_wt) _wt.textContent = w ? `${w.start} – ${w.end}` : '—';
+ const _nd=document.getElementById('nudge');  if(_nd) _nd.textContent = w ? `Charge then to cut ~${w.savings_pct}% of emissions.` : '';
 
  const ncw = d.next_clean_window;
  const ncwEl = document.getElementById('nextClean');
@@ -530,7 +527,7 @@ function togglePriceInfo(){
 }
 
 // ── Finder metrics (4-tile card below ZIP search) ────────────────────────────
-function renderFinderMetrics(d){
+async function renderFinderMetrics(d){
  const el = document.getElementById('finderMetrics');
  if(!el) return;
  if(!d || d.current == null){ el.style.display='none'; return; }
@@ -538,6 +535,22 @@ function renderFinderMetrics(d){
  const fill = emColor(current);
  const cf  = Math.max(0, Math.min(100, Math.round(100 - current / 6.5)));
  const ren = Math.max(0, cf - 18);
+
+ // Fetch real hourly-average price for the current hour
+ let priceTxt = '?', priceStyle = 'color:rgba(255,255,255,.28)';
+ const region = d.zone ? ZONE_TO_REGION[d.zone] : null;
+ if(region){
+  try{
+   const pr = await fetch(`/data/${region}_price_hourly.json`).then(r=>r.json());
+   const h = new Date().getHours();
+   const p = Array.isArray(pr.hourly_avg_price) ? pr.hourly_avg_price[h] : null;
+   if(p != null){
+    priceTxt = '$' + Math.round(p);
+    priceStyle = 'color:#fff';
+   }
+  } catch(e){}
+ }
+
  function miniDonut(pct, color){
   const rad=17, circ=2*Math.PI*rad, dash=(pct/100)*circ;
   return `<svg width="44" height="44" viewBox="0 0 44 44" style="display:block;margin:0 auto">
@@ -548,6 +561,7 @@ function renderFinderMetrics(d){
    <text x="22" y="26" text-anchor="middle" font-size="9" fill="white" font-weight="700">${pct}%</text>
   </svg>`;
  }
+
  el.innerHTML = `<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px;padding-top:10px;border-top:0.5px solid rgba(255,255,255,.1);">
   <div style="text-align:center;">
    <div style="border-radius:8px;padding:8px 4px 6px;background:${fill}28;border:1px solid ${fill}66;display:flex;flex-direction:column;align-items:center;min-height:52px;justify-content:center;">
@@ -558,8 +572,8 @@ function renderFinderMetrics(d){
   </div>
   <div style="text-align:center;">
    <div style="border-radius:8px;padding:8px 4px 6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);display:flex;flex-direction:column;align-items:center;min-height:52px;justify-content:center;">
-    <div style="font-size:18px;font-weight:700;color:rgba(255,255,255,.28);line-height:1">?</div>
-    <div style="font-size:7px;color:rgba(255,255,255,.35);margin-top:2px">$/MWh</div>
+    <div style="font-size:16px;font-weight:700;${priceStyle};line-height:1">${priceTxt}</div>
+    <div style="font-size:7px;color:rgba(255,255,255,.4);margin-top:2px">$/MWh</div>
    </div>
    <div style="font-size:9px;color:rgba(255,255,255,.4);margin-top:5px;line-height:1.2">Electricity price</div>
   </div>
@@ -762,7 +776,7 @@ function setZoomOutBtn(visible){
  if(btn) btn.style.display = visible ? 'flex' : 'none';
 }
 
-function showRegionPopup(zone){
+async function showRegionPopup(zone){
  const d = _regionData[zone] || {};
  const r = REGIONS.find(r => r.zone === zone);
  if(!r) return;
@@ -771,9 +785,20 @@ function showRegionPopup(zone){
  const fill = emColor(current);
  const intensityTxt = current != null ? Math.round(current) : '—';
 
- // Estimate carbon-free and renewable % from intensity (rough proxy)
  const cf  = current != null ? Math.max(0, Math.min(100, Math.round(100 - current / 6.5))) : null;
  const ren = cf != null ? Math.max(0, cf - 18) : null;
+
+ // Fetch real electricity price for this region
+ let priceTxt = '?', priceValColor = 'rgba(255,255,255,.35)';
+ const region = ZONE_TO_REGION[zone];
+ if(region){
+  try{
+   const pr = await fetch(`/data/${region}_price_hourly.json`).then(res=>res.json());
+   const h = new Date().getHours();
+   const p = Array.isArray(pr.hourly_avg_price) ? pr.hourly_avg_price[h] : null;
+   if(p != null){ priceTxt = '$' + Math.round(p); priceValColor = '#fff'; }
+  } catch(e){}
+ }
 
  const now = new Date();
  const timeStr = now.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})
@@ -782,8 +807,7 @@ function showRegionPopup(zone){
 
  function donut(pct, color){
   if(pct == null) return `<div style="width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:18px;color:rgba(255,255,255,.3)">?</div>`;
-  const rad = 22, circ = 2*Math.PI*rad;
-  const dash = (pct/100)*circ;
+  const rad = 22, circ = 2*Math.PI*rad, dash = (pct/100)*circ;
   return `<svg width="56" height="56" viewBox="0 0 56 56" style="display:block;margin:0 auto">
    <circle cx="28" cy="28" r="${rad}" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="5"/>
    <circle cx="28" cy="28" r="${rad}" fill="none" stroke="${color}" stroke-width="5"
@@ -812,7 +836,7 @@ function showRegionPopup(zone){
    </div>
    <div class="em-metric">
     <div class="em-metric-box" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);">
-     <div class="em-metric-val" style="color:rgba(255,255,255,.35)">?</div>
+     <div class="em-metric-val" style="color:${priceValColor}">${priceTxt}</div>
      <div class="em-metric-unit">$/MWh</div>
     </div>
     <div class="em-metric-lbl">Electricity price</div>
@@ -826,7 +850,7 @@ function showRegionPopup(zone){
     <div class="em-metric-lbl">Renewable</div>
    </div>
   </div>
-  <div style="font-size:9px;color:rgba(255,255,255,.28);margin-top:8px;text-align:right">Carbon-free & renewable are estimated from intensity</div>
+  <div style="font-size:9px;color:rgba(255,255,255,.28);margin-top:8px;text-align:right">Carbon-free & renewable estimated · Price is 14-day avg</div>
  </div>`;
  popup.style.display = 'block';
 }
