@@ -1,6 +1,6 @@
 {
   "region": "NYIS",
-  "analyzed_at": "2026-07-05T22:32:02.306669Z",
+  "analyzed_at": "2026-07-05T23:34:01.826522Z",
   "days_analyzed": 14,
   "verdict": "skip",
   "verdict_label": "Skip it",
@@ -14,15 +14,15 @@
   "max_intensity": 285.7,
   "pct_saved": 11.0,
   "kg_saved_yr": 235.9,
-  "current_hour": 22,
-  "current_intensity": 280.5,
+  "current_hour": 23,
+  "current_intensity": 282.3,
   "signal": "wait",
   "signal_label": "Wait if you can",
-  "current_marginal_intensity": 329.3,
+  "current_marginal_intensity": 308.1,
   "next_clean_window": {
     "hour": 5,
     "avg_intensity": 267.1,
-    "in_hours": 7
+    "in_hours": 6
   },
   "marginal_avg": [
     {
@@ -119,7 +119,7 @@
     },
     {
       "hour": 23,
-      "marginal_intensity": 304.8
+      "marginal_intensity": 308.1
     }
   ],
   "marginal_note": "Proxy method: weights fuels by their share of each hour's generation increase, not total mix. Approximates which source served incremental demand. Not a substitute for a true dispatch-order marginal model like WattTime's MOER.",
@@ -203,7 +203,7 @@
       },
       {
         "hour": 19,
-        "quadrant": "both_skip"
+        "quadrant": "mixed"
       },
       {
         "hour": 20,
@@ -223,11 +223,11 @@
       }
     ],
     "quadrant_counts": {
-      "mixed": 12,
+      "mixed": 13,
       "cheap_but_dirty": 3,
       "both_worth_it": 5,
       "clean_but_pricey": 1,
-      "both_skip": 3
+      "both_skip": 2
     },
     "divergence_pct": 16.7,
     "note": "divergence_pct is the share of hours where the cheapest and cleanest times of day point in opposite directions -- i.e. optimizing for cost alone would not have also optimized for carbon."
@@ -323,7 +323,7 @@
     },
     {
       "hour": 22,
-      "carbon_intensity": 280.5
+      "carbon_intensity": 283.0
     },
     {
       "hour": 23,
