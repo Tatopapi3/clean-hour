@@ -53,13 +53,16 @@
 
  #clock{ position:relative; width:100%; max-width:280px; aspect-ratio:1; margin:10px auto 8px; opacity:0; transform:scale(.94); transition:opacity .6s ease, transform .6s cubic-bezier(.2,.8,.2,1); }
  #clock.in{ opacity:1; transform:none; }
- #ring{ position:absolute; inset:0; border-radius:50%; filter:drop-shadow(0 12px 28px rgba(0,0,0,.42));
-   -webkit-mask:radial-gradient(circle closest-side, transparent 59%, #000 61%);
-           mask:radial-gradient(circle closest-side, transparent 59%, #000 61%); }
- #marker{ position:absolute; inset:0; transition:transform .8s cubic-bezier(.2,.8,.2,1); }
- #marker::before{ content:""; position:absolute; top:-2px; left:50%; transform:translateX(-50%);
-   border-left:6px solid transparent; border-right:6px solid transparent; border-top:10px solid #fff;
-   filter:drop-shadow(0 1px 2px rgba(0,0,0,.5)); }
+ #centerGlow{ position:absolute; inset:16%; border-radius:50%; filter:blur(26px); opacity:.9; transition:background .5s ease; pointer-events:none; }
+ #ringGlow, #ring{ position:absolute; inset:0; border-radius:50%;
+   -webkit-mask:radial-gradient(circle closest-side, transparent 68%, #000 71%, #000 96%, transparent 99%);
+           mask:radial-gradient(circle closest-side, transparent 68%, #000 71%, #000 96%, transparent 99%); }
+ #ringGlow{ filter:blur(13px); opacity:.45; pointer-events:none; }
+ #ring{ filter:drop-shadow(0 10px 24px rgba(0,0,0,.45)); }
+ #marker{ position:absolute; inset:0; transition:transform .8s cubic-bezier(.2,.8,.2,1); pointer-events:none; }
+ #marker::before{ content:""; position:absolute; top:1%; left:50%; transform:translateX(-50%);
+   border-left:6px solid transparent; border-right:6px solid transparent; border-top:11px solid #fff;
+   filter:drop-shadow(0 0 5px rgba(255,255,255,.7)); }
  #center{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:54%; aspect-ratio:1;
    border-radius:50%; background:rgba(9,13,22,.6); -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px);
    border:1px solid rgba(255,255,255,.12); box-shadow:inset 0 1px 0 rgba(255,255,255,.15);
@@ -135,6 +138,8 @@
     <div class="w glass"><div class="wl"><i class="ti ti-flame" style="font-size:12px;color:#ff6b81"></i>Dirtiest</div><div class="wv" style="color:#ff8a9a" id="dirtyH">—</div><div class="ws" id="dirtyV"></div></div>
    </div>
    <div id="clock">
+    <div id="centerGlow"></div>
+    <div id="ringGlow"></div>
     <div id="ring"></div>
     <div id="marker"></div>
     <div id="center">
@@ -229,10 +234,10 @@ let _lastData = null;
 // ── Heatmap clock helpers ─────────────────────────────────────────────────────
 // One segment = one hour. Color is relative to this grid's own 24h range:
 // green = cleanest local hours, amber = moderate, red/pink = dirtiest local hours.
-const STOPS = [[95,211,138],[232,196,80],[224,133,60],[255,107,129]];
+const STOPS = [[34,197,94],[245,158,11],[249,112,102]]; // green → amber → red (Figma)
 function heatColor(t){
  t = Math.max(0, Math.min(1, t));
- const seg = Math.min(2, Math.floor(t*3)), lt = t*3 - seg;
+ const seg = t<0.5?0:1, lt = t<0.5? t/0.5 : (t-0.5)/0.5;
  const a = STOPS[seg], b = STOPS[seg+1];
  const c = i => Math.round(a[i] + (b[i]-a[i])*lt);
  return `rgb(${c(0)},${c(1)},${c(2)})`;
@@ -298,16 +303,19 @@ function render(d){
  const stops=[];
  for(let i=0;i<24;i++) stops.push(`${heatColor((arr[i]-vmin)/span)} ${i*15}deg`);
  stops.push(`${heatColor((arr[0]-vmin)/span)} 360deg`);
- document.getElementById('ring').style.background=`conic-gradient(from 0deg, ${stops.join(', ')})`;
+ const grad=`conic-gradient(from 0deg, ${stops.join(', ')})`;
+ document.getElementById('ring').style.background=grad;
+ document.getElementById('ringGlow').style.background=grad;
  // marker → current time (clockwise from midnight-top)
  const now=new Date(), curH=now.getHours();
  document.getElementById('marker').style.transform=`rotate(${((now.getHours()+now.getMinutes()/60)*15).toFixed(1)}deg)`;
  // center state (based on the current hour's relative position)
  const tc=(arr[curH]-vmin)/span;
- const st = tc<0.34 ? ['CLEAN NOW','#5fd38a'] : tc<0.67 ? ['MODERATE','#e0a93c'] : ['DIRTY NOW','#ff6b81'];
+ const st = tc<0.34 ? ['CLEAN NOW','#22c55e','rgba(34,197,94,.32)'] : tc<0.67 ? ['MODERATE','#f59e0b','rgba(245,158,11,.28)'] : ['DIRTY NOW','#f97066','rgba(249,112,102,.28)'];
  document.getElementById('cDot').style.background=st[1];
  document.getElementById('cStateTxt').textContent=st[0];
  document.getElementById('cState').style.color=st[1];
+ document.getElementById('centerGlow').style.background=`radial-gradient(circle, ${st[2]} 8%, transparent 68%)`;
  setTimeout(()=>document.getElementById('clock').classList.add('in'),30);
 
  let mi=0,ma=0; arr.forEach((v,i)=>{if(v<arr[mi])mi=i; if(v>arr[ma])ma=i;});
