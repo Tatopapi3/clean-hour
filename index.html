@@ -450,9 +450,10 @@ async function load(params){
   if(!r.ok) throw 0;
   const d=await r.json(); d._live=true; render(d);
   if(localStorage.getItem('notif')==='1') scheduleNotif();
+  updateBell();
  }catch(e){
-  try{ render(await localFallback(params)); }
-  catch(e2){ render(SAMPLE); }
+  try{ render(await localFallback(params)); updateBell(); }
+  catch(e2){ render(SAMPLE); updateBell(); }
  }
  return true;
 }
@@ -467,10 +468,12 @@ async function toggleNotif(el){
   localStorage.setItem('notif','1');
   setHint('notifHint', _lastData ? `You'll be notified at ${fmtH(_lastData._cleanHour)}, the cleanest hour.` : 'Alerts enabled.');
   scheduleNotif();
+  updateBell();
  } else {
   el.classList.add('off');
   localStorage.setItem('notif','0');
   setHint('notifHint','');
+  updateBell();
  }
 }
 
@@ -671,6 +674,7 @@ function updateBell(){
 (function(){
  if(localStorage.getItem('notif')!=='1'){ const b=document.getElementById('remBefore'); if(b){ b.classList.add('off'); const s=document.getElementById('remBeforeSub'); if(s) s.style.display='none'; } }
  if(localStorage.getItem('remPeak')==='0'){ const p=document.getElementById('remPeak'); if(p){ p.classList.add('off'); const s=document.getElementById('remPeakSub'); if(s) s.style.display='none'; } }
+ updateBell();
 })();
 
 load('?zone=US-CAL-CISO');
