@@ -1,119 +1,119 @@
 {
   "region": "MIDA",
-  "analyzed_at": "2026-07-05T10:46:30.180917Z",
+  "analyzed_at": "2026-07-05T11:33:54.267975Z",
   "days_analyzed": 14,
   "verdict": "skip",
   "verdict_label": "Skip it",
-  "verdict_reason": "Your grid only swings 11.8% daily \u2014 timing barely matters here. Your grid is already relatively flat.",
-  "daily_swing_pct": 11.8,
+  "verdict_reason": "Your grid only swings 12.0% daily \u2014 timing barely matters here. Your grid is already relatively flat.",
+  "daily_swing_pct": 12.0,
   "cleanest_hour": 14,
   "dirtiest_hour": 3,
   "cleanest_window": "2pm\u20135pm",
   "dirtiest_window": "3am\u20136am",
-  "min_intensity": 360.9,
-  "max_intensity": 409.1,
-  "pct_saved": 11.8,
-  "kg_saved_yr": 360.9,
-  "current_hour": 10,
-  "current_intensity": 374.2,
+  "min_intensity": 361.8,
+  "max_intensity": 411.0,
+  "pct_saved": 12.0,
+  "kg_saved_yr": 368.4,
+  "current_hour": 11,
+  "current_intensity": 378.1,
   "signal": "moderate",
   "signal_label": "Moderate \u2014 not ideal, not terrible",
   "hourly_avg": [
     {
       "hour": 0,
-      "carbon_intensity": 391.3
+      "carbon_intensity": 394.1
     },
     {
       "hour": 1,
-      "carbon_intensity": 401.3
+      "carbon_intensity": 403.7
     },
     {
       "hour": 2,
-      "carbon_intensity": 405.8
+      "carbon_intensity": 407.9
     },
     {
       "hour": 3,
-      "carbon_intensity": 409.1
+      "carbon_intensity": 411.0
     },
     {
       "hour": 4,
-      "carbon_intensity": 405.2
+      "carbon_intensity": 407.9
     },
     {
       "hour": 5,
-      "carbon_intensity": 397.2
+      "carbon_intensity": 399.8
     },
     {
       "hour": 6,
-      "carbon_intensity": 389.8
+      "carbon_intensity": 392.5
     },
     {
       "hour": 7,
-      "carbon_intensity": 383.8
+      "carbon_intensity": 386.4
     },
     {
       "hour": 8,
-      "carbon_intensity": 378.3
+      "carbon_intensity": 380.8
     },
     {
       "hour": 9,
-      "carbon_intensity": 376.5
+      "carbon_intensity": 379.1
     },
     {
       "hour": 10,
-      "carbon_intensity": 374.2
+      "carbon_intensity": 380.3
     },
     {
       "hour": 11,
-      "carbon_intensity": 375.9
+      "carbon_intensity": 378.1
     },
     {
       "hour": 12,
-      "carbon_intensity": 369.6
+      "carbon_intensity": 371.2
     },
     {
       "hour": 13,
-      "carbon_intensity": 362.6
+      "carbon_intensity": 363.7
     },
     {
       "hour": 14,
-      "carbon_intensity": 360.9
+      "carbon_intensity": 361.8
     },
     {
       "hour": 15,
-      "carbon_intensity": 362.3
+      "carbon_intensity": 363.9
     },
     {
       "hour": 16,
-      "carbon_intensity": 365.9
+      "carbon_intensity": 367.7
     },
     {
       "hour": 17,
-      "carbon_intensity": 369.7
+      "carbon_intensity": 371.6
     },
     {
       "hour": 18,
-      "carbon_intensity": 373.0
+      "carbon_intensity": 375.2
     },
     {
       "hour": 19,
-      "carbon_intensity": 373.1
+      "carbon_intensity": 375.7
     },
     {
       "hour": 20,
-      "carbon_intensity": 373.4
+      "carbon_intensity": 376.1
     },
     {
       "hour": 21,
-      "carbon_intensity": 372.6
+      "carbon_intensity": 375.5
     },
     {
       "hour": 22,
-      "carbon_intensity": 375.6
+      "carbon_intensity": 378.4
     },
     {
       "hour": 23,
-      "carbon_intensity": 380.6
+      "carbon_intensity": 383.7
     }
   ]
 }
