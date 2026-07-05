@@ -211,6 +211,7 @@
      <button class="zip-btn" id="zipBtnNow" onclick="lookupZip('zipInputNow','zipHintNow','zipBtnNow')">Find</button>
     </div>
     <div class="hint" id="zipHintNow" style="padding:8px 2px 0;"></div>
+    <div id="finderMetrics" style="display:none;"></div>
    </div>
    <div class="statrow">
     <div class="glass stat2"><div class="wl">Clean hours today</div><div style="margin-top:2px"><span id="cleanHrs" class="snum">—</span> <span class="ws">/ 24 hrs</span></div><div class="bar"><div id="cleanBar"></div></div></div>
@@ -493,6 +494,7 @@ function render(d){
  document.getElementById('src').textContent = d._live ? (d.source==='eia-fallback'?'Historical · EIA':'Live · Electricity Maps') : 'Sample data';
  if(d.zone){ updateZoneLayer(d.zone, d.current); }
  renderPriceSignal(d.combined_verdict);
+ renderFinderMetrics(d);
  updateBell();
 }
 
@@ -525,6 +527,52 @@ function renderPriceSignal(cv){
 function togglePriceInfo(){
  const el = document.getElementById('priceInfo');
  if(el) el.style.display = el.style.display==='none' ? 'block' : 'none';
+}
+
+// ── Finder metrics (4-tile card below ZIP search) ────────────────────────────
+function renderFinderMetrics(d){
+ const el = document.getElementById('finderMetrics');
+ if(!el) return;
+ if(!d || d.current == null){ el.style.display='none'; return; }
+ const current = d.current;
+ const fill = emColor(current);
+ const cf  = Math.max(0, Math.min(100, Math.round(100 - current / 6.5)));
+ const ren = Math.max(0, cf - 18);
+ function miniDonut(pct, color){
+  const rad=17, circ=2*Math.PI*rad, dash=(pct/100)*circ;
+  return `<svg width="44" height="44" viewBox="0 0 44 44" style="display:block;margin:0 auto">
+   <circle cx="22" cy="22" r="${rad}" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="4"/>
+   <circle cx="22" cy="22" r="${rad}" fill="none" stroke="${color}" stroke-width="4"
+    stroke-dasharray="${dash.toFixed(1)} ${circ.toFixed(1)}" stroke-linecap="round"
+    transform="rotate(-90 22 22)"/>
+   <text x="22" y="26" text-anchor="middle" font-size="9" fill="white" font-weight="700">${pct}%</text>
+  </svg>`;
+ }
+ el.innerHTML = `<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px;padding-top:10px;border-top:0.5px solid rgba(255,255,255,.1);">
+  <div style="text-align:center;">
+   <div style="border-radius:8px;padding:8px 4px 6px;background:${fill}28;border:1px solid ${fill}66;display:flex;flex-direction:column;align-items:center;min-height:52px;justify-content:center;">
+    <div style="font-size:16px;font-weight:700;color:${fill};line-height:1">${Math.round(current)}</div>
+    <div style="font-size:7px;color:rgba(255,255,255,.55);margin-top:2px;line-height:1.2">gCO₂eq<br>kWh</div>
+   </div>
+   <div style="font-size:9px;color:rgba(255,255,255,.4);margin-top:5px;line-height:1.2">Carbon intensity</div>
+  </div>
+  <div style="text-align:center;">
+   <div style="border-radius:8px;padding:8px 4px 6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);display:flex;flex-direction:column;align-items:center;min-height:52px;justify-content:center;">
+    <div style="font-size:18px;font-weight:700;color:rgba(255,255,255,.28);line-height:1">?</div>
+    <div style="font-size:7px;color:rgba(255,255,255,.35);margin-top:2px">$/MWh</div>
+   </div>
+   <div style="font-size:9px;color:rgba(255,255,255,.4);margin-top:5px;line-height:1.2">Electricity price</div>
+  </div>
+  <div style="text-align:center;">
+   ${miniDonut(cf,'#4ade80')}
+   <div style="font-size:9px;color:rgba(255,255,255,.4);margin-top:5px;line-height:1.2">Carbon-free</div>
+  </div>
+  <div style="text-align:center;">
+   ${miniDonut(ren,'#60a5fa')}
+   <div style="font-size:9px;color:rgba(255,255,255,.4);margin-top:5px;line-height:1.2">Renewable</div>
+  </div>
+ </div>`;
+ el.style.display='block';
 }
 
 // ── Load ──────────────────────────────────────────────────────────────────────
