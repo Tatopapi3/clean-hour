@@ -95,6 +95,7 @@ function eiaFallback(zone, lat, lon) {
     marginal_hourly: marginalHourly,
     next_clean_window: raw.next_clean_window || null,
     marginal_note: raw.marginal_note,
+    combined_verdict: raw.combined_verdict || null,
     source: "eia-fallback",
   };
 }

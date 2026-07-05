@@ -130,7 +130,23 @@
      <button id="zoomOutBtn" onclick="zoomOutMap()" style="position:absolute;bottom:10px;right:10px;z-index:1000;background:rgba(10,14,24,.75);backdrop-filter:blur(12px);border:0.5px solid rgba(255,255,255,.25);color:#fff;border-radius:10px;padding:6px 11px;font-size:12px;cursor:pointer;align-items:center;gap:5px;display:none;"><i class="ti ti-zoom-out" style="font-size:14px"></i> Zoom out</button>
     </div>
    </div>
-   <div class="glass window"><div class="vlabel">Today's cleanest window</div><div class="vbig" id="winTxt">—</div><div class="nudge" id="nudge"></div></div>
+   <div class="glass window">
+    <div class="vlabel">Today's cleanest window</div>
+    <div class="vbig" id="winTxt">—</div>
+    <div class="nudge" id="nudge"></div>
+    <div id="priceSignal" style="display:none;margin-top:12px;padding-top:12px;border-top:0.5px solid rgba(255,255,255,.12);">
+     <div class="vlabel" style="display:flex;align-items:center;justify-content:center;gap:5px;">
+      Cost vs carbon
+      <span id="priceInfoBtn" style="cursor:pointer;opacity:.55;font-size:13px;" onclick="togglePriceInfo()">ⓘ</span>
+     </div>
+     <div id="quadrantLabel" style="font-size:15px;font-weight:600;margin-top:3px;"></div>
+     <div id="divergenceText" style="font-size:11px;color:rgba(255,255,255,.55);margin-top:3px;"></div>
+     <div id="priceInfo" style="display:none;font-size:11px;color:rgba(255,255,255,.5);margin-top:8px;line-height:1.5;text-align:left;background:rgba(0,0,0,.2);border-radius:10px;padding:10px 12px;">
+      Shows when cheap electricity also happens to be clean. When they conflict, clean wins for the grid.<br>
+      Prices are 14-day averages from one representative hub per region — not real-time quotes.
+     </div>
+    </div>
+   </div>
   </section>
 
   <!-- Impact tab -->
@@ -247,6 +263,39 @@ function render(d){
 
  // Keep zone overlay + marker label in sync with freshly loaded data
  if(d.zone){ updateZoneLayer(d.zone, d.current); updateMarkerLabel(d.zone, d.current); }
+
+ renderPriceSignal(d.combined_verdict);
+}
+
+// ── Cost vs carbon signal ─────────────────────────────────────────────────────
+const QUADRANT_COPY = {
+ both_worth_it:    { label:'Clean & cheap right now',  color:'#7fe6a0' },
+ both_skip:        { label:'Dirty & pricey right now', color:'#ff6b81' },
+ clean_but_pricey: { label:'Clean now, costs more',    color:'#60a5fa' },
+ cheap_but_dirty:  { label:'Cheap now, but polluting', color:'#e0a93c' },
+ mixed:            { label:'Mixed signals',             color:'rgba(255,255,255,.6)' },
+};
+
+function renderPriceSignal(cv){
+ const el = document.getElementById('priceSignal');
+ if(!el) return;
+ if(!cv || !cv.hourly_quadrant){el.style.display='none'; return;}
+ const nowH = new Date().getHours();
+ const nowQ = cv.hourly_quadrant.find(r=>r.hour===nowH);
+ const q = nowQ ? nowQ.quadrant : 'mixed';
+ const info = QUADRANT_COPY[q] || QUADRANT_COPY.mixed;
+ const worthIt = cv.quadrant_counts.both_worth_it || 0;
+ const conflict = cv.divergence_pct;
+ document.getElementById('quadrantLabel').textContent = info.label;
+ document.getElementById('quadrantLabel').style.color = info.color;
+ document.getElementById('divergenceText').textContent =
+  `${worthIt} hr${worthIt!==1?'s':''} today are clean & cheap · ${conflict}% of hours conflict`;
+ el.style.display = 'block';
+}
+
+function togglePriceInfo(){
+ const el = document.getElementById('priceInfo');
+ if(el) el.style.display = el.style.display==='none' ? 'block' : 'none';
 }
 
 // ── Load ──────────────────────────────────────────────────────────────────────
