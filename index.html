@@ -82,8 +82,9 @@
  .hero{ padding:16px 18px; margin-bottom:14px; background:rgba(95,211,138,.16); }
  .hbig{ font-size:34px; font-weight:600; color:#aef0c2; line-height:1.05; }
  .heq{ font-size:12px; color:rgba(255,255,255,.7); margin-top:3px; }
- .stats{ display:flex; gap:12px; margin:14px 0; } .stat{ flex:1; padding:12px 14px; }
- .snum{ font-size:22px; font-weight:600; }
+ .stats{ display:flex; gap:10px; margin:14px 0; } .stat{ flex:1; padding:12px 11px; min-width:0; }
+ .snum{ font-size:21px; font-weight:600; white-space:nowrap; }
+ .money{ color:#ffd36a; }
  .row{ display:flex; align-items:center; justify-content:space-between; padding:13px 16px; border-bottom:0.5px solid rgba(255,255,255,.12); }
  .row:last-child{ border-bottom:none; }
  .rl{ font-size:14px; display:flex; align-items:center; gap:11px; } .rl i{ font-size:18px; color:rgba(255,255,255,.7); }
@@ -159,6 +160,10 @@
     </div>
     <button class="bell" id="notifBell" onclick="openSheet('reminders')" aria-label="reminders"><i class="ti ti-bell"></i><span id="notifDot"></span></button>
    </div>
+   <button class="cta" id="reminderCTA" onclick="openSheet('reminders')" style="display:none; margin:2px 0 14px;">
+    <i class="ti ti-clock-hour-4"></i> Set smart energy reminder
+    <span class="cta-x" onclick="event.stopPropagation();dismissCTA()">&times;</span>
+   </button>
    <div class="seclabel">24-hour clean energy forecast</div>
    <div id="clock">
     <div id="centerGlow"></div>
@@ -193,24 +198,20 @@
     <div class="glass stat2"><div class="wl">Peak dirty window</div><div id="peakWin" class="snum" style="font-size:17px;margin-top:2px">—</div><div class="ws" style="margin-top:2px">Avoid heavy usage</div></div>
    </div>
 
-   <button class="cta" id="reminderCTA" onclick="openSheet('reminders')" style="display:none;">
-    <i class="ti ti-clock-hour-4"></i> Set smart energy reminder
-    <span class="cta-x" onclick="event.stopPropagation();dismissCTA()">&times;</span>
-   </button>
   </section>
 
   <!-- Impact tab -->
   <section class="view" id="v-impact">
    <div class="nav"><h1>Your impact</h1></div>
-   <div class="glass hero"><div class="vlabel">CO₂ saved this month</div><div class="hbig">8.2 kg</div><div class="heq">≈ 33 km not driven · 14 clean charges</div></div>
+   <div class="glass hero"><div class="vlabel">CO₂ saved this month</div><div class="hbig">8.2 kg</div><div class="heq">≈ 33 km not driven · $18.40 estimated saved</div></div>
    <div class="glass" style="padding:14px 16px;"><div class="vlabel" style="margin-bottom:8px;">Saved per week · last 6 weeks</div>
     <svg viewBox="0 0 240 70" width="100%" height="70"><g fill="#5fd38a"><rect x="6" y="42" width="28" height="24" rx="4"/><rect x="44" y="34" width="28" height="32" rx="4"/><rect x="82" y="46" width="28" height="20" rx="4"/><rect x="120" y="24" width="28" height="42" rx="4"/><rect x="158" y="30" width="28" height="36" rx="4"/><rect x="196" y="14" width="28" height="52" rx="4"/></g></svg></div>
-   <div class="stats"><div class="stat glass"><div class="wl">Clean charges</div><div class="snum">14</div></div><div class="stat glass"><div class="wl">In clean window</div><div class="snum">78%</div></div></div>
+   <div class="stats"><div class="stat glass"><div class="wl">Clean charges</div><div class="snum">14</div></div><div class="stat glass"><div class="wl">In window</div><div class="snum">78%</div></div><div class="stat glass"><div class="wl">Est. saved</div><div class="snum money">$18</div></div></div>
    <div class="grouphdr">Recent clean charges</div>
    <div class="glass">
-    <div class="row"><div><div style="font-size:13px">Today</div><div class="ws">1:10–2:40pm</div></div><div style="color:#7fe6a0;font-weight:600">−0.7 kg</div></div>
-    <div class="row"><div><div style="font-size:13px">Yesterday</div><div class="ws">12:30–2:00pm</div></div><div style="color:#7fe6a0;font-weight:600">−0.6 kg</div></div>
-    <div class="row"><div><div style="font-size:13px">Mon</div><div class="ws">11:50am–1:20pm</div></div><div style="color:#7fe6a0;font-weight:600">−0.8 kg</div></div>
+    <div class="row"><div><div style="font-size:13px">Today</div><div class="ws">1:10–2:40pm</div></div><div style="text-align:right"><div style="color:#7fe6a0;font-weight:600">−0.7 kg</div><div class="ws money">+$1.55</div></div></div>
+    <div class="row"><div><div style="font-size:13px">Yesterday</div><div class="ws">12:30–2:00pm</div></div><div style="text-align:right"><div style="color:#7fe6a0;font-weight:600">−0.6 kg</div><div class="ws money">+$1.40</div></div></div>
+    <div class="row"><div><div style="font-size:13px">Mon</div><div class="ws">11:50am–1:20pm</div></div><div style="text-align:right"><div style="color:#7fe6a0;font-weight:600">−0.8 kg</div><div class="ws money">+$1.80</div></div></div>
    </div>
   </section>
 
