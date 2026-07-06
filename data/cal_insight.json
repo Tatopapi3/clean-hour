@@ -1,125 +1,125 @@
 {
   "region": "CAL",
-  "analyzed_at": "2026-07-06T09:39:22.553566Z",
+  "analyzed_at": "2026-07-06T11:42:11.798526Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
-  "verdict_reason": "Your grid swings 56.1% daily \u2014 charging at the cleanest hour instead of the dirtiest cuts roughly 45% of your charging emissions.",
-  "daily_swing_pct": 56.1,
-  "cleanest_hour": 20,
+  "verdict_reason": "Your grid swings 56.5% daily \u2014 charging at the cleanest hour instead of the dirtiest cuts roughly 45% of your charging emissions.",
+  "daily_swing_pct": 56.5,
+  "cleanest_hour": 19,
   "dirtiest_hour": 4,
-  "cleanest_window": "8pm\u201311pm",
+  "cleanest_window": "7pm\u201310pm",
   "dirtiest_window": "4am\u20137am",
-  "min_intensity": 81.6,
-  "max_intensity": 185.9,
-  "pct_saved": 56.1,
-  "kg_saved_yr": 781.0,
-  "current_hour": 9,
-  "current_intensity": 132.8,
-  "signal": "wait",
-  "signal_label": "Wait if you can",
-  "current_marginal_intensity": 87.0,
+  "min_intensity": 81.3,
+  "max_intensity": 186.9,
+  "pct_saved": 56.5,
+  "kg_saved_yr": 790.7,
+  "current_hour": 11,
+  "current_intensity": 121.2,
+  "signal": "moderate",
+  "signal_label": "Moderate \u2014 not ideal, not terrible",
+  "current_marginal_intensity": 164.4,
   "next_clean_window": {
     "hour": 15,
-    "avg_intensity": 87.1,
-    "in_hours": 6
+    "avg_intensity": 86.6,
+    "in_hours": 4
   },
   "marginal_avg": [
     {
       "hour": 0,
-      "marginal_intensity": 193.4
+      "marginal_intensity": 198.5
     },
     {
       "hour": 1,
-      "marginal_intensity": 186.7
+      "marginal_intensity": 186.4
     },
     {
       "hour": 2,
-      "marginal_intensity": 193.4
+      "marginal_intensity": 196.5
     },
     {
       "hour": 3,
-      "marginal_intensity": 256.4
+      "marginal_intensity": 256.8
     },
     {
       "hour": 4,
-      "marginal_intensity": 252.1
+      "marginal_intensity": 255.5
     },
     {
       "hour": 5,
-      "marginal_intensity": 89.4
+      "marginal_intensity": 95.1
     },
     {
       "hour": 6,
-      "marginal_intensity": 124.5
+      "marginal_intensity": 130.8
     },
     {
       "hour": 7,
-      "marginal_intensity": 105.4
+      "marginal_intensity": 99.9
     },
     {
       "hour": 8,
-      "marginal_intensity": 231.8
+      "marginal_intensity": 247.9
     },
     {
       "hour": 9,
-      "marginal_intensity": 87.0
+      "marginal_intensity": 81.5
     },
     {
       "hour": 10,
-      "marginal_intensity": 78.3
+      "marginal_intensity": 78.1
     },
     {
       "hour": 11,
-      "marginal_intensity": 162.6
+      "marginal_intensity": 164.4
     },
     {
       "hour": 12,
-      "marginal_intensity": 232.1
+      "marginal_intensity": 236.9
     },
     {
       "hour": 13,
-      "marginal_intensity": 243.9
+      "marginal_intensity": 244.4
     },
     {
       "hour": 14,
-      "marginal_intensity": 63.4
+      "marginal_intensity": 62.6
     },
     {
       "hour": 15,
-      "marginal_intensity": 54.3
+      "marginal_intensity": 54.0
     },
     {
       "hour": 16,
-      "marginal_intensity": 55.7
+      "marginal_intensity": 56.2
     },
     {
       "hour": 17,
-      "marginal_intensity": 55.3
+      "marginal_intensity": 54.8
     },
     {
       "hour": 18,
-      "marginal_intensity": 64.0
+      "marginal_intensity": 65.4
     },
     {
       "hour": 19,
-      "marginal_intensity": 132.6
+      "marginal_intensity": 135.5
     },
     {
       "hour": 20,
-      "marginal_intensity": 173.9
+      "marginal_intensity": 182.3
     },
     {
       "hour": 21,
-      "marginal_intensity": 216.9
+      "marginal_intensity": 220.2
     },
     {
       "hour": 22,
-      "marginal_intensity": 246.6
+      "marginal_intensity": 246.3
     },
     {
       "hour": 23,
-      "marginal_intensity": 226.4
+      "marginal_intensity": 222.3
     }
   ],
   "marginal_note": "Proxy method: weights fuels by their share of each hour's generation increase, not total mix. Approximates which source served incremental demand. Not a substitute for a true dispatch-order marginal model like WattTime's MOER.",
@@ -234,99 +234,99 @@
   "hourly_avg": [
     {
       "hour": 0,
-      "carbon_intensity": 88.1
+      "carbon_intensity": 89.6
     },
     {
       "hour": 1,
-      "carbon_intensity": 94.2
+      "carbon_intensity": 96.6
     },
     {
       "hour": 2,
-      "carbon_intensity": 111.0
+      "carbon_intensity": 114.1
     },
     {
       "hour": 3,
-      "carbon_intensity": 168.5
+      "carbon_intensity": 170.0
     },
     {
       "hour": 4,
-      "carbon_intensity": 185.9
+      "carbon_intensity": 186.9
     },
     {
       "hour": 5,
-      "carbon_intensity": 180.9
+      "carbon_intensity": 181.8
     },
     {
       "hour": 6,
-      "carbon_intensity": 168.3
+      "carbon_intensity": 169.4
     },
     {
       "hour": 7,
-      "carbon_intensity": 156.3
+      "carbon_intensity": 157.7
     },
     {
       "hour": 8,
-      "carbon_intensity": 145.5
+      "carbon_intensity": 148.2
     },
     {
       "hour": 9,
-      "carbon_intensity": 132.8
+      "carbon_intensity": 134.0
     },
     {
       "hour": 10,
-      "carbon_intensity": 124.3
+      "carbon_intensity": 124.6
     },
     {
       "hour": 11,
-      "carbon_intensity": 121.8
+      "carbon_intensity": 121.2
     },
     {
       "hour": 12,
-      "carbon_intensity": 124.4
+      "carbon_intensity": 124.0
     },
     {
       "hour": 13,
-      "carbon_intensity": 132.3
+      "carbon_intensity": 131.8
     },
     {
       "hour": 14,
-      "carbon_intensity": 114.7
+      "carbon_intensity": 114.1
     },
     {
       "hour": 15,
-      "carbon_intensity": 87.1
+      "carbon_intensity": 86.6
     },
     {
       "hour": 16,
-      "carbon_intensity": 84.5
+      "carbon_intensity": 83.8
     },
     {
       "hour": 17,
-      "carbon_intensity": 83.4
+      "carbon_intensity": 82.7
     },
     {
       "hour": 18,
-      "carbon_intensity": 82.0
+      "carbon_intensity": 81.5
     },
     {
       "hour": 19,
-      "carbon_intensity": 81.8
+      "carbon_intensity": 81.3
     },
     {
       "hour": 20,
-      "carbon_intensity": 81.6
+      "carbon_intensity": 81.3
     },
     {
       "hour": 21,
-      "carbon_intensity": 82.2
+      "carbon_intensity": 82.1
     },
     {
       "hour": 22,
-      "carbon_intensity": 83.1
+      "carbon_intensity": 83.3
     },
     {
       "hour": 23,
-      "carbon_intensity": 84.7
+      "carbon_intensity": 85.1
     }
   ]
 }
