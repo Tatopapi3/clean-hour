@@ -50,4 +50,5 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/
           git diff --cached --quiet || git commit -m "chore: update grid data for all regions $(date -u '+%Y-%m-%d %H:%M UTC')"
+          git pull --rebase origin main
           git push
