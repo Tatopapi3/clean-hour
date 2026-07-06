@@ -1,6 +1,6 @@
 {
   "region": "CAL",
-  "analyzed_at": "2026-07-06T22:38:43.152759Z",
+  "analyzed_at": "2026-07-06T23:36:19.217937Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
@@ -14,15 +14,15 @@
   "max_intensity": 187.3,
   "pct_saved": 56.7,
   "kg_saved_yr": 795.2,
-  "current_hour": 22,
-  "current_intensity": 83.3,
+  "current_hour": 23,
+  "current_intensity": 84.8,
   "signal": "use_now",
   "signal_label": "Good time to use power",
-  "current_marginal_intensity": 242.7,
+  "current_marginal_intensity": 229.3,
   "next_clean_window": {
-    "hour": 23,
-    "avg_intensity": 84.8,
-    "in_hours": 1
+    "hour": 15,
+    "avg_intensity": 87.9,
+    "in_hours": 16
   },
   "marginal_avg": [
     {
@@ -119,7 +119,7 @@
     },
     {
       "hour": 23,
-      "marginal_intensity": 228.6
+      "marginal_intensity": 229.3
     }
   ],
   "marginal_note": "Proxy method: weights fuels by their share of each hour's generation increase, not total mix. Approximates which source served incremental demand. Not a substitute for a true dispatch-order marginal model like WattTime's MOER.",
@@ -322,7 +322,7 @@
     },
     {
       "hour": 22,
-      "carbon_intensity": 83.3
+      "carbon_intensity": 82.2
     },
     {
       "hour": 23,
