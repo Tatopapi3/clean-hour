@@ -300,6 +300,8 @@
    <button class="iconbtn" onclick="closeSheet()"><i class="ti ti-x"></i></button></div>
   <div style="position:relative;">
    <div id="map"></div>
+   <!-- Floating intensity badge — shown when zoomed into a city -->
+   <div id="mapIntensityBadge" style="display:none;position:absolute;top:10px;left:10px;z-index:1000;background:rgba(10,14,24,.88);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:9px 13px;pointer-events:none;"></div>
    <button id="zoomOutBtn" onclick="zoomOutMap()" style="position:absolute;bottom:10px;right:10px;z-index:1000;background:rgba(10,14,24,.85);backdrop-filter:blur(12px);border:0.5px solid rgba(255,255,255,.25);color:#fff;border-radius:10px;padding:6px 11px;font-size:12px;cursor:pointer;align-items:center;gap:5px;display:none;"><i class="ti ti-zoom-out" style="font-size:14px"></i> Zoom out</button>
    <!-- EM-style legend overlay -->
    <div style="position:absolute;bottom:10px;left:10px;z-index:1000;background:rgba(10,14,24,.82);backdrop-filter:blur(10px);border:0.5px solid rgba(255,255,255,.18);border-radius:10px;padding:6px 10px;">
@@ -715,7 +717,34 @@ function updateZoneLayer(zone, current){
  const layer = _zoneLayers[zone];
  if(!layer) return;
  const fill = emColor(current);
- layer.setStyle({ color: fill, fillColor: fill, fillOpacity: 0.55, weight: 1.5, opacity: 0.85 });
+ const zoomed = _map && _map.getZoom() >= 8;
+ layer.setStyle({
+  color: fill, fillColor: fill,
+  fillOpacity: zoomed ? 0 : 0.55,
+  opacity:     zoomed ? 0 : 0.85,
+  weight: 1.5
+ });
+}
+
+function updateIntensityBadge(){
+ const badge = document.getElementById('mapIntensityBadge');
+ if(!badge || !_map) return;
+ const zoomed = _map.getZoom() >= 8;
+ if(!zoomed || !_activeZone){ badge.style.display='none'; return; }
+ const d = _regionData[_activeZone] || {};
+ if(d.current == null){ badge.style.display='none'; return; }
+ const fill = emColor(d.current);
+ const r = REGIONS.find(r => r.zone === _activeZone);
+ const liveStr = (d.source==='eia-fallback'||!d._live) ? '14-day avg' : 'Live';
+ badge.style.borderColor = fill+'88';
+ badge.innerHTML = `<div style="display:flex;align-items:center;gap:9px;">
+  <div style="width:11px;height:11px;border-radius:50%;background:${fill};box-shadow:0 0 8px ${fill};flex-shrink:0;"></div>
+  <div>
+   <div style="font-size:13px;font-weight:600;color:#fff;line-height:1.2">${r ? r.label : ''} &nbsp;<span style="color:${fill}">${Math.round(d.current)}</span> <span style="font-size:10px;color:rgba(255,255,255,.55)">gCO₂eq/kWh</span></div>
+   <div style="font-size:10px;color:rgba(255,255,255,.45);margin-top:1px;">${liveStr} · tap Zoom out to see all regions</div>
+  </div>
+ </div>`;
+ badge.style.display = 'block';
 }
 
 function initMap(){
@@ -739,6 +768,22 @@ function initMap(){
   layer.on('mouseover', () => { if(_activeZone !== r.zone) layer.setStyle({ fillOpacity: 0.65 }); });
   layer.on('mouseout',  () => { if(_activeZone !== r.zone) layer.setStyle({ fillOpacity: 0.55 }); });
   _zoneLayers[r.zone] = layer;
+ });
+
+ // Fade polygons out at city zoom; show floating intensity badge instead
+ _map.on('zoomend', () => {
+  const zoomed = _map.getZoom() >= 8;
+  Object.entries(_zoneLayers).forEach(([zone, layer]) => {
+   const d = _regionData[zone] || {};
+   const fill = emColor(d.current);
+   layer.setStyle({
+    color: fill, fillColor: fill,
+    fillOpacity: zoomed ? 0 : 0.55,
+    opacity:     zoomed ? 0 : (zone===_activeZone ? 1 : 0.85),
+    weight:      zone===_activeZone ? 3 : 1.5
+   });
+  });
+  updateIntensityBadge();
  });
 
  // Fetch all regions in parallel to color overlays
@@ -877,7 +922,13 @@ async function lookupZip(inputId, hintId, btnId){
   setHint(hint, 'Grid for ' + CITY);
   await load(`?lat=${lat.toFixed(3)}&lon=${lon.toFixed(3)}`);
   openSheet('map');
-  setTimeout(() => { if(_map) _map.flyTo([lat, lon], 11, { animate:true, duration:1.6 }); }, 460);
+  setTimeout(() => {
+   if(_map){
+    _map.flyTo([lat, lon], 12, { animate:true, duration:1.8 });
+    // badge updates via zoomend handler; trigger it after fly settles
+    setTimeout(updateIntensityBadge, 2200);
+   }
+  }, 460);
   setZoomOutBtn(true);
  }catch(e){ setHint(hint,'ZIP not found. Try another code.'); }
  finally{ if(btn) btn.disabled = false; }
