@@ -300,6 +300,8 @@
    <button class="iconbtn" onclick="closeSheet()"><i class="ti ti-x"></i></button></div>
   <div style="position:relative;">
    <div id="map"></div>
+   <!-- Carbon intensity color wash over the map at city zoom -->
+   <div id="mapTint" style="position:absolute;inset:0;z-index:450;pointer-events:none;opacity:0;transition:background-color .7s,opacity .7s;border-radius:16px;mix-blend-mode:color;"></div>
    <!-- Floating intensity badge — shown when zoomed into a city -->
    <div id="mapIntensityBadge" style="display:none;position:absolute;top:10px;left:10px;z-index:1000;background:rgba(10,14,24,.88);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:9px 13px;pointer-events:none;"></div>
    <button id="zoomOutBtn" onclick="zoomOutMap()" style="position:absolute;bottom:10px;right:10px;z-index:1000;background:rgba(10,14,24,.85);backdrop-filter:blur(12px);border:0.5px solid rgba(255,255,255,.25);color:#fff;border-radius:10px;padding:6px 11px;font-size:12px;cursor:pointer;align-items:center;gap:5px;display:none;"><i class="ti ti-zoom-out" style="font-size:14px"></i> Zoom out</button>
@@ -493,7 +495,7 @@ function render(d){
  }
 
  document.getElementById('src').textContent = d._live ? (d.source==='eia-fallback'?'Historical · EIA':'Live · Electricity Maps') : 'Sample data';
- if(d.zone){ updateZoneLayer(d.zone, d.current); }
+ if(d.zone){ if(typeof _activeZone!=='undefined') _activeZone=d.zone; updateZoneLayer(d.zone, d.current); }
  renderPriceSignal(d.combined_verdict);
  renderFinderMetrics(d);
  updateBell();
@@ -728,23 +730,42 @@ function updateZoneLayer(zone, current){
 
 function updateIntensityBadge(){
  const badge = document.getElementById('mapIntensityBadge');
- if(!badge || !_map) return;
+ const tint  = document.getElementById('mapTint');
+ if(!_map) return;
  const zoomed = _map.getZoom() >= 8;
- if(!zoomed || !_activeZone){ badge.style.display='none'; return; }
+
+ if(!zoomed || !_activeZone){
+  if(badge) badge.style.display='none';
+  if(tint)  tint.style.opacity='0';
+  return;
+ }
  const d = _regionData[_activeZone] || {};
- if(d.current == null){ badge.style.display='none'; return; }
+ if(d.current == null){
+  if(badge) badge.style.display='none';
+  if(tint)  tint.style.opacity='0';
+  return;
+ }
  const fill = emColor(d.current);
  const r = REGIONS.find(r => r.zone === _activeZone);
  const liveStr = (d.source==='eia-fallback'||!d._live) ? '14-day avg' : 'Live';
- badge.style.borderColor = fill+'88';
- badge.innerHTML = `<div style="display:flex;align-items:center;gap:9px;">
-  <div style="width:11px;height:11px;border-radius:50%;background:${fill};box-shadow:0 0 8px ${fill};flex-shrink:0;"></div>
-  <div>
-   <div style="font-size:13px;font-weight:600;color:#fff;line-height:1.2">${r ? r.label : ''} &nbsp;<span style="color:${fill}">${Math.round(d.current)}</span> <span style="font-size:10px;color:rgba(255,255,255,.55)">gCO₂eq/kWh</span></div>
-   <div style="font-size:10px;color:rgba(255,255,255,.45);margin-top:1px;">${liveStr} · tap Zoom out to see all regions</div>
-  </div>
- </div>`;
- badge.style.display = 'block';
+
+ // Tint the map tiles with the intensity color (subtle wash)
+ if(tint){
+  tint.style.backgroundColor = fill;
+  tint.style.opacity = '0.28';
+ }
+
+ if(badge){
+  badge.style.borderColor = fill+'88';
+  badge.innerHTML = `<div style="display:flex;align-items:center;gap:9px;">
+   <div style="width:11px;height:11px;border-radius:50%;background:${fill};box-shadow:0 0 8px ${fill};flex-shrink:0;"></div>
+   <div>
+    <div style="font-size:13px;font-weight:600;color:#fff;line-height:1.2">${r ? r.label : ''} &nbsp;<span style="color:${fill}">${Math.round(d.current)}</span> <span style="font-size:10px;color:rgba(255,255,255,.55)">gCO₂eq/kWh</span></div>
+    <div style="font-size:10px;color:rgba(255,255,255,.45);margin-top:1px;">${liveStr} · tap Zoom out to see all regions</div>
+   </div>
+  </div>`;
+  badge.style.display = 'block';
+ }
 }
 
 function initMap(){
