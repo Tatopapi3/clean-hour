@@ -1,6 +1,6 @@
 {
   "region": "NYIS",
-  "analyzed_at": "2026-07-08T14:57:56.012219Z",
+  "analyzed_at": "2026-07-08T15:55:24.325403Z",
   "days_analyzed": 14,
   "verdict": "skip",
   "verdict_label": "Skip it",
@@ -14,15 +14,15 @@
   "max_intensity": 290.4,
   "pct_saved": 9.8,
   "kg_saved_yr": 214.2,
-  "current_hour": 14,
-  "current_intensity": 272.1,
+  "current_hour": 15,
+  "current_intensity": 272.3,
   "signal": "use_now",
   "signal_label": "Good time to use power",
-  "current_marginal_intensity": 347.0,
+  "current_marginal_intensity": 260.5,
   "next_clean_window": {
     "hour": 6,
     "avg_intensity": 268.4,
-    "in_hours": 16
+    "in_hours": 15
   },
   "marginal_avg": [
     {
@@ -87,7 +87,7 @@
     },
     {
       "hour": 15,
-      "marginal_intensity": 242.4
+      "marginal_intensity": 260.5
     },
     {
       "hour": 16,
@@ -187,7 +187,7 @@
       },
       {
         "hour": 15,
-        "quadrant": "mixed"
+        "quadrant": "clean_but_pricey"
       },
       {
         "hour": 16,
@@ -223,13 +223,13 @@
       }
     ],
     "quadrant_counts": {
-      "mixed": 14,
+      "mixed": 13,
       "cheap_but_dirty": 3,
       "both_worth_it": 4,
-      "clean_but_pricey": 1,
+      "clean_but_pricey": 2,
       "both_skip": 2
     },
-    "divergence_pct": 16.7,
+    "divergence_pct": 20.8,
     "note": "divergence_pct is the share of hours where the cheapest and cleanest times of day point in opposite directions -- i.e. optimizing for cost alone would not have also optimized for carbon."
   },
   "hourly_avg": [
@@ -291,7 +291,7 @@
     },
     {
       "hour": 14,
-      "carbon_intensity": 272.1
+      "carbon_intensity": 274.7
     },
     {
       "hour": 15,
