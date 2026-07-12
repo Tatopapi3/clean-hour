@@ -1,45 +1,45 @@
 {
   "region": "NYIS",
-  "analyzed_at": "2026-07-12T00:06:38.479014Z",
+  "analyzed_at": "2026-07-12T03:54:04.279782Z",
   "days_analyzed": 14,
   "verdict": "skip",
   "verdict_label": "Skip it",
-  "verdict_reason": "Your grid only swings 9.4% daily \u2014 timing barely matters here. Your grid is already relatively flat.",
-  "daily_swing_pct": 9.4,
+  "verdict_reason": "Your grid only swings 9.9% daily \u2014 timing barely matters here. Your grid is already relatively flat.",
+  "daily_swing_pct": 9.9,
   "cleanest_hour": 8,
   "dirtiest_hour": 1,
   "cleanest_window": "8am\u201311am",
   "dirtiest_window": "1am\u20134am",
   "min_intensity": 268.0,
-  "max_intensity": 295.9,
-  "pct_saved": 9.4,
-  "kg_saved_yr": 208.9,
-  "current_hour": 0,
-  "current_intensity": 295.0,
+  "max_intensity": 297.6,
+  "pct_saved": 9.9,
+  "kg_saved_yr": 221.6,
+  "current_hour": 3,
+  "current_intensity": 294.6,
   "signal": "wait",
   "signal_label": "Wait if you can",
-  "current_marginal_intensity": 262.1,
+  "current_marginal_intensity": 69.2,
   "next_clean_window": {
     "hour": 6,
     "avg_intensity": 273.7,
-    "in_hours": 6
+    "in_hours": 3
   },
   "marginal_avg": [
     {
       "hour": 0,
-      "marginal_intensity": 262.1
+      "marginal_intensity": 258.4
     },
     {
       "hour": 1,
-      "marginal_intensity": 120.0
+      "marginal_intensity": 90.0
     },
     {
       "hour": 2,
-      "marginal_intensity": 78.4
+      "marginal_intensity": 53.4
     },
     {
       "hour": 3,
-      "marginal_intensity": 65.0
+      "marginal_intensity": 69.2
     },
     {
       "hour": 4,
@@ -235,15 +235,15 @@
   "hourly_avg": [
     {
       "hour": 0,
-      "carbon_intensity": 295.0
+      "carbon_intensity": 297.2
     },
     {
       "hour": 1,
-      "carbon_intensity": 295.9
+      "carbon_intensity": 297.6
     },
     {
       "hour": 2,
-      "carbon_intensity": 295.3
+      "carbon_intensity": 296.6
     },
     {
       "hour": 3,
@@ -327,7 +327,7 @@
     },
     {
       "hour": 23,
-      "carbon_intensity": 294.0
+      "carbon_intensity": 296.2
     }
   ]
 }
