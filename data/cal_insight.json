@@ -1,6 +1,6 @@
 {
   "region": "CAL",
-  "analyzed_at": "2026-07-11T23:01:27.502513Z",
+  "analyzed_at": "2026-07-12T00:06:38.412914Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
@@ -14,15 +14,15 @@
   "max_intensity": 195.8,
   "pct_saved": 57.3,
   "kg_saved_yr": 840.2,
-  "current_hour": 23,
-  "current_intensity": 88.2,
-  "signal": "use_now",
-  "signal_label": "Good time to use power",
-  "current_marginal_intensity": 228.5,
+  "current_hour": 0,
+  "current_intensity": 93.2,
+  "signal": "moderate",
+  "signal_label": "Moderate \u2014 not ideal, not terrible",
+  "current_marginal_intensity": 204.4,
   "next_clean_window": {
     "hour": 15,
     "avg_intensity": 91.1,
-    "in_hours": 16
+    "in_hours": 15
   },
   "marginal_avg": [
     {
@@ -119,7 +119,7 @@
     },
     {
       "hour": 23,
-      "marginal_intensity": 228.5
+      "marginal_intensity": 223.2
     }
   ],
   "marginal_note": "Proxy method: weights fuels by their share of each hour's generation increase, not total mix. Approximates which source served incremental demand. Not a substitute for a true dispatch-order marginal model like WattTime's MOER.",
@@ -187,11 +187,11 @@
       },
       {
         "hour": 15,
-        "quadrant": "mixed"
+        "quadrant": "both_worth_it"
       },
       {
         "hour": 16,
-        "quadrant": "both_worth_it"
+        "quadrant": "mixed"
       },
       {
         "hour": 17,
@@ -322,7 +322,7 @@
     },
     {
       "hour": 22,
-      "carbon_intensity": 85.3
+      "carbon_intensity": 86.5
     },
     {
       "hour": 23,
