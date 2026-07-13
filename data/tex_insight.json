@@ -1,6 +1,6 @@
 {
   "region": "TEX",
-  "analyzed_at": "2026-07-13T07:05:59.061202Z",
+  "analyzed_at": "2026-07-13T10:41:22.379280Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
@@ -14,15 +14,15 @@
   "max_intensity": 378.3,
   "pct_saved": 36.8,
   "kg_saved_yr": 1043.1,
-  "current_hour": 7,
-  "current_intensity": 356.1,
-  "signal": "wait",
-  "signal_label": "Wait if you can",
-  "current_marginal_intensity": 49.9,
+  "current_hour": 10,
+  "current_intensity": 352.9,
+  "signal": "moderate",
+  "signal_label": "Moderate \u2014 not ideal, not terrible",
+  "current_marginal_intensity": 131.7,
   "next_clean_window": {
     "hour": 14,
     "avg_intensity": 262.2,
-    "in_hours": 7
+    "in_hours": 4
   },
   "marginal_avg": [
     {
@@ -55,19 +55,19 @@
     },
     {
       "hour": 7,
-      "marginal_intensity": 49.9
+      "marginal_intensity": 53.4
     },
     {
       "hour": 8,
-      "marginal_intensity": 41.9
+      "marginal_intensity": 44.8
     },
     {
       "hour": 9,
-      "marginal_intensity": 185.8
+      "marginal_intensity": 198.2
     },
     {
       "hour": 10,
-      "marginal_intensity": 125.4
+      "marginal_intensity": 131.7
     },
     {
       "hour": 11,
@@ -159,7 +159,7 @@
       },
       {
         "hour": 8,
-        "quadrant": "mixed"
+        "quadrant": "cheap_but_dirty"
       },
       {
         "hour": 9,
@@ -171,7 +171,7 @@
       },
       {
         "hour": 11,
-        "quadrant": "cheap_but_dirty"
+        "quadrant": "mixed"
       },
       {
         "hour": 12,
@@ -257,19 +257,19 @@
     },
     {
       "hour": 6,
-      "carbon_intensity": 364.2
+      "carbon_intensity": 369.8
     },
     {
       "hour": 7,
-      "carbon_intensity": 356.1
+      "carbon_intensity": 362.8
     },
     {
       "hour": 8,
-      "carbon_intensity": 353.0
+      "carbon_intensity": 360.8
     },
     {
       "hour": 9,
-      "carbon_intensity": 352.6
+      "carbon_intensity": 360.5
     },
     {
       "hour": 10,
