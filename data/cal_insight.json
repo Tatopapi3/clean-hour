@@ -1,6 +1,6 @@
 {
   "region": "CAL",
-  "analyzed_at": "2026-07-14T22:09:05.642018Z",
+  "analyzed_at": "2026-07-15T00:02:37.248341Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
@@ -14,15 +14,15 @@
   "max_intensity": 215.8,
   "pct_saved": 52.5,
   "kg_saved_yr": 848.4,
-  "current_hour": 22,
-  "current_intensity": 104.0,
+  "current_hour": 0,
+  "current_intensity": 115.4,
   "signal": "use_now",
   "signal_label": "Good time to use power",
-  "current_marginal_intensity": 220.0,
+  "current_marginal_intensity": 213.0,
   "next_clean_window": {
-    "hour": 23,
-    "avg_intensity": 108.7,
-    "in_hours": 1
+    "hour": 16,
+    "avg_intensity": 108.0,
+    "in_hours": 16
   },
   "marginal_avg": [
     {
@@ -119,7 +119,7 @@
     },
     {
       "hour": 23,
-      "marginal_intensity": 227.1
+      "marginal_intensity": 229.6
     }
   ],
   "marginal_note": "Proxy method: weights fuels by their share of each hour's generation increase, not total mix. Approximates which source served incremental demand. Not a substitute for a true dispatch-order marginal model like WattTime's MOER.",
@@ -151,7 +151,7 @@
       },
       {
         "hour": 6,
-        "quadrant": "mixed"
+        "quadrant": "cheap_but_dirty"
       },
       {
         "hour": 7,
@@ -191,7 +191,7 @@
       },
       {
         "hour": 16,
-        "quadrant": "both_worth_it"
+        "quadrant": "mixed"
       },
       {
         "hour": 17,
@@ -225,10 +225,9 @@
     "quadrant_counts": {
       "clean_but_pricey": 8,
       "mixed": 11,
-      "cheap_but_dirty": 4,
-      "both_worth_it": 1
+      "cheap_but_dirty": 5
     },
-    "divergence_pct": 50.0,
+    "divergence_pct": 54.2,
     "note": "divergence_pct is the share of hours where the cheapest and cleanest times of day point in opposite directions -- i.e. optimizing for cost alone would not have also optimized for carbon."
   },
   "hourly_avg": [
@@ -322,7 +321,7 @@
     },
     {
       "hour": 22,
-      "carbon_intensity": 104.0
+      "carbon_intensity": 106.0
     },
     {
       "hour": 23,

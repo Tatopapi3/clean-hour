@@ -1,29 +1,9 @@
 {
   "region": "CAL",
-  "fetched_at": "2026-07-14T22:01:29.954669Z",
+  "fetched_at": "2026-07-14T23:55:25.313941Z",
   "days_back": 14,
-  "records": 321,
+  "records": 320,
   "data": [
-    {
-      "period": "2026-06-30T22",
-      "hour": 22,
-      "total_mwh": 33225.0,
-      "carbon_intensity": 77.1,
-      "fuel_mix": {
-        "BAT": -50.0,
-        "COL": 0.0,
-        "GEO": 1235.0,
-        "NG": 2861.0,
-        "NUC": 2274.0,
-        "OIL": 46.0,
-        "OTH": -5140.0,
-        "PS": 0.0,
-        "SNB": 416.0,
-        "SUN": 20622.0,
-        "WAT": 1417.0,
-        "WND": 4354.0
-      }
-    },
     {
       "period": "2026-06-30T23",
       "hour": 23,
