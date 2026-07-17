@@ -1,6 +1,6 @@
 {
   "region": "TEX",
-  "analyzed_at": "2026-07-17T07:24:31.989873Z",
+  "analyzed_at": "2026-07-17T10:07:21.721390Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
@@ -14,15 +14,15 @@
   "max_intensity": 414.3,
   "pct_saved": 32.1,
   "kg_saved_yr": 996.7,
-  "current_hour": 7,
-  "current_intensity": 394.1,
-  "signal": "moderate",
-  "signal_label": "Moderate \u2014 not ideal, not terrible",
-  "current_marginal_intensity": 78.3,
+  "current_hour": 10,
+  "current_intensity": 399.6,
+  "signal": "wait",
+  "signal_label": "Wait if you can",
+  "current_marginal_intensity": 220.9,
   "next_clean_window": {
     "hour": 15,
     "avg_intensity": 285.7,
-    "in_hours": 8
+    "in_hours": 5
   },
   "marginal_avg": [
     {
@@ -59,15 +59,15 @@
     },
     {
       "hour": 8,
-      "marginal_intensity": 225.5
+      "marginal_intensity": 247.2
     },
     {
       "hour": 9,
-      "marginal_intensity": 161.6
+      "marginal_intensity": 171.4
     },
     {
       "hour": 10,
-      "marginal_intensity": 207.7
+      "marginal_intensity": 220.9
     },
     {
       "hour": 11,
@@ -139,7 +139,7 @@
       },
       {
         "hour": 3,
-        "quadrant": "cheap_but_dirty"
+        "quadrant": "mixed"
       },
       {
         "hour": 4,
@@ -159,7 +159,7 @@
       },
       {
         "hour": 8,
-        "quadrant": "mixed"
+        "quadrant": "cheap_but_dirty"
       },
       {
         "hour": 9,
@@ -224,8 +224,8 @@
     ],
     "quadrant_counts": {
       "mixed": 10,
-      "cheap_but_dirty": 5,
       "both_skip": 1,
+      "cheap_but_dirty": 5,
       "clean_but_pricey": 7,
       "both_worth_it": 1
     },
@@ -263,15 +263,15 @@
     },
     {
       "hour": 7,
-      "carbon_intensity": 394.1
+      "carbon_intensity": 397.7
     },
     {
       "hour": 8,
-      "carbon_intensity": 395.5
+      "carbon_intensity": 399.6
     },
     {
       "hour": 9,
-      "carbon_intensity": 396.2
+      "carbon_intensity": 401.3
     },
     {
       "hour": 10,

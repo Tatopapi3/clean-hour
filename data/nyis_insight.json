@@ -1,27 +1,27 @@
 {
   "region": "NYIS",
-  "analyzed_at": "2026-07-17T07:24:32.010888Z",
+  "analyzed_at": "2026-07-17T10:07:21.753070Z",
   "days_analyzed": 14,
   "verdict": "skip",
   "verdict_label": "Skip it",
-  "verdict_reason": "Your grid only swings 9.8% daily \u2014 timing barely matters here. Your grid is already relatively flat.",
-  "daily_swing_pct": 9.8,
+  "verdict_reason": "Your grid only swings 10.4% daily \u2014 timing barely matters here. Your grid is already relatively flat.",
+  "daily_swing_pct": 10.4,
   "cleanest_hour": 8,
   "dirtiest_hour": 0,
   "cleanest_window": "8am\u201311am",
   "dirtiest_window": "12am\u20133am",
-  "min_intensity": 265.9,
+  "min_intensity": 264.0,
   "max_intensity": 294.8,
-  "pct_saved": 9.8,
-  "kg_saved_yr": 216.4,
-  "current_hour": 7,
-  "current_intensity": 267.0,
+  "pct_saved": 10.4,
+  "kg_saved_yr": 230.6,
+  "current_hour": 10,
+  "current_intensity": 270.6,
   "signal": "use_now",
   "signal_label": "Good time to use power",
-  "current_marginal_intensity": 38.0,
+  "current_marginal_intensity": 360.5,
   "next_clean_window": {
-    "hour": 8,
-    "avg_intensity": 265.9,
+    "hour": 11,
+    "avg_intensity": 273.6,
     "in_hours": 1
   },
   "marginal_avg": [
@@ -59,15 +59,15 @@
     },
     {
       "hour": 8,
-      "marginal_intensity": 172.4
+      "marginal_intensity": 146.9
     },
     {
       "hour": 9,
-      "marginal_intensity": 216.5
+      "marginal_intensity": 210.7
     },
     {
       "hour": 10,
-      "marginal_intensity": 354.4
+      "marginal_intensity": 360.5
     },
     {
       "hour": 11,
@@ -263,15 +263,15 @@
     },
     {
       "hour": 7,
-      "carbon_intensity": 267.0
+      "carbon_intensity": 265.2
     },
     {
       "hour": 8,
-      "carbon_intensity": 265.9
+      "carbon_intensity": 264.0
     },
     {
       "hour": 9,
-      "carbon_intensity": 266.2
+      "carbon_intensity": 264.6
     },
     {
       "hour": 10,
