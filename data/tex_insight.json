@@ -1,6 +1,6 @@
 {
   "region": "TEX",
-  "analyzed_at": "2026-07-18T09:47:35.514302Z",
+  "analyzed_at": "2026-07-18T11:13:25.332840Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
@@ -14,15 +14,15 @@
   "max_intensity": 421.6,
   "pct_saved": 31.5,
   "kg_saved_yr": 992.9,
-  "current_hour": 9,
-  "current_intensity": 405.4,
+  "current_hour": 11,
+  "current_intensity": 415.6,
   "signal": "wait",
   "signal_label": "Wait if you can",
-  "current_marginal_intensity": 161.5,
+  "current_marginal_intensity": 306.1,
   "next_clean_window": {
     "hour": 15,
     "avg_intensity": 295.8,
-    "in_hours": 6
+    "in_hours": 4
   },
   "marginal_avg": [
     {
@@ -67,11 +67,11 @@
     },
     {
       "hour": 10,
-      "marginal_intensity": 230.0
+      "marginal_intensity": 245.1
     },
     {
       "hour": 11,
-      "marginal_intensity": 302.8
+      "marginal_intensity": 306.1
     },
     {
       "hour": 12,
@@ -147,7 +147,7 @@
       },
       {
         "hour": 5,
-        "quadrant": "both_skip"
+        "quadrant": "mixed"
       },
       {
         "hour": 6,
@@ -191,7 +191,7 @@
       },
       {
         "hour": 16,
-        "quadrant": "mixed"
+        "quadrant": "clean_but_pricey"
       },
       {
         "hour": 17,
@@ -224,12 +224,12 @@
     ],
     "quadrant_counts": {
       "mixed": 10,
-      "both_skip": 2,
+      "both_skip": 1,
       "cheap_but_dirty": 5,
-      "clean_but_pricey": 6,
+      "clean_but_pricey": 7,
       "both_worth_it": 1
     },
-    "divergence_pct": 45.8,
+    "divergence_pct": 50.0,
     "note": "divergence_pct is the share of hours where the cheapest and cleanest times of day point in opposite directions -- i.e. optimizing for cost alone would not have also optimized for carbon."
   },
   "hourly_avg": [
@@ -271,11 +271,11 @@
     },
     {
       "hour": 9,
-      "carbon_intensity": 405.4
+      "carbon_intensity": 412.8
     },
     {
       "hour": 10,
-      "carbon_intensity": 409.4
+      "carbon_intensity": 416.8
     },
     {
       "hour": 11,
