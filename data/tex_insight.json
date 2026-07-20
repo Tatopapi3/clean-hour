@@ -1,6 +1,6 @@
 {
   "region": "TEX",
-  "analyzed_at": "2026-07-20T04:44:39.986090Z",
+  "analyzed_at": "2026-07-20T08:14:11.426765Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
@@ -14,15 +14,15 @@
   "max_intensity": 417.9,
   "pct_saved": 32.1,
   "kg_saved_yr": 1004.9,
-  "current_hour": 4,
-  "current_intensity": 400.2,
-  "signal": "moderate",
-  "signal_label": "Moderate \u2014 not ideal, not terrible",
-  "current_marginal_intensity": 319.6,
+  "current_hour": 8,
+  "current_intensity": 404.6,
+  "signal": "wait",
+  "signal_label": "Wait if you can",
+  "current_marginal_intensity": 281.4,
   "next_clean_window": {
     "hour": 15,
     "avg_intensity": 296.6,
-    "in_hours": 11
+    "in_hours": 7
   },
   "marginal_avg": [
     {
@@ -47,15 +47,15 @@
     },
     {
       "hour": 5,
-      "marginal_intensity": 308.3
+      "marginal_intensity": 250.9
     },
     {
       "hour": 6,
-      "marginal_intensity": 182.8
+      "marginal_intensity": 92.6
     },
     {
       "hour": 7,
-      "marginal_intensity": 75.9
+      "marginal_intensity": 82.4
     },
     {
       "hour": 8,
@@ -143,7 +143,7 @@
       },
       {
         "hour": 4,
-        "quadrant": "mixed"
+        "quadrant": "cheap_but_dirty"
       },
       {
         "hour": 5,
@@ -155,7 +155,7 @@
       },
       {
         "hour": 7,
-        "quadrant": "cheap_but_dirty"
+        "quadrant": "mixed"
       },
       {
         "hour": 8,
@@ -199,7 +199,7 @@
       },
       {
         "hour": 18,
-        "quadrant": "clean_but_pricey"
+        "quadrant": "mixed"
       },
       {
         "hour": 19,
@@ -223,11 +223,11 @@
       }
     ],
     "quadrant_counts": {
-      "mixed": 10,
+      "mixed": 11,
       "cheap_but_dirty": 6,
-      "clean_but_pricey": 8
+      "clean_but_pricey": 7
     },
-    "divergence_pct": 58.3,
+    "divergence_pct": 54.2,
     "note": "divergence_pct is the share of hours where the cheapest and cleanest times of day point in opposite directions -- i.e. optimizing for cost alone would not have also optimized for carbon."
   },
   "hourly_avg": [
@@ -249,19 +249,19 @@
     },
     {
       "hour": 4,
-      "carbon_intensity": 400.2
+      "carbon_intensity": 401.7
     },
     {
       "hour": 5,
-      "carbon_intensity": 404.2
+      "carbon_intensity": 404.0
     },
     {
       "hour": 6,
-      "carbon_intensity": 404.5
+      "carbon_intensity": 402.2
     },
     {
       "hour": 7,
-      "carbon_intensity": 403.2
+      "carbon_intensity": 399.6
     },
     {
       "hour": 8,
