@@ -7,6 +7,8 @@
 
 Clean Hour tells you whether carbon-aware energy use is worth it where you live — and by how much. It shows real-time grid carbon intensity **and** electricity pricing across three major U.S. grids on a 24-hour clock, so the timing mismatch between clean supply and dirty demand is visible in one glance.
 
+![Clean Hour home page](docs/screenshot.png)
+
 ---
 
 ## The insight
