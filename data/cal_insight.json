@@ -1,27 +1,27 @@
 {
   "region": "CAL",
-  "analyzed_at": "2026-07-26T18:11:50.772304Z",
+  "analyzed_at": "2026-07-26T20:18:17.288897Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
-  "verdict_reason": "Your grid swings 40.4% daily \u2014 charging at the cleanest hour instead of the dirtiest cuts roughly 32% of your charging emissions.",
-  "daily_swing_pct": 40.4,
+  "verdict_reason": "Your grid swings 40.3% daily \u2014 charging at the cleanest hour instead of the dirtiest cuts roughly 32% of your charging emissions.",
+  "daily_swing_pct": 40.3,
   "cleanest_hour": 18,
   "dirtiest_hour": 13,
   "cleanest_window": "6pm\u20139pm",
   "dirtiest_window": "1pm\u20134pm",
-  "min_intensity": 163.7,
+  "min_intensity": 164.0,
   "max_intensity": 274.6,
-  "pct_saved": 40.4,
-  "kg_saved_yr": 830.4,
-  "current_hour": 18,
-  "current_intensity": 163.7,
+  "pct_saved": 40.3,
+  "kg_saved_yr": 828.2,
+  "current_hour": 20,
+  "current_intensity": 165.4,
   "signal": "use_now",
   "signal_label": "Good time to use power",
-  "current_marginal_intensity": 115.4,
+  "current_marginal_intensity": 251.0,
   "next_clean_window": {
-    "hour": 19,
-    "avg_intensity": 164.0,
+    "hour": 21,
+    "avg_intensity": 168.5,
     "in_hours": 1
   },
   "marginal_avg": [
@@ -103,11 +103,11 @@
     },
     {
       "hour": 19,
-      "marginal_intensity": 202.4
+      "marginal_intensity": 212.3
     },
     {
       "hour": 20,
-      "marginal_intensity": 243.7
+      "marginal_intensity": 251.0
     },
     {
       "hour": 21,
@@ -305,11 +305,11 @@
     },
     {
       "hour": 18,
-      "carbon_intensity": 163.7
+      "carbon_intensity": 164.0
     },
     {
       "hour": 19,
-      "carbon_intensity": 164.0
+      "carbon_intensity": 164.8
     },
     {
       "hour": 20,
