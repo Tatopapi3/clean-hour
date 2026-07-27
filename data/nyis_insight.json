@@ -1,6 +1,6 @@
 {
   "region": "NYIS",
-  "analyzed_at": "2026-07-26T20:18:17.356891Z",
+  "analyzed_at": "2026-07-27T00:08:44.236392Z",
   "days_analyzed": 14,
   "verdict": "skip",
   "verdict_label": "Skip it",
@@ -14,20 +14,20 @@
   "max_intensity": 284.2,
   "pct_saved": 12.9,
   "kg_saved_yr": 274.8,
-  "current_hour": 20,
-  "current_intensity": 276.5,
-  "signal": "moderate",
-  "signal_label": "Moderate \u2014 not ideal, not terrible",
-  "current_marginal_intensity": 364.2,
+  "current_hour": 0,
+  "current_intensity": 281.3,
+  "signal": "wait",
+  "signal_label": "Wait if you can",
+  "current_marginal_intensity": 183.8,
   "next_clean_window": {
     "hour": 6,
     "avg_intensity": 256.5,
-    "in_hours": 10
+    "in_hours": 6
   },
   "marginal_avg": [
     {
       "hour": 0,
-      "marginal_intensity": 177.1
+      "marginal_intensity": 183.8
     },
     {
       "hour": 1,
@@ -111,15 +111,15 @@
     },
     {
       "hour": 21,
-      "marginal_intensity": 358.2
+      "marginal_intensity": 360.8
     },
     {
       "hour": 22,
-      "marginal_intensity": 328.7
+      "marginal_intensity": 323.1
     },
     {
       "hour": 23,
-      "marginal_intensity": 217.5
+      "marginal_intensity": 200.6
     }
   ],
   "marginal_note": "Proxy method: weights fuels by their share of each hour's generation increase, not total mix. Approximates which source served incremental demand. Not a substitute for a true dispatch-order marginal model like WattTime's MOER.",
@@ -315,19 +315,19 @@
     },
     {
       "hour": 20,
-      "carbon_intensity": 276.5
+      "carbon_intensity": 276.2
     },
     {
       "hour": 21,
-      "carbon_intensity": 280.6
+      "carbon_intensity": 280.4
     },
     {
       "hour": 22,
-      "carbon_intensity": 283.4
+      "carbon_intensity": 282.8
     },
     {
       "hour": 23,
-      "carbon_intensity": 283.3
+      "carbon_intensity": 282.2
     }
   ]
 }
