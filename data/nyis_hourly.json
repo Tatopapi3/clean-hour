@@ -1,41 +1,9 @@
 {
   "region": "NYIS",
-  "fetched_at": "2026-07-28T16:43:03.862439Z",
+  "fetched_at": "2026-07-28T18:17:07.646034Z",
   "days_back": 14,
-  "records": 324,
+  "records": 322,
   "data": [
-    {
-      "period": "2026-07-14T16",
-      "hour": 16,
-      "total_mwh": 20508.0,
-      "carbon_intensity": 275.1,
-      "fuel_mix": {
-        "COL": 0.0,
-        "NG": 11852.0,
-        "NUC": 3257.0,
-        "OIL": 89.0,
-        "OTH": 589.0,
-        "SUN": 0.0,
-        "WAT": 3027.0,
-        "WND": 1694.0
-      }
-    },
-    {
-      "period": "2026-07-14T17",
-      "hour": 17,
-      "total_mwh": 21769.0,
-      "carbon_intensity": 280.7,
-      "fuel_mix": {
-        "COL": 0.0,
-        "NG": 12770.0,
-        "NUC": 3261.0,
-        "OIL": 162.0,
-        "OTH": 598.0,
-        "SUN": 0.0,
-        "WAT": 3122.0,
-        "WND": 1856.0
-      }
-    },
     {
       "period": "2026-07-14T18",
       "hour": 18,
