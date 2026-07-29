@@ -1,6 +1,6 @@
 {
   "region": "TEX",
-  "analyzed_at": "2026-07-29T03:37:50.697521Z",
+  "analyzed_at": "2026-07-29T06:41:51.650761Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
@@ -14,15 +14,15 @@
   "max_intensity": 411.3,
   "pct_saved": 35.2,
   "kg_saved_yr": 1085.0,
-  "current_hour": 3,
-  "current_intensity": 397.5,
+  "current_hour": 6,
+  "current_intensity": 396.4,
   "signal": "wait",
   "signal_label": "Wait if you can",
-  "current_marginal_intensity": 234.4,
+  "current_marginal_intensity": 37.5,
   "next_clean_window": {
     "hour": 15,
     "avg_intensity": 277.8,
-    "in_hours": 12
+    "in_hours": 9
   },
   "marginal_avg": [
     {
@@ -43,15 +43,15 @@
     },
     {
       "hour": 4,
-      "marginal_intensity": 204.5
+      "marginal_intensity": 185.9
     },
     {
       "hour": 5,
-      "marginal_intensity": 131.7
+      "marginal_intensity": 139.0
     },
     {
       "hour": 6,
-      "marginal_intensity": 48.2
+      "marginal_intensity": 37.5
     },
     {
       "hour": 7,
@@ -143,7 +143,7 @@
       },
       {
         "hour": 4,
-        "quadrant": "cheap_but_dirty"
+        "quadrant": "mixed"
       },
       {
         "hour": 5,
@@ -155,7 +155,7 @@
       },
       {
         "hour": 7,
-        "quadrant": "mixed"
+        "quadrant": "cheap_but_dirty"
       },
       {
         "hour": 8,
@@ -195,7 +195,7 @@
       },
       {
         "hour": 17,
-        "quadrant": "mixed"
+        "quadrant": "clean_but_pricey"
       },
       {
         "hour": 18,
@@ -219,7 +219,7 @@
       },
       {
         "hour": 23,
-        "quadrant": "clean_but_pricey"
+        "quadrant": "mixed"
       }
     ],
     "quadrant_counts": {
@@ -245,15 +245,15 @@
     },
     {
       "hour": 3,
-      "carbon_intensity": 397.5
+      "carbon_intensity": 395.2
     },
     {
       "hour": 4,
-      "carbon_intensity": 397.9
+      "carbon_intensity": 394.8
     },
     {
       "hour": 5,
-      "carbon_intensity": 399.3
+      "carbon_intensity": 395.8
     },
     {
       "hour": 6,
