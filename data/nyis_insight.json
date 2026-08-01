@@ -1,6 +1,6 @@
 {
   "region": "NYIS",
-  "analyzed_at": "2026-08-01T17:10:01.499156Z",
+  "analyzed_at": "2026-08-01T19:20:46.659637Z",
   "days_analyzed": 14,
   "verdict": "skip",
   "verdict_label": "Skip it",
@@ -14,15 +14,15 @@
   "max_intensity": 281.2,
   "pct_saved": 11.6,
   "kg_saved_yr": 243.4,
-  "current_hour": 17,
-  "current_intensity": 261.1,
+  "current_hour": 19,
+  "current_intensity": 266.7,
   "signal": "moderate",
   "signal_label": "Moderate \u2014 not ideal, not terrible",
-  "current_marginal_intensity": 306.4,
+  "current_marginal_intensity": 318.9,
   "next_clean_window": {
     "hour": 6,
     "avg_intensity": 256.0,
-    "in_hours": 13
+    "in_hours": 11
   },
   "marginal_avg": [
     {
@@ -99,11 +99,11 @@
     },
     {
       "hour": 18,
-      "marginal_intensity": 311.3
+      "marginal_intensity": 334.4
     },
     {
       "hour": 19,
-      "marginal_intensity": 307.4
+      "marginal_intensity": 318.9
     },
     {
       "hour": 20,
@@ -183,7 +183,7 @@
       },
       {
         "hour": 14,
-        "quadrant": "mixed"
+        "quadrant": "clean_but_pricey"
       },
       {
         "hour": 15,
@@ -215,7 +215,7 @@
       },
       {
         "hour": 22,
-        "quadrant": "both_skip"
+        "quadrant": "mixed"
       },
       {
         "hour": 23,
@@ -226,10 +226,10 @@
       "mixed": 12,
       "cheap_but_dirty": 4,
       "both_worth_it": 4,
-      "clean_but_pricey": 2,
-      "both_skip": 2
+      "clean_but_pricey": 3,
+      "both_skip": 1
     },
-    "divergence_pct": 25.0,
+    "divergence_pct": 29.2,
     "note": "divergence_pct is the share of hours where the cheapest and cleanest times of day point in opposite directions -- i.e. optimizing for cost alone would not have also optimized for carbon."
   },
   "hourly_avg": [
@@ -303,11 +303,11 @@
     },
     {
       "hour": 17,
-      "carbon_intensity": 261.1
+      "carbon_intensity": 260.3
     },
     {
       "hour": 18,
-      "carbon_intensity": 264.6
+      "carbon_intensity": 264.8
     },
     {
       "hour": 19,
