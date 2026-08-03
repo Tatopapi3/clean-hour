@@ -1,28 +1,28 @@
 {
   "region": "TEX",
-  "analyzed_at": "2026-08-03T12:34:50.078021Z",
+  "analyzed_at": "2026-08-03T15:50:23.285249Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
-  "verdict_reason": "Your grid swings 36.5% daily \u2014 charging at the cleanest hour instead of the dirtiest cuts roughly 29% of your charging emissions.",
-  "daily_swing_pct": 36.5,
+  "verdict_reason": "Your grid swings 36.6% daily \u2014 charging at the cleanest hour instead of the dirtiest cuts roughly 29% of your charging emissions.",
+  "daily_swing_pct": 36.6,
   "cleanest_hour": 16,
   "dirtiest_hour": 12,
   "cleanest_window": "4pm\u20137pm",
   "dirtiest_window": "12pm\u20133pm",
   "min_intensity": 263.5,
-  "max_intensity": 415.1,
-  "pct_saved": 36.5,
-  "kg_saved_yr": 1135.2,
-  "current_hour": 12,
-  "current_intensity": 415.1,
-  "signal": "wait",
-  "signal_label": "Wait if you can",
-  "current_marginal_intensity": 291.7,
+  "max_intensity": 415.5,
+  "pct_saved": 36.6,
+  "kg_saved_yr": 1138.2,
+  "current_hour": 15,
+  "current_intensity": 271.2,
+  "signal": "use_now",
+  "signal_label": "Good time to use power",
+  "current_marginal_intensity": 48.8,
   "next_clean_window": {
-    "hour": 15,
-    "avg_intensity": 271.2,
-    "in_hours": 3
+    "hour": 16,
+    "avg_intensity": 263.5,
+    "in_hours": 1
   },
   "marginal_avg": [
     {
@@ -79,7 +79,7 @@
     },
     {
       "hour": 13,
-      "marginal_intensity": 51.7
+      "marginal_intensity": 52.0
     },
     {
       "hour": 14,
@@ -87,7 +87,7 @@
     },
     {
       "hour": 15,
-      "marginal_intensity": 48.7
+      "marginal_intensity": 48.8
     },
     {
       "hour": 16,
@@ -281,15 +281,15 @@
     },
     {
       "hour": 12,
-      "carbon_intensity": 415.1
+      "carbon_intensity": 415.5
     },
     {
       "hour": 13,
-      "carbon_intensity": 392.0
+      "carbon_intensity": 392.4
     },
     {
       "hour": 14,
-      "carbon_intensity": 311.1
+      "carbon_intensity": 311.5
     },
     {
       "hour": 15,
