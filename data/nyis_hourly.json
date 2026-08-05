@@ -1,57 +1,9 @@
 {
   "region": "NYIS",
-  "fetched_at": "2026-08-05T12:56:13.438800Z",
+  "fetched_at": "2026-08-05T15:19:16.795735Z",
   "days_back": 14,
-  "records": 305,
+  "records": 310,
   "data": [
-    {
-      "period": "2026-07-22T12",
-      "hour": 12,
-      "total_mwh": 16617.0,
-      "carbon_intensity": 280.6,
-      "fuel_mix": {
-        "COL": 0.0,
-        "NG": 10100.0,
-        "NUC": 3232.0,
-        "OIL": 0.0,
-        "OTH": 196.0,
-        "SUN": 0.0,
-        "WAT": 1941.0,
-        "WND": 1148.0
-      }
-    },
-    {
-      "period": "2026-07-22T13",
-      "hour": 13,
-      "total_mwh": 17178.0,
-      "carbon_intensity": 267.5,
-      "fuel_mix": {
-        "COL": 0.0,
-        "NG": 9902.0,
-        "NUC": 3220.0,
-        "OIL": 0.0,
-        "OTH": 260.0,
-        "SUN": 0.0,
-        "WAT": 2659.0,
-        "WND": 1137.0
-      }
-    },
-    {
-      "period": "2026-07-22T14",
-      "hour": 14,
-      "total_mwh": 17459.0,
-      "carbon_intensity": 262.0,
-      "fuel_mix": {
-        "COL": 0.0,
-        "NG": 9788.0,
-        "NUC": 3208.0,
-        "OIL": 0.0,
-        "OTH": 346.0,
-        "SUN": 0.0,
-        "WAT": 2684.0,
-        "WND": 1433.0
-      }
-    },
     {
       "period": "2026-07-22T15",
       "hour": 15,
@@ -4882,6 +4834,134 @@
         "SUN": 0.0,
         "WAT": 2633.0,
         "WND": 1043.0
+      }
+    },
+    {
+      "period": "2026-08-04T20",
+      "hour": 20,
+      "total_mwh": 18799.0,
+      "carbon_intensity": 291.9,
+      "fuel_mix": {
+        "COL": 0.0,
+        "NG": 11586.0,
+        "NUC": 3227.0,
+        "OIL": 0.0,
+        "OTH": 737.0,
+        "SUN": 0.0,
+        "WAT": 3106.0,
+        "WND": 143.0
+      }
+    },
+    {
+      "period": "2026-08-04T21",
+      "hour": 21,
+      "total_mwh": 19523.0,
+      "carbon_intensity": 287.7,
+      "fuel_mix": {
+        "COL": 0.0,
+        "NG": 11877.0,
+        "NUC": 3227.0,
+        "OIL": 0.0,
+        "OTH": 726.0,
+        "SUN": 0.0,
+        "WAT": 3565.0,
+        "WND": 128.0
+      }
+    },
+    {
+      "period": "2026-08-04T22",
+      "hour": 22,
+      "total_mwh": 20199.0,
+      "carbon_intensity": 285.6,
+      "fuel_mix": {
+        "COL": 0.0,
+        "NG": 12248.0,
+        "NUC": 3223.0,
+        "OIL": 0.0,
+        "OTH": 670.0,
+        "SUN": 0.0,
+        "WAT": 3942.0,
+        "WND": 116.0
+      }
+    },
+    {
+      "period": "2026-08-04T23",
+      "hour": 23,
+      "total_mwh": 20649.0,
+      "carbon_intensity": 285.8,
+      "fuel_mix": {
+        "COL": 0.0,
+        "NG": 12656.0,
+        "NUC": 3245.0,
+        "OIL": 0.0,
+        "OTH": 502.0,
+        "SUN": 0.0,
+        "WAT": 4152.0,
+        "WND": 94.0
+      }
+    },
+    {
+      "period": "2026-08-05T00",
+      "hour": 0,
+      "total_mwh": 20754.0,
+      "carbon_intensity": 287.1,
+      "fuel_mix": {
+        "COL": 0.0,
+        "NG": 12896.0,
+        "NUC": 3271.0,
+        "OIL": 0.0,
+        "OTH": 325.0,
+        "SUN": 0.0,
+        "WAT": 4148.0,
+        "WND": 114.0
+      }
+    },
+    {
+      "period": "2026-08-05T01",
+      "hour": 1,
+      "total_mwh": 20099.0,
+      "carbon_intensity": 291.3,
+      "fuel_mix": {
+        "COL": 0.0,
+        "NG": 12750.0,
+        "NUC": 3279.0,
+        "OIL": 0.0,
+        "OTH": 207.0,
+        "SUN": 0.0,
+        "WAT": 3693.0,
+        "WND": 170.0
+      }
+    },
+    {
+      "period": "2026-08-05T02",
+      "hour": 2,
+      "total_mwh": 19919.0,
+      "carbon_intensity": 292.0,
+      "fuel_mix": {
+        "COL": 0.0,
+        "NG": 12688.0,
+        "NUC": 3280.0,
+        "OIL": 0.0,
+        "OTH": 163.0,
+        "SUN": 0.0,
+        "WAT": 3441.0,
+        "WND": 347.0
+      }
+    },
+    {
+      "period": "2026-08-05T03",
+      "hour": 3,
+      "total_mwh": 18336.0,
+      "carbon_intensity": 289.3,
+      "fuel_mix": {
+        "COL": 0.0,
+        "NG": 11567.0,
+        "NUC": 3274.0,
+        "OIL": 0.0,
+        "OTH": 145.0,
+        "SUN": 0.0,
+        "WAT": 2936.0,
+        "WND": 414.0
       }
     }
   ]
