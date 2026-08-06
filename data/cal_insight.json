@@ -1,28 +1,28 @@
 {
   "region": "CAL",
-  "analyzed_at": "2026-08-06T02:56:33.633314Z",
+  "analyzed_at": "2026-08-06T05:57:25.991434Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
-  "verdict_reason": "Your grid swings 46.3% daily \u2014 charging at the cleanest hour instead of the dirtiest cuts roughly 37% of your charging emissions.",
-  "daily_swing_pct": 46.3,
+  "verdict_reason": "Your grid swings 46.4% daily \u2014 charging at the cleanest hour instead of the dirtiest cuts roughly 37% of your charging emissions.",
+  "daily_swing_pct": 46.4,
   "cleanest_hour": 17,
   "dirtiest_hour": 4,
   "cleanest_window": "5pm\u20138pm",
   "dirtiest_window": "4am\u20137am",
   "min_intensity": 146.8,
-  "max_intensity": 273.6,
-  "pct_saved": 46.3,
-  "kg_saved_yr": 949.5,
-  "current_hour": 2,
-  "current_intensity": 225.3,
-  "signal": "moderate",
-  "signal_label": "Moderate \u2014 not ideal, not terrible",
-  "current_marginal_intensity": 273.8,
+  "max_intensity": 273.7,
+  "pct_saved": 46.4,
+  "kg_saved_yr": 950.2,
+  "current_hour": 5,
+  "current_intensity": 270.9,
+  "signal": "wait",
+  "signal_label": "Wait if you can",
+  "current_marginal_intensity": 58.0,
   "next_clean_window": {
     "hour": 16,
     "avg_intensity": 153.7,
-    "in_hours": 14
+    "in_hours": 11
   },
   "marginal_avg": [
     {
@@ -39,15 +39,15 @@
     },
     {
       "hour": 3,
-      "marginal_intensity": 301.1
+      "marginal_intensity": 304.1
     },
     {
       "hour": 4,
-      "marginal_intensity": 128.8
+      "marginal_intensity": 118.6
     },
     {
       "hour": 5,
-      "marginal_intensity": 54.8
+      "marginal_intensity": 58.0
     },
     {
       "hour": 6,
@@ -242,15 +242,15 @@
     },
     {
       "hour": 2,
-      "carbon_intensity": 225.3
+      "carbon_intensity": 225.0
     },
     {
       "hour": 3,
-      "carbon_intensity": 268.2
+      "carbon_intensity": 268.4
     },
     {
       "hour": 4,
-      "carbon_intensity": 273.6
+      "carbon_intensity": 273.7
     },
     {
       "hour": 5,
