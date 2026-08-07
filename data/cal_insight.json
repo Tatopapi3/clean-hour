@@ -1,6 +1,6 @@
 {
   "region": "CAL",
-  "analyzed_at": "2026-08-07T22:44:13.737052Z",
+  "analyzed_at": "2026-08-07T23:42:02.978012Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
@@ -14,14 +14,14 @@
   "max_intensity": 271.4,
   "pct_saved": 45.0,
   "kg_saved_yr": 914.3,
-  "current_hour": 22,
-  "current_intensity": 165.3,
+  "current_hour": 23,
+  "current_intensity": 172.8,
   "signal": "use_now",
   "signal_label": "Good time to use power",
-  "current_marginal_intensity": 242.8,
+  "current_marginal_intensity": 267.2,
   "next_clean_window": {
-    "hour": 23,
-    "avg_intensity": 172.8,
+    "hour": 0,
+    "avg_intensity": 178.6,
     "in_hours": 1
   },
   "marginal_avg": [
@@ -119,7 +119,7 @@
     },
     {
       "hour": 23,
-      "marginal_intensity": 266.2
+      "marginal_intensity": 267.2
     }
   ],
   "marginal_note": "Proxy method: weights fuels by their share of each hour's generation increase, not total mix. Approximates which source served incremental demand. Not a substitute for a true dispatch-order marginal model like WattTime's MOER.",
@@ -191,7 +191,7 @@
       },
       {
         "hour": 16,
-        "quadrant": "mixed"
+        "quadrant": "both_worth_it"
       },
       {
         "hour": 17,
@@ -224,8 +224,9 @@
     ],
     "quadrant_counts": {
       "clean_but_pricey": 8,
-      "mixed": 12,
-      "cheap_but_dirty": 4
+      "mixed": 11,
+      "cheap_but_dirty": 4,
+      "both_worth_it": 1
     },
     "divergence_pct": 50.0,
     "note": "divergence_pct is the share of hours where the cheapest and cleanest times of day point in opposite directions -- i.e. optimizing for cost alone would not have also optimized for carbon."
@@ -321,7 +322,7 @@
     },
     {
       "hour": 22,
-      "carbon_intensity": 165.3
+      "carbon_intensity": 164.0
     },
     {
       "hour": 23,
