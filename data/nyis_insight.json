@@ -1,6 +1,6 @@
 {
   "region": "NYIS",
-  "analyzed_at": "2026-08-09T07:07:09.589562Z",
+  "analyzed_at": "2026-08-09T09:47:40.365632Z",
   "days_analyzed": 14,
   "verdict": "skip",
   "verdict_label": "Skip it",
@@ -14,14 +14,14 @@
   "max_intensity": 292.4,
   "pct_saved": 7.6,
   "kg_saved_yr": 166.2,
-  "current_hour": 7,
-  "current_intensity": 272.6,
+  "current_hour": 9,
+  "current_intensity": 270.2,
   "signal": "use_now",
   "signal_label": "Good time to use power",
-  "current_marginal_intensity": 137.3,
+  "current_marginal_intensity": 249.4,
   "next_clean_window": {
-    "hour": 8,
-    "avg_intensity": 270.4,
+    "hour": 10,
+    "avg_intensity": 273.9,
     "in_hours": 1
   },
   "marginal_avg": [
@@ -59,11 +59,11 @@
     },
     {
       "hour": 8,
-      "marginal_intensity": 109.1
+      "marginal_intensity": 119.2
     },
     {
       "hour": 9,
-      "marginal_intensity": 236.4
+      "marginal_intensity": 249.4
     },
     {
       "hour": 10,
@@ -263,11 +263,11 @@
     },
     {
       "hour": 7,
-      "carbon_intensity": 272.6
+      "carbon_intensity": 274.5
     },
     {
       "hour": 8,
-      "carbon_intensity": 270.4
+      "carbon_intensity": 272.8
     },
     {
       "hour": 9,
