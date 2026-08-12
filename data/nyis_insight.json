@@ -1,6 +1,6 @@
 {
   "region": "NYIS",
-  "analyzed_at": "2026-08-12T19:20:54.437421Z",
+  "analyzed_at": "2026-08-12T20:57:24.589390Z",
   "days_analyzed": 14,
   "verdict": "skip",
   "verdict_label": "Skip it",
@@ -14,15 +14,15 @@
   "max_intensity": 297.5,
   "pct_saved": 5.7,
   "kg_saved_yr": 126.5,
-  "current_hour": 19,
-  "current_intensity": 292.2,
+  "current_hour": 20,
+  "current_intensity": 292.9,
   "signal": "moderate",
   "signal_label": "Moderate \u2014 not ideal, not terrible",
-  "current_marginal_intensity": 269.4,
+  "current_marginal_intensity": 325.5,
   "next_clean_window": {
     "hour": 6,
     "avg_intensity": 285.0,
-    "in_hours": 11
+    "in_hours": 10
   },
   "marginal_avg": [
     {
@@ -107,7 +107,7 @@
     },
     {
       "hour": 20,
-      "marginal_intensity": 333.6
+      "marginal_intensity": 325.5
     },
     {
       "hour": 21,
@@ -195,7 +195,7 @@
       },
       {
         "hour": 17,
-        "quadrant": "both_skip"
+        "quadrant": "mixed"
       },
       {
         "hour": 18,
@@ -203,11 +203,11 @@
       },
       {
         "hour": 19,
-        "quadrant": "mixed"
+        "quadrant": "both_skip"
       },
       {
         "hour": 20,
-        "quadrant": "both_skip"
+        "quadrant": "mixed"
       },
       {
         "hour": 21,
@@ -215,7 +215,7 @@
       },
       {
         "hour": 22,
-        "quadrant": "both_skip"
+        "quadrant": "mixed"
       },
       {
         "hour": 23,
@@ -223,11 +223,11 @@
       }
     ],
     "quadrant_counts": {
-      "mixed": 11,
+      "mixed": 13,
       "cheap_but_dirty": 4,
       "both_worth_it": 4,
       "clean_but_pricey": 1,
-      "both_skip": 4
+      "both_skip": 2
     },
     "divergence_pct": 20.8,
     "note": "divergence_pct is the share of hours where the cheapest and cleanest times of day point in opposite directions -- i.e. optimizing for cost alone would not have also optimized for carbon."
@@ -311,7 +311,7 @@
     },
     {
       "hour": 19,
-      "carbon_intensity": 292.2
+      "carbon_intensity": 293.8
     },
     {
       "hour": 20,
