@@ -1,6 +1,6 @@
 {
   "region": "TEX",
-  "analyzed_at": "2026-08-12T04:57:12.646647Z",
+  "analyzed_at": "2026-08-12T06:22:44.552134Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
@@ -14,15 +14,15 @@
   "max_intensity": 402.2,
   "pct_saved": 38.1,
   "kg_saved_yr": 1148.7,
-  "current_hour": 4,
-  "current_intensity": 386.4,
-  "signal": "wait",
-  "signal_label": "Wait if you can",
-  "current_marginal_intensity": 15.0,
+  "current_hour": 6,
+  "current_intensity": 376.3,
+  "signal": "moderate",
+  "signal_label": "Moderate \u2014 not ideal, not terrible",
+  "current_marginal_intensity": 230.7,
   "next_clean_window": {
     "hour": 14,
     "avg_intensity": 300.3,
-    "in_hours": 10
+    "in_hours": 8
   },
   "marginal_avg": [
     {
@@ -51,7 +51,7 @@
     },
     {
       "hour": 6,
-      "marginal_intensity": 210.8
+      "marginal_intensity": 230.7
     },
     {
       "hour": 7,
@@ -147,7 +147,7 @@
       },
       {
         "hour": 5,
-        "quadrant": "cheap_but_dirty"
+        "quadrant": "mixed"
       },
       {
         "hour": 6,
@@ -171,7 +171,7 @@
       },
       {
         "hour": 11,
-        "quadrant": "mixed"
+        "quadrant": "cheap_but_dirty"
       },
       {
         "hour": 12,
@@ -249,11 +249,11 @@
     },
     {
       "hour": 4,
-      "carbon_intensity": 386.4
+      "carbon_intensity": 387.0
     },
     {
       "hour": 5,
-      "carbon_intensity": 381.1
+      "carbon_intensity": 381.7
     },
     {
       "hour": 6,
