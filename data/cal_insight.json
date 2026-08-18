@@ -1,6 +1,6 @@
 {
   "region": "CAL",
-  "analyzed_at": "2026-08-18T01:29:40.513939Z",
+  "analyzed_at": "2026-08-18T03:12:17.239332Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
@@ -14,15 +14,15 @@
   "max_intensity": 280.2,
   "pct_saved": 44.6,
   "kg_saved_yr": 936.7,
-  "current_hour": 1,
-  "current_intensity": 187.9,
+  "current_hour": 3,
+  "current_intensity": 261.0,
   "signal": "moderate",
   "signal_label": "Moderate \u2014 not ideal, not terrible",
-  "current_marginal_intensity": 256.1,
+  "current_marginal_intensity": 291.5,
   "next_clean_window": {
     "hour": 16,
     "avg_intensity": 173.2,
-    "in_hours": 15
+    "in_hours": 13
   },
   "marginal_avg": [
     {
@@ -35,7 +35,7 @@
     },
     {
       "hour": 2,
-      "marginal_intensity": 262.1
+      "marginal_intensity": 261.2
     },
     {
       "hour": 3,
@@ -237,7 +237,7 @@
     },
     {
       "hour": 1,
-      "carbon_intensity": 187.9
+      "carbon_intensity": 187.4
     },
     {
       "hour": 2,
