@@ -1,6 +1,6 @@
 {
   "region": "CAL",
-  "analyzed_at": "2026-08-19T17:36:24.301403Z",
+  "analyzed_at": "2026-08-19T18:45:33.501633Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
@@ -14,14 +14,14 @@
   "max_intensity": 277.9,
   "pct_saved": 44.5,
   "kg_saved_yr": 925.5,
-  "current_hour": 17,
-  "current_intensity": 158.1,
+  "current_hour": 18,
+  "current_intensity": 154.3,
   "signal": "use_now",
   "signal_label": "Good time to use power",
-  "current_marginal_intensity": 50.2,
+  "current_marginal_intensity": 93.2,
   "next_clean_window": {
-    "hour": 18,
-    "avg_intensity": 154.3,
+    "hour": 19,
+    "avg_intensity": 155.6,
     "in_hours": 1
   },
   "marginal_avg": [
@@ -99,7 +99,7 @@
     },
     {
       "hour": 18,
-      "marginal_intensity": 98.1
+      "marginal_intensity": 93.2
     },
     {
       "hour": 19,
@@ -301,7 +301,7 @@
     },
     {
       "hour": 17,
-      "carbon_intensity": 158.1
+      "carbon_intensity": 157.0
     },
     {
       "hour": 18,
