@@ -1,6 +1,6 @@
 {
   "region": "NYIS",
-  "analyzed_at": "2026-08-22T12:49:55.880643Z",
+  "analyzed_at": "2026-08-22T13:38:45.796468Z",
   "days_analyzed": 14,
   "verdict": "skip",
   "verdict_label": "Skip it",
@@ -14,14 +14,14 @@
   "max_intensity": 300.8,
   "pct_saved": 8.6,
   "kg_saved_yr": 194.7,
-  "current_hour": 12,
-  "current_intensity": 286.3,
-  "signal": "moderate",
-  "signal_label": "Moderate \u2014 not ideal, not terrible",
-  "current_marginal_intensity": 290.8,
+  "current_hour": 13,
+  "current_intensity": 284.2,
+  "signal": "use_now",
+  "signal_label": "Good time to use power",
+  "current_marginal_intensity": 204.2,
   "next_clean_window": {
-    "hour": 13,
-    "avg_intensity": 284.2,
+    "hour": 14,
+    "avg_intensity": 281.9,
     "in_hours": 1
   },
   "marginal_avg": [
@@ -79,7 +79,7 @@
     },
     {
       "hour": 13,
-      "marginal_intensity": 203.0
+      "marginal_intensity": 204.2
     },
     {
       "hour": 14,
@@ -151,7 +151,7 @@
       },
       {
         "hour": 6,
-        "quadrant": "both_worth_it"
+        "quadrant": "mixed"
       },
       {
         "hour": 7,
@@ -223,9 +223,9 @@
       }
     ],
     "quadrant_counts": {
-      "mixed": 12,
+      "mixed": 13,
       "cheap_but_dirty": 5,
-      "both_worth_it": 4,
+      "both_worth_it": 3,
       "clean_but_pricey": 2,
       "both_skip": 1
     },
@@ -283,7 +283,7 @@
     },
     {
       "hour": 12,
-      "carbon_intensity": 286.3
+      "carbon_intensity": 283.9
     },
     {
       "hour": 13,
