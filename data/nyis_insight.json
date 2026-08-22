@@ -1,6 +1,6 @@
 {
   "region": "NYIS",
-  "analyzed_at": "2026-08-22T22:33:06.191037Z",
+  "analyzed_at": "2026-08-22T23:28:55.292376Z",
   "days_analyzed": 14,
   "verdict": "skip",
   "verdict_label": "Skip it",
@@ -14,15 +14,15 @@
   "max_intensity": 300.8,
   "pct_saved": 8.6,
   "kg_saved_yr": 194.7,
-  "current_hour": 22,
-  "current_intensity": 291.8,
+  "current_hour": 23,
+  "current_intensity": 292.7,
   "signal": "wait",
   "signal_label": "Wait if you can",
-  "current_marginal_intensity": 267.0,
+  "current_marginal_intensity": 292.6,
   "next_clean_window": {
     "hour": 7,
     "avg_intensity": 278.0,
-    "in_hours": 9
+    "in_hours": 8
   },
   "marginal_avg": [
     {
@@ -203,7 +203,7 @@
       },
       {
         "hour": 19,
-        "quadrant": "mixed"
+        "quadrant": "both_skip"
       },
       {
         "hour": 20,
@@ -223,10 +223,11 @@
       }
     ],
     "quadrant_counts": {
-      "mixed": 13,
+      "mixed": 12,
       "cheap_but_dirty": 5,
       "both_worth_it": 3,
-      "clean_but_pricey": 3
+      "clean_but_pricey": 3,
+      "both_skip": 1
     },
     "divergence_pct": 33.3,
     "note": "divergence_pct is the share of hours where the cheapest and cleanest times of day point in opposite directions -- i.e. optimizing for cost alone would not have also optimized for carbon."
@@ -322,7 +323,7 @@
     },
     {
       "hour": 22,
-      "carbon_intensity": 291.8
+      "carbon_intensity": 290.1
     },
     {
       "hour": 23,
