@@ -1,49 +1,9 @@
 {
   "region": "CAL",
-  "fetched_at": "2026-08-25T23:27:07.895259Z",
+  "fetched_at": "2026-08-26T01:28:22.528273Z",
   "days_back": 14,
-  "records": 320,
+  "records": 318,
   "data": [
-    {
-      "period": "2026-08-11T23",
-      "hour": 23,
-      "total_mwh": 43489.0,
-      "carbon_intensity": 211.2,
-      "fuel_mix": {
-        "BAT": 50.0,
-        "COL": 0.0,
-        "GEO": 1105.0,
-        "NG": 17855.0,
-        "NUC": 2238.0,
-        "OIL": 46.0,
-        "OTH": 497.0,
-        "PS": 0.0,
-        "SNB": 396.0,
-        "SUN": 15118.0,
-        "WAT": 4018.0,
-        "WND": 2166.0
-      }
-    },
-    {
-      "period": "2026-08-12T00",
-      "hour": 0,
-      "total_mwh": 45080.0,
-      "carbon_intensity": 219.1,
-      "fuel_mix": {
-        "BAT": 69.0,
-        "COL": 0.0,
-        "GEO": 1102.0,
-        "NG": 18829.0,
-        "NUC": 2235.0,
-        "OIL": 46.0,
-        "OTH": 1530.0,
-        "PS": 0.0,
-        "SNB": 396.0,
-        "SUN": 13666.0,
-        "WAT": 4650.0,
-        "WND": 2557.0
-      }
-    },
     {
       "period": "2026-08-12T01",
       "hour": 1,
