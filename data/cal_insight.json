@@ -1,6 +1,6 @@
 {
   "region": "CAL",
-  "analyzed_at": "2026-08-31T21:53:41.611443Z",
+  "analyzed_at": "2026-09-01T01:12:20.495082Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
@@ -14,24 +14,24 @@
   "max_intensity": 289.2,
   "pct_saved": 40.6,
   "kg_saved_yr": 878.3,
-  "current_hour": 21,
-  "current_intensity": 179.1,
-  "signal": "use_now",
-  "signal_label": "Good time to use power",
-  "current_marginal_intensity": 277.6,
+  "current_hour": 1,
+  "current_intensity": 217.5,
+  "signal": "moderate",
+  "signal_label": "Moderate \u2014 not ideal, not terrible",
+  "current_marginal_intensity": 256.8,
   "next_clean_window": {
-    "hour": 22,
-    "avg_intensity": 187.0,
-    "in_hours": 1
+    "hour": 16,
+    "avg_intensity": 184.7,
+    "in_hours": 15
   },
   "marginal_avg": [
     {
       "hour": 0,
-      "marginal_intensity": 215.4
+      "marginal_intensity": 212.5
     },
     {
       "hour": 1,
-      "marginal_intensity": 260.0
+      "marginal_intensity": 256.8
     },
     {
       "hour": 2,
@@ -115,11 +115,11 @@
     },
     {
       "hour": 22,
-      "marginal_intensity": 277.1
+      "marginal_intensity": 277.3
     },
     {
       "hour": 23,
-      "marginal_intensity": 245.6
+      "marginal_intensity": 243.6
     }
   ],
   "marginal_note": "Proxy method: weights fuels by their share of each hour's generation increase, not total mix. Approximates which source served incremental demand. Not a substitute for a true dispatch-order marginal model like WattTime's MOER.",
@@ -233,7 +233,7 @@
   "hourly_avg": [
     {
       "hour": 0,
-      "carbon_intensity": 198.5
+      "carbon_intensity": 199.3
     },
     {
       "hour": 1,
@@ -317,15 +317,15 @@
     },
     {
       "hour": 21,
-      "carbon_intensity": 179.1
+      "carbon_intensity": 180.1
     },
     {
       "hour": 22,
-      "carbon_intensity": 187.0
+      "carbon_intensity": 188.1
     },
     {
       "hour": 23,
-      "carbon_intensity": 192.6
+      "carbon_intensity": 193.7
     }
   ]
 }
