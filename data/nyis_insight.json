@@ -1,6 +1,6 @@
 {
   "region": "NYIS",
-  "analyzed_at": "2026-09-02T20:52:22.881299Z",
+  "analyzed_at": "2026-09-02T23:14:05.697521Z",
   "days_analyzed": 14,
   "verdict": "skip",
   "verdict_label": "Skip it",
@@ -14,15 +14,15 @@
   "max_intensity": 280.3,
   "pct_saved": 10.0,
   "kg_saved_yr": 210.4,
-  "current_hour": 20,
-  "current_intensity": 275.0,
+  "current_hour": 23,
+  "current_intensity": 279.6,
   "signal": "wait",
   "signal_label": "Wait if you can",
-  "current_marginal_intensity": 251.9,
+  "current_marginal_intensity": 302.5,
   "next_clean_window": {
     "hour": 6,
     "avg_intensity": 260.1,
-    "in_hours": 10
+    "in_hours": 7
   },
   "marginal_avg": [
     {
@@ -111,15 +111,15 @@
     },
     {
       "hour": 21,
-      "marginal_intensity": 259.1
+      "marginal_intensity": 260.1
     },
     {
       "hour": 22,
-      "marginal_intensity": 290.0
+      "marginal_intensity": 292.3
     },
     {
       "hour": 23,
-      "marginal_intensity": 292.6
+      "marginal_intensity": 302.5
     }
   ],
   "marginal_note": "Proxy method: weights fuels by their share of each hour's generation increase, not total mix. Approximates which source served incremental demand. Not a substitute for a true dispatch-order marginal model like WattTime's MOER.",
@@ -207,7 +207,7 @@
       },
       {
         "hour": 20,
-        "quadrant": "both_skip"
+        "quadrant": "mixed"
       },
       {
         "hour": 21,
@@ -223,11 +223,11 @@
       }
     ],
     "quadrant_counts": {
-      "mixed": 11,
+      "mixed": 12,
       "cheap_but_dirty": 4,
       "both_worth_it": 4,
       "clean_but_pricey": 2,
-      "both_skip": 3
+      "both_skip": 2
     },
     "divergence_pct": 25.0,
     "note": "divergence_pct is the share of hours where the cheapest and cleanest times of day point in opposite directions -- i.e. optimizing for cost alone would not have also optimized for carbon."
@@ -315,15 +315,15 @@
     },
     {
       "hour": 20,
-      "carbon_intensity": 275.0
+      "carbon_intensity": 273.8
     },
     {
       "hour": 21,
-      "carbon_intensity": 275.2
+      "carbon_intensity": 274.0
     },
     {
       "hour": 22,
-      "carbon_intensity": 277.1
+      "carbon_intensity": 276.1
     },
     {
       "hour": 23,
