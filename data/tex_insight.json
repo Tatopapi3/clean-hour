@@ -1,6 +1,6 @@
 {
   "region": "TEX",
-  "analyzed_at": "2026-09-03T20:49:31.573944Z",
+  "analyzed_at": "2026-09-03T23:12:43.615198Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
@@ -14,15 +14,15 @@
   "max_intensity": 414.6,
   "pct_saved": 31.7,
   "kg_saved_yr": 984.7,
-  "current_hour": 20,
-  "current_intensity": 317.4,
+  "current_hour": 23,
+  "current_intensity": 329.6,
   "signal": "use_now",
   "signal_label": "Good time to use power",
-  "current_marginal_intensity": 398.8,
+  "current_marginal_intensity": 207.9,
   "next_clean_window": {
-    "hour": 21,
-    "avg_intensity": 320.7,
-    "in_hours": 1
+    "hour": 15,
+    "avg_intensity": 298.2,
+    "in_hours": 16
   },
   "marginal_avg": [
     {
@@ -111,15 +111,15 @@
     },
     {
       "hour": 21,
-      "marginal_intensity": 288.1
+      "marginal_intensity": 279.4
     },
     {
       "hour": 22,
-      "marginal_intensity": 246.2
+      "marginal_intensity": 252.9
     },
     {
       "hour": 23,
-      "marginal_intensity": 197.8
+      "marginal_intensity": 207.9
     }
   ],
   "marginal_note": "Proxy method: weights fuels by their share of each hour's generation increase, not total mix. Approximates which source served incremental demand. Not a substitute for a true dispatch-order marginal model like WattTime's MOER.",
@@ -179,7 +179,7 @@
       },
       {
         "hour": 13,
-        "quadrant": "mixed"
+        "quadrant": "both_skip"
       },
       {
         "hour": 14,
@@ -191,7 +191,7 @@
       },
       {
         "hour": 16,
-        "quadrant": "clean_but_pricey"
+        "quadrant": "mixed"
       },
       {
         "hour": 17,
@@ -225,9 +225,10 @@
     "quadrant_counts": {
       "mixed": 9,
       "cheap_but_dirty": 7,
-      "clean_but_pricey": 8
+      "both_skip": 1,
+      "clean_but_pricey": 7
     },
-    "divergence_pct": 62.5,
+    "divergence_pct": 58.3,
     "note": "divergence_pct is the share of hours where the cheapest and cleanest times of day point in opposite directions -- i.e. optimizing for cost alone would not have also optimized for carbon."
   },
   "hourly_avg": [
@@ -313,15 +314,15 @@
     },
     {
       "hour": 20,
-      "carbon_intensity": 317.4
+      "carbon_intensity": 318.7
     },
     {
       "hour": 21,
-      "carbon_intensity": 320.7
+      "carbon_intensity": 322.0
     },
     {
       "hour": 22,
-      "carbon_intensity": 324.0
+      "carbon_intensity": 325.5
     },
     {
       "hour": 23,

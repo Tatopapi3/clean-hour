@@ -1,6 +1,6 @@
 {
   "region": "NYIS",
-  "analyzed_at": "2026-09-03T20:49:31.605727Z",
+  "analyzed_at": "2026-09-03T23:12:43.644887Z",
   "days_analyzed": 14,
   "verdict": "skip",
   "verdict_label": "Skip it",
@@ -14,15 +14,15 @@
   "max_intensity": 278.9,
   "pct_saved": 9.6,
   "kg_saved_yr": 201.4,
-  "current_hour": 20,
-  "current_intensity": 273.8,
+  "current_hour": 23,
+  "current_intensity": 278.7,
   "signal": "wait",
   "signal_label": "Wait if you can",
-  "current_marginal_intensity": 283.8,
+  "current_marginal_intensity": 317.0,
   "next_clean_window": {
     "hour": 6,
     "avg_intensity": 260.0,
-    "in_hours": 10
+    "in_hours": 7
   },
   "marginal_avg": [
     {
@@ -111,7 +111,7 @@
     },
     {
       "hour": 21,
-      "marginal_intensity": 259.8
+      "marginal_intensity": 247.4
     },
     {
       "hour": 22,
@@ -119,7 +119,7 @@
     },
     {
       "hour": 23,
-      "marginal_intensity": 295.2
+      "marginal_intensity": 317.0
     }
   ],
   "marginal_note": "Proxy method: weights fuels by their share of each hour's generation increase, not total mix. Approximates which source served incremental demand. Not a substitute for a true dispatch-order marginal model like WattTime's MOER.",
@@ -143,7 +143,7 @@
       },
       {
         "hour": 4,
-        "quadrant": "mixed"
+        "quadrant": "cheap_but_dirty"
       },
       {
         "hour": 5,
@@ -179,7 +179,7 @@
       },
       {
         "hour": 13,
-        "quadrant": "clean_but_pricey"
+        "quadrant": "mixed"
       },
       {
         "hour": 14,
@@ -207,7 +207,7 @@
       },
       {
         "hour": 20,
-        "quadrant": "both_skip"
+        "quadrant": "mixed"
       },
       {
         "hour": 21,
@@ -223,11 +223,11 @@
       }
     ],
     "quadrant_counts": {
-      "mixed": 12,
-      "cheap_but_dirty": 3,
+      "mixed": 13,
+      "cheap_but_dirty": 4,
       "both_worth_it": 4,
-      "clean_but_pricey": 3,
-      "both_skip": 2
+      "clean_but_pricey": 2,
+      "both_skip": 1
     },
     "divergence_pct": 25.0,
     "note": "divergence_pct is the share of hours where the cheapest and cleanest times of day point in opposite directions -- i.e. optimizing for cost alone would not have also optimized for carbon."
@@ -315,15 +315,15 @@
     },
     {
       "hour": 20,
-      "carbon_intensity": 273.8
+      "carbon_intensity": 272.2
     },
     {
       "hour": 21,
-      "carbon_intensity": 274.1
+      "carbon_intensity": 272.3
     },
     {
       "hour": 22,
-      "carbon_intensity": 276.0
+      "carbon_intensity": 274.2
     },
     {
       "hour": 23,
