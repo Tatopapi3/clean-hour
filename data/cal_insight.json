@@ -1,28 +1,28 @@
 {
   "region": "CAL",
-  "analyzed_at": "2026-09-11T05:53:17.967475Z",
+  "analyzed_at": "2026-09-11T10:58:18.252535Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
-  "verdict_reason": "Your grid swings 47.7% daily \u2014 charging at the cleanest hour instead of the dirtiest cuts roughly 38% of your charging emissions.",
-  "daily_swing_pct": 47.7,
+  "verdict_reason": "Your grid swings 47.0% daily \u2014 charging at the cleanest hour instead of the dirtiest cuts roughly 38% of your charging emissions.",
+  "daily_swing_pct": 47.0,
   "cleanest_hour": 21,
-  "dirtiest_hour": 6,
+  "dirtiest_hour": 10,
   "cleanest_window": "9pm\u201312am",
-  "dirtiest_window": "6am\u20139am",
+  "dirtiest_window": "10am\u20131pm",
   "min_intensity": 138.4,
-  "max_intensity": 264.5,
-  "pct_saved": 47.7,
-  "kg_saved_yr": 944.2,
-  "current_hour": 5,
-  "current_intensity": 264.4,
+  "max_intensity": 260.9,
+  "pct_saved": 47.0,
+  "kg_saved_yr": 917.3,
+  "current_hour": 10,
+  "current_intensity": 260.9,
   "signal": "wait",
   "signal_label": "Wait if you can",
-  "current_marginal_intensity": 183.0,
+  "current_marginal_intensity": 132.0,
   "next_clean_window": {
     "hour": 16,
     "avg_intensity": 155.8,
-    "in_hours": 11
+    "in_hours": 6
   },
   "marginal_avg": [
     {
@@ -51,23 +51,23 @@
     },
     {
       "hour": 6,
-      "marginal_intensity": 138.5
+      "marginal_intensity": 144.8
     },
     {
       "hour": 7,
-      "marginal_intensity": 204.7
+      "marginal_intensity": 198.9
     },
     {
       "hour": 8,
-      "marginal_intensity": 254.7
+      "marginal_intensity": 261.8
     },
     {
       "hour": 9,
-      "marginal_intensity": 154.4
+      "marginal_intensity": 157.5
     },
     {
       "hour": 10,
-      "marginal_intensity": 122.7
+      "marginal_intensity": 132.0
     },
     {
       "hour": 11,
@@ -143,7 +143,7 @@
       },
       {
         "hour": 4,
-        "quadrant": "mixed"
+        "quadrant": "cheap_but_dirty"
       },
       {
         "hour": 5,
@@ -155,15 +155,15 @@
       },
       {
         "hour": 7,
-        "quadrant": "cheap_but_dirty"
+        "quadrant": "mixed"
       },
       {
         "hour": 8,
-        "quadrant": "cheap_but_dirty"
+        "quadrant": "mixed"
       },
       {
         "hour": 9,
-        "quadrant": "cheap_but_dirty"
+        "quadrant": "mixed"
       },
       {
         "hour": 10,
@@ -175,7 +175,7 @@
       },
       {
         "hour": 12,
-        "quadrant": "mixed"
+        "quadrant": "cheap_but_dirty"
       },
       {
         "hour": 13,
@@ -183,7 +183,7 @@
       },
       {
         "hour": 14,
-        "quadrant": "mixed"
+        "quadrant": "cheap_but_dirty"
       },
       {
         "hour": 15,
@@ -253,23 +253,23 @@
     },
     {
       "hour": 5,
-      "carbon_intensity": 264.4
-    },
-    {
-      "hour": 6,
-      "carbon_intensity": 264.5
-    },
-    {
-      "hour": 7,
       "carbon_intensity": 260.7
     },
     {
+      "hour": 6,
+      "carbon_intensity": 260.0
+    },
+    {
+      "hour": 7,
+      "carbon_intensity": 254.8
+    },
+    {
       "hour": 8,
-      "carbon_intensity": 262.8
+      "carbon_intensity": 256.8
     },
     {
       "hour": 9,
-      "carbon_intensity": 262.0
+      "carbon_intensity": 255.9
     },
     {
       "hour": 10,
