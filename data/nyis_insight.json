@@ -1,28 +1,28 @@
 {
   "region": "NYIS",
-  "analyzed_at": "2026-09-14T04:47:52.987968Z",
+  "analyzed_at": "2026-09-14T10:30:48.039905Z",
   "days_analyzed": 14,
   "verdict": "skip",
   "verdict_label": "Skip it",
-  "verdict_reason": "Your grid only swings 5.9% daily \u2014 timing barely matters here. Your grid is already relatively flat.",
-  "daily_swing_pct": 5.9,
-  "cleanest_hour": 8,
+  "verdict_reason": "Your grid only swings 6.1% daily \u2014 timing barely matters here. Your grid is already relatively flat.",
+  "daily_swing_pct": 6.1,
+  "cleanest_hour": 9,
   "dirtiest_hour": 3,
-  "cleanest_window": "8am\u201311am",
+  "cleanest_window": "9am\u201312pm",
   "dirtiest_window": "3am\u20136am",
-  "min_intensity": 259.1,
+  "min_intensity": 258.3,
   "max_intensity": 275.2,
-  "pct_saved": 5.9,
-  "kg_saved_yr": 120.6,
-  "current_hour": 4,
-  "current_intensity": 274.6,
-  "signal": "wait",
-  "signal_label": "Wait if you can",
-  "current_marginal_intensity": 113.2,
+  "pct_saved": 6.1,
+  "kg_saved_yr": 126.5,
+  "current_hour": 10,
+  "current_intensity": 261.7,
+  "signal": "use_now",
+  "signal_label": "Good time to use power",
+  "current_marginal_intensity": 329.3,
   "next_clean_window": {
-    "hour": 6,
-    "avg_intensity": 264.8,
-    "in_hours": 2
+    "hour": 14,
+    "avg_intensity": 265.7,
+    "in_hours": 4
   },
   "marginal_avg": [
     {
@@ -51,23 +51,23 @@
     },
     {
       "hour": 6,
-      "marginal_intensity": 36.9
+      "marginal_intensity": 29.0
     },
     {
       "hour": 7,
-      "marginal_intensity": 92.2
+      "marginal_intensity": 71.4
     },
     {
       "hour": 8,
-      "marginal_intensity": 92.5
+      "marginal_intensity": 62.9
     },
     {
       "hour": 9,
-      "marginal_intensity": 172.9
+      "marginal_intensity": 152.7
     },
     {
       "hour": 10,
-      "marginal_intensity": 326.5
+      "marginal_intensity": 329.3
     },
     {
       "hour": 11,
@@ -151,7 +151,7 @@
       },
       {
         "hour": 6,
-        "quadrant": "both_worth_it"
+        "quadrant": "mixed"
       },
       {
         "hour": 7,
@@ -167,7 +167,7 @@
       },
       {
         "hour": 10,
-        "quadrant": "mixed"
+        "quadrant": "both_worth_it"
       },
       {
         "hour": 11,
@@ -251,27 +251,27 @@
     },
     {
       "hour": 4,
-      "carbon_intensity": 274.6
+      "carbon_intensity": 273.8
     },
     {
       "hour": 5,
-      "carbon_intensity": 270.2
+      "carbon_intensity": 269.5
     },
     {
       "hour": 6,
-      "carbon_intensity": 264.8
+      "carbon_intensity": 264.0
     },
     {
       "hour": 7,
-      "carbon_intensity": 260.6
+      "carbon_intensity": 259.8
     },
     {
       "hour": 8,
-      "carbon_intensity": 259.1
+      "carbon_intensity": 258.4
     },
     {
       "hour": 9,
-      "carbon_intensity": 259.3
+      "carbon_intensity": 258.3
     },
     {
       "hour": 10,
