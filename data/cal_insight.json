@@ -1,27 +1,27 @@
 {
   "region": "CAL",
-  "analyzed_at": "2026-09-19T17:09:34.188216Z",
+  "analyzed_at": "2026-09-19T20:21:57.587096Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
-  "verdict_reason": "Your grid swings 48.7% daily \u2014 charging at the cleanest hour instead of the dirtiest cuts roughly 39% of your charging emissions.",
-  "daily_swing_pct": 48.7,
-  "cleanest_hour": 18,
+  "verdict_reason": "Your grid swings 48.2% daily \u2014 charging at the cleanest hour instead of the dirtiest cuts roughly 39% of your charging emissions.",
+  "daily_swing_pct": 48.2,
+  "cleanest_hour": 20,
   "dirtiest_hour": 14,
-  "cleanest_window": "6pm\u20139pm",
+  "cleanest_window": "8pm\u201311pm",
   "dirtiest_window": "2pm\u20135pm",
-  "min_intensity": 134.0,
+  "min_intensity": 135.2,
   "max_intensity": 261.2,
-  "pct_saved": 48.7,
-  "kg_saved_yr": 952.5,
-  "current_hour": 17,
-  "current_intensity": 139.2,
+  "pct_saved": 48.2,
+  "kg_saved_yr": 943.5,
+  "current_hour": 20,
+  "current_intensity": 135.2,
   "signal": "use_now",
   "signal_label": "Good time to use power",
-  "current_marginal_intensity": 60.3,
+  "current_marginal_intensity": 201.6,
   "next_clean_window": {
-    "hour": 18,
-    "avg_intensity": 134.0,
+    "hour": 21,
+    "avg_intensity": 136.0,
     "in_hours": 1
   },
   "marginal_avg": [
@@ -99,15 +99,15 @@
     },
     {
       "hour": 18,
-      "marginal_intensity": 69.2
+      "marginal_intensity": 69.9
     },
     {
       "hour": 19,
-      "marginal_intensity": 144.5
+      "marginal_intensity": 138.6
     },
     {
       "hour": 20,
-      "marginal_intensity": 208.2
+      "marginal_intensity": 201.6
     },
     {
       "hour": 21,
@@ -302,15 +302,15 @@
     },
     {
       "hour": 17,
-      "carbon_intensity": 139.2
+      "carbon_intensity": 142.0
     },
     {
       "hour": 18,
-      "carbon_intensity": 134.0
+      "carbon_intensity": 136.9
     },
     {
       "hour": 19,
-      "carbon_intensity": 134.5
+      "carbon_intensity": 137.1
     },
     {
       "hour": 20,
