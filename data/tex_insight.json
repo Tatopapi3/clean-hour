@@ -1,6 +1,6 @@
 {
   "region": "TEX",
-  "analyzed_at": "2026-09-21T20:57:58.407612Z",
+  "analyzed_at": "2026-09-22T00:00:43.236601Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
@@ -14,15 +14,15 @@
   "max_intensity": 397.5,
   "pct_saved": 34.3,
   "kg_saved_yr": 1020.6,
-  "current_hour": 20,
-  "current_intensity": 299.4,
-  "signal": "use_now",
-  "signal_label": "Good time to use power",
-  "current_marginal_intensity": 437.5,
+  "current_hour": 0,
+  "current_intensity": 352.2,
+  "signal": "moderate",
+  "signal_label": "Moderate \u2014 not ideal, not terrible",
+  "current_marginal_intensity": 211.8,
   "next_clean_window": {
-    "hour": 21,
-    "avg_intensity": 303.2,
-    "in_hours": 1
+    "hour": 15,
+    "avg_intensity": 273.0,
+    "in_hours": 15
   },
   "marginal_avg": [
     {
@@ -111,15 +111,15 @@
     },
     {
       "hour": 21,
-      "marginal_intensity": 293.2
+      "marginal_intensity": 305.0
     },
     {
       "hour": 22,
-      "marginal_intensity": 255.5
+      "marginal_intensity": 248.4
     },
     {
       "hour": 23,
-      "marginal_intensity": 192.3
+      "marginal_intensity": 190.0
     }
   ],
   "marginal_note": "Proxy method: weights fuels by their share of each hour's generation increase, not total mix. Approximates which source served incremental demand. Not a substitute for a true dispatch-order marginal model like WattTime's MOER.",
@@ -179,7 +179,7 @@
       },
       {
         "hour": 13,
-        "quadrant": "both_skip"
+        "quadrant": "mixed"
       },
       {
         "hour": 14,
@@ -191,7 +191,7 @@
       },
       {
         "hour": 16,
-        "quadrant": "mixed"
+        "quadrant": "clean_but_pricey"
       },
       {
         "hour": 17,
@@ -225,10 +225,9 @@
     "quadrant_counts": {
       "mixed": 11,
       "cheap_but_dirty": 6,
-      "both_skip": 1,
-      "clean_but_pricey": 6
+      "clean_but_pricey": 7
     },
-    "divergence_pct": 50.0,
+    "divergence_pct": 54.2,
     "note": "divergence_pct is the share of hours where the cheapest and cleanest times of day point in opposite directions -- i.e. optimizing for cost alone would not have also optimized for carbon."
   },
   "hourly_avg": [
@@ -314,15 +313,15 @@
     },
     {
       "hour": 20,
-      "carbon_intensity": 299.4
+      "carbon_intensity": 298.9
     },
     {
       "hour": 21,
-      "carbon_intensity": 303.2
+      "carbon_intensity": 303.3
     },
     {
       "hour": 22,
-      "carbon_intensity": 308.4
+      "carbon_intensity": 308.3
     },
     {
       "hour": 23,
