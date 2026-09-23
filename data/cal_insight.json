@@ -1,27 +1,27 @@
 {
   "region": "CAL",
-  "analyzed_at": "2026-09-23T16:30:57.481113Z",
+  "analyzed_at": "2026-09-23T20:07:26.430890Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
-  "verdict_reason": "Your grid swings 51.0% daily \u2014 charging at the cleanest hour instead of the dirtiest cuts roughly 41% of your charging emissions.",
-  "daily_swing_pct": 51.0,
+  "verdict_reason": "Your grid swings 54.5% daily \u2014 charging at the cleanest hour instead of the dirtiest cuts roughly 44% of your charging emissions.",
+  "daily_swing_pct": 54.5,
   "cleanest_hour": 19,
   "dirtiest_hour": 14,
   "cleanest_window": "7pm\u201310pm",
   "dirtiest_window": "2pm\u20135pm",
-  "min_intensity": 122.5,
+  "min_intensity": 113.8,
   "max_intensity": 250.0,
-  "pct_saved": 51.0,
-  "kg_saved_yr": 954.7,
-  "current_hour": 16,
-  "current_intensity": 140.6,
+  "pct_saved": 54.5,
+  "kg_saved_yr": 1019.9,
+  "current_hour": 20,
+  "current_intensity": 122.7,
   "signal": "use_now",
   "signal_label": "Good time to use power",
-  "current_marginal_intensity": 51.2,
+  "current_marginal_intensity": 181.2,
   "next_clean_window": {
-    "hour": 17,
-    "avg_intensity": 128.4,
+    "hour": 21,
+    "avg_intensity": 124.2,
     "in_hours": 1
   },
   "marginal_avg": [
@@ -95,19 +95,19 @@
     },
     {
       "hour": 17,
-      "marginal_intensity": 56.0
+      "marginal_intensity": 55.9
     },
     {
       "hour": 18,
-      "marginal_intensity": 66.7
+      "marginal_intensity": 67.3
     },
     {
       "hour": 19,
-      "marginal_intensity": 101.1
+      "marginal_intensity": 89.4
     },
     {
       "hour": 20,
-      "marginal_intensity": 187.1
+      "marginal_intensity": 181.2
     },
     {
       "hour": 21,
@@ -298,19 +298,19 @@
     },
     {
       "hour": 16,
-      "carbon_intensity": 140.6
+      "carbon_intensity": 132.0
     },
     {
       "hour": 17,
-      "carbon_intensity": 128.4
+      "carbon_intensity": 120.0
     },
     {
       "hour": 18,
-      "carbon_intensity": 123.3
+      "carbon_intensity": 114.9
     },
     {
       "hour": 19,
-      "carbon_intensity": 122.5
+      "carbon_intensity": 113.8
     },
     {
       "hour": 20,
