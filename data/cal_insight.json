@@ -1,6 +1,6 @@
 {
   "region": "CAL",
-  "analyzed_at": "2026-09-27T13:43:02.556493Z",
+  "analyzed_at": "2026-09-27T18:13:25.262614Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
@@ -11,18 +11,18 @@
   "cleanest_window": "8pm\u201311pm",
   "dirtiest_window": "2pm\u20135pm",
   "min_intensity": 109.0,
-  "max_intensity": 252.4,
+  "max_intensity": 252.6,
   "pct_saved": 56.8,
-  "kg_saved_yr": 1073.8,
-  "current_hour": 13,
-  "current_intensity": 246.5,
-  "signal": "wait",
-  "signal_label": "Wait if you can",
-  "current_marginal_intensity": 229.6,
+  "kg_saved_yr": 1075.3,
+  "current_hour": 18,
+  "current_intensity": 111.4,
+  "signal": "use_now",
+  "signal_label": "Good time to use power",
+  "current_marginal_intensity": 60.0,
   "next_clean_window": {
-    "hour": 16,
-    "avg_intensity": 130.4,
-    "in_hours": 3
+    "hour": 19,
+    "avg_intensity": 109.6,
+    "in_hours": 1
   },
   "marginal_avg": [
     {
@@ -83,11 +83,11 @@
     },
     {
       "hour": 14,
-      "marginal_intensity": 256.6
+      "marginal_intensity": 262.4
     },
     {
       "hour": 15,
-      "marginal_intensity": 49.5
+      "marginal_intensity": 49.3
     },
     {
       "hour": 16,
@@ -95,11 +95,11 @@
     },
     {
       "hour": 17,
-      "marginal_intensity": 55.8
+      "marginal_intensity": 56.4
     },
     {
       "hour": 18,
-      "marginal_intensity": 60.1
+      "marginal_intensity": 60.0
     },
     {
       "hour": 19,
@@ -287,23 +287,23 @@
     },
     {
       "hour": 13,
-      "carbon_intensity": 246.5
+      "carbon_intensity": 245.6
     },
     {
       "hour": 14,
-      "carbon_intensity": 252.4
+      "carbon_intensity": 252.6
     },
     {
       "hour": 15,
-      "carbon_intensity": 200.0
+      "carbon_intensity": 202.1
     },
     {
       "hour": 16,
-      "carbon_intensity": 130.4
+      "carbon_intensity": 133.2
     },
     {
       "hour": 17,
-      "carbon_intensity": 117.1
+      "carbon_intensity": 119.5
     },
     {
       "hour": 18,
