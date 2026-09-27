@@ -1,27 +1,27 @@
 {
   "region": "CAL",
-  "analyzed_at": "2026-09-27T18:13:25.262614Z",
+  "analyzed_at": "2026-09-27T21:59:30.910002Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
-  "verdict_reason": "Your grid swings 56.8% daily \u2014 charging at the cleanest hour instead of the dirtiest cuts roughly 45% of your charging emissions.",
-  "daily_swing_pct": 56.8,
-  "cleanest_hour": 20,
+  "verdict_reason": "Your grid swings 56.7% daily \u2014 charging at the cleanest hour instead of the dirtiest cuts roughly 45% of your charging emissions.",
+  "daily_swing_pct": 56.7,
+  "cleanest_hour": 21,
   "dirtiest_hour": 14,
-  "cleanest_window": "8pm\u201311pm",
+  "cleanest_window": "9pm\u201312am",
   "dirtiest_window": "2pm\u20135pm",
-  "min_intensity": 109.0,
+  "min_intensity": 109.4,
   "max_intensity": 252.6,
-  "pct_saved": 56.8,
-  "kg_saved_yr": 1075.3,
-  "current_hour": 18,
-  "current_intensity": 111.4,
+  "pct_saved": 56.7,
+  "kg_saved_yr": 1072.3,
+  "current_hour": 21,
+  "current_intensity": 109.4,
   "signal": "use_now",
   "signal_label": "Good time to use power",
-  "current_marginal_intensity": 60.0,
+  "current_marginal_intensity": 255.8,
   "next_clean_window": {
-    "hour": 19,
-    "avg_intensity": 109.6,
+    "hour": 22,
+    "avg_intensity": 112.1,
     "in_hours": 1
   },
   "marginal_avg": [
@@ -103,15 +103,15 @@
     },
     {
       "hour": 19,
-      "marginal_intensity": 59.4
+      "marginal_intensity": 59.0
     },
     {
       "hour": 20,
-      "marginal_intensity": 180.5
+      "marginal_intensity": 182.6
     },
     {
       "hour": 21,
-      "marginal_intensity": 247.8
+      "marginal_intensity": 255.8
     },
     {
       "hour": 22,
@@ -307,15 +307,15 @@
     },
     {
       "hour": 18,
-      "carbon_intensity": 111.4
+      "carbon_intensity": 113.4
     },
     {
       "hour": 19,
-      "carbon_intensity": 109.6
+      "carbon_intensity": 111.5
     },
     {
       "hour": 20,
-      "carbon_intensity": 109.0
+      "carbon_intensity": 111.1
     },
     {
       "hour": 21,
