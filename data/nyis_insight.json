@@ -1,6 +1,6 @@
 {
   "region": "NYIS",
-  "analyzed_at": "2026-09-30T19:02:13.263951Z",
+  "analyzed_at": "2026-09-30T22:57:03.009060Z",
   "days_analyzed": 14,
   "verdict": "skip",
   "verdict_label": "Skip it",
@@ -14,15 +14,15 @@
   "max_intensity": 262.4,
   "pct_saved": 4.9,
   "kg_saved_yr": 96.6,
-  "current_hour": 19,
-  "current_intensity": 253.0,
-  "signal": "use_now",
-  "signal_label": "Good time to use power",
-  "current_marginal_intensity": 249.0,
+  "current_hour": 22,
+  "current_intensity": 256.5,
+  "signal": "moderate",
+  "signal_label": "Moderate \u2014 not ideal, not terrible",
+  "current_marginal_intensity": 256.7,
   "next_clean_window": {
-    "hour": 20,
-    "avg_intensity": 253.1,
-    "in_hours": 1
+    "hour": 7,
+    "avg_intensity": 252.7,
+    "in_hours": 9
   },
   "marginal_avg": [
     {
@@ -103,19 +103,19 @@
     },
     {
       "hour": 19,
-      "marginal_intensity": 249.0
+      "marginal_intensity": 243.2
     },
     {
       "hour": 20,
-      "marginal_intensity": 238.3
+      "marginal_intensity": 228.1
     },
     {
       "hour": 21,
-      "marginal_intensity": 252.9
+      "marginal_intensity": 247.9
     },
     {
       "hour": 22,
-      "marginal_intensity": 255.1
+      "marginal_intensity": 256.7
     },
     {
       "hour": 23,
@@ -187,7 +187,7 @@
       },
       {
         "hour": 15,
-        "quadrant": "clean_but_pricey"
+        "quadrant": "mixed"
       },
       {
         "hour": 16,
@@ -211,7 +211,7 @@
       },
       {
         "hour": 21,
-        "quadrant": "mixed"
+        "quadrant": "clean_but_pricey"
       },
       {
         "hour": 22,
@@ -305,19 +305,19 @@
     },
     {
       "hour": 18,
-      "carbon_intensity": 251.6
+      "carbon_intensity": 249.9
     },
     {
       "hour": 19,
-      "carbon_intensity": 253.0
+      "carbon_intensity": 251.2
     },
     {
       "hour": 20,
-      "carbon_intensity": 253.1
+      "carbon_intensity": 250.7
     },
     {
       "hour": 21,
-      "carbon_intensity": 253.8
+      "carbon_intensity": 251.2
     },
     {
       "hour": 22,
