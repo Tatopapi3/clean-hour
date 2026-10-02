@@ -1,6 +1,6 @@
 {
   "region": "CAL",
-  "analyzed_at": "2026-10-01T21:45:39.838554Z",
+  "analyzed_at": "2026-10-02T01:30:27.363806Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
@@ -14,24 +14,24 @@
   "max_intensity": 255.5,
   "pct_saved": 54.3,
   "kg_saved_yr": 1039.3,
-  "current_hour": 21,
-  "current_intensity": 117.0,
-  "signal": "use_now",
-  "signal_label": "Good time to use power",
-  "current_marginal_intensity": 240.0,
+  "current_hour": 1,
+  "current_intensity": 180.9,
+  "signal": "moderate",
+  "signal_label": "Moderate \u2014 not ideal, not terrible",
+  "current_marginal_intensity": 257.2,
   "next_clean_window": {
-    "hour": 22,
-    "avg_intensity": 119.9,
-    "in_hours": 1
+    "hour": 16,
+    "avg_intensity": 143.8,
+    "in_hours": 15
   },
   "marginal_avg": [
     {
       "hour": 0,
-      "marginal_intensity": 267.5
+      "marginal_intensity": 268.7
     },
     {
       "hour": 1,
-      "marginal_intensity": 257.4
+      "marginal_intensity": 257.2
     },
     {
       "hour": 2,
@@ -115,11 +115,11 @@
     },
     {
       "hour": 22,
-      "marginal_intensity": 253.4
+      "marginal_intensity": 253.9
     },
     {
       "hour": 23,
-      "marginal_intensity": 270.3
+      "marginal_intensity": 267.8
     }
   ],
   "marginal_note": "Proxy method: weights fuels by their share of each hour's generation increase, not total mix. Approximates which source served incremental demand. Not a substitute for a true dispatch-order marginal model like WattTime's MOER.",
@@ -234,7 +234,7 @@
   "hourly_avg": [
     {
       "hour": 0,
-      "carbon_intensity": 141.4
+      "carbon_intensity": 143.2
     },
     {
       "hour": 1,
@@ -318,15 +318,15 @@
     },
     {
       "hour": 21,
-      "carbon_intensity": 117.0
+      "carbon_intensity": 118.0
     },
     {
       "hour": 22,
-      "carbon_intensity": 119.9
+      "carbon_intensity": 121.1
     },
     {
       "hour": 23,
-      "carbon_intensity": 128.7
+      "carbon_intensity": 130.2
     }
   ]
 }
