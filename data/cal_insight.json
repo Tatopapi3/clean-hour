@@ -1,33 +1,33 @@
 {
   "region": "CAL",
-  "analyzed_at": "2026-10-02T20:35:43.727019Z",
+  "analyzed_at": "2026-10-03T00:20:58.721787Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
-  "verdict_reason": "Your grid swings 54.5% daily \u2014 charging at the cleanest hour instead of the dirtiest cuts roughly 44% of your charging emissions.",
-  "daily_swing_pct": 54.5,
+  "verdict_reason": "Your grid swings 53.6% daily \u2014 charging at the cleanest hour instead of the dirtiest cuts roughly 43% of your charging emissions.",
+  "daily_swing_pct": 53.6,
   "cleanest_hour": 20,
   "dirtiest_hour": 14,
   "cleanest_window": "8pm\u201311pm",
   "dirtiest_window": "2pm\u20135pm",
-  "min_intensity": 119.8,
+  "min_intensity": 122.0,
   "max_intensity": 263.1,
-  "pct_saved": 54.5,
-  "kg_saved_yr": 1073.0,
-  "current_hour": 20,
-  "current_intensity": 119.8,
+  "pct_saved": 53.6,
+  "kg_saved_yr": 1056.6,
+  "current_hour": 0,
+  "current_intensity": 146.4,
   "signal": "use_now",
   "signal_label": "Good time to use power",
-  "current_marginal_intensity": 188.7,
+  "current_marginal_intensity": 271.6,
   "next_clean_window": {
-    "hour": 21,
-    "avg_intensity": 120.5,
-    "in_hours": 1
+    "hour": 16,
+    "avg_intensity": 149.5,
+    "in_hours": 16
   },
   "marginal_avg": [
     {
       "hour": 0,
-      "marginal_intensity": 270.3
+      "marginal_intensity": 271.6
     },
     {
       "hour": 1,
@@ -111,15 +111,15 @@
     },
     {
       "hour": 21,
-      "marginal_intensity": 239.0
+      "marginal_intensity": 233.0
     },
     {
       "hour": 22,
-      "marginal_intensity": 258.9
+      "marginal_intensity": 254.5
     },
     {
       "hour": 23,
-      "marginal_intensity": 271.4
+      "marginal_intensity": 270.3
     }
   ],
   "marginal_note": "Proxy method: weights fuels by their share of each hour's generation increase, not total mix. Approximates which source served incremental demand. Not a substitute for a true dispatch-order marginal model like WattTime's MOER.",
@@ -313,19 +313,19 @@
     },
     {
       "hour": 20,
-      "carbon_intensity": 119.8
+      "carbon_intensity": 122.0
     },
     {
       "hour": 21,
-      "carbon_intensity": 120.5
+      "carbon_intensity": 122.6
     },
     {
       "hour": 22,
-      "carbon_intensity": 123.9
+      "carbon_intensity": 125.8
     },
     {
       "hour": 23,
-      "carbon_intensity": 133.4
+      "carbon_intensity": 135.5
     }
   ]
 }
