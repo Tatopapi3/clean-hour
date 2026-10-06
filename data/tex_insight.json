@@ -1,27 +1,27 @@
 {
   "region": "TEX",
-  "analyzed_at": "2026-10-06T14:58:11.191694Z",
+  "analyzed_at": "2026-10-06T20:09:50.443400Z",
   "days_analyzed": 14,
   "verdict": "moderate",
   "verdict_label": "Moderate benefit",
-  "verdict_reason": "Your grid swings 28.6% daily \u2014 timing your charging helps somewhat but won't transform your footprint.",
-  "daily_swing_pct": 28.6,
+  "verdict_reason": "Your grid swings 28.9% daily \u2014 timing your charging helps somewhat but won't transform your footprint.",
+  "daily_swing_pct": 28.9,
   "cleanest_hour": 17,
   "dirtiest_hour": 2,
   "cleanest_window": "5pm\u20138pm",
   "dirtiest_window": "2am\u20135am",
-  "min_intensity": 292.2,
+  "min_intensity": 291.0,
   "max_intensity": 409.3,
-  "pct_saved": 28.6,
-  "kg_saved_yr": 876.8,
-  "current_hour": 14,
-  "current_intensity": 369.7,
-  "signal": "moderate",
-  "signal_label": "Moderate \u2014 not ideal, not terrible",
-  "current_marginal_intensity": 56.2,
+  "pct_saved": 28.9,
+  "kg_saved_yr": 885.8,
+  "current_hour": 20,
+  "current_intensity": 307.6,
+  "signal": "use_now",
+  "signal_label": "Good time to use power",
+  "current_marginal_intensity": 312.7,
   "next_clean_window": {
-    "hour": 15,
-    "avg_intensity": 320.5,
+    "hour": 21,
+    "avg_intensity": 316.1,
     "in_hours": 1
   },
   "marginal_avg": [
@@ -87,27 +87,27 @@
     },
     {
       "hour": 15,
-      "marginal_intensity": 62.8
+      "marginal_intensity": 64.0
     },
     {
       "hour": 16,
-      "marginal_intensity": 68.5
+      "marginal_intensity": 69.7
     },
     {
       "hour": 17,
-      "marginal_intensity": 71.6
+      "marginal_intensity": 69.4
     },
     {
       "hour": 18,
-      "marginal_intensity": 160.4
+      "marginal_intensity": 148.3
     },
     {
       "hour": 19,
-      "marginal_intensity": 287.2
+      "marginal_intensity": 280.9
     },
     {
       "hour": 20,
-      "marginal_intensity": 312.6
+      "marginal_intensity": 312.7
     },
     {
       "hour": 21,
@@ -179,7 +179,7 @@
       },
       {
         "hour": 13,
-        "quadrant": "both_skip"
+        "quadrant": "mixed"
       },
       {
         "hour": 14,
@@ -223,9 +223,8 @@
       }
     ],
     "quadrant_counts": {
-      "mixed": 11,
+      "mixed": 12,
       "cheap_but_dirty": 5,
-      "both_skip": 1,
       "clean_but_pricey": 7
     },
     "divergence_pct": 50.0,
@@ -290,27 +289,27 @@
     },
     {
       "hour": 14,
-      "carbon_intensity": 369.7
+      "carbon_intensity": 368.8
     },
     {
       "hour": 15,
-      "carbon_intensity": 320.5
+      "carbon_intensity": 320.8
     },
     {
       "hour": 16,
-      "carbon_intensity": 301.6
+      "carbon_intensity": 301.2
     },
     {
       "hour": 17,
-      "carbon_intensity": 292.2
+      "carbon_intensity": 291.0
     },
     {
       "hour": 18,
-      "carbon_intensity": 293.5
+      "carbon_intensity": 291.9
     },
     {
       "hour": 19,
-      "carbon_intensity": 300.0
+      "carbon_intensity": 298.2
     },
     {
       "hour": 20,
