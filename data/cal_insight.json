@@ -1,33 +1,33 @@
 {
   "region": "CAL",
-  "analyzed_at": "2026-10-06T20:09:50.410952Z",
+  "analyzed_at": "2026-10-07T00:34:12.493124Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
-  "verdict_reason": "Your grid swings 50.5% daily \u2014 charging at the cleanest hour instead of the dirtiest cuts roughly 40% of your charging emissions.",
-  "daily_swing_pct": 50.5,
-  "cleanest_hour": 20,
+  "verdict_reason": "Your grid swings 49.8% daily \u2014 charging at the cleanest hour instead of the dirtiest cuts roughly 40% of your charging emissions.",
+  "daily_swing_pct": 49.8,
+  "cleanest_hour": 18,
   "dirtiest_hour": 14,
-  "cleanest_window": "8pm\u201311pm",
+  "cleanest_window": "6pm\u20139pm",
   "dirtiest_window": "2pm\u20135pm",
-  "min_intensity": 141.2,
+  "min_intensity": 143.2,
   "max_intensity": 285.0,
-  "pct_saved": 50.5,
-  "kg_saved_yr": 1076.8,
-  "current_hour": 20,
-  "current_intensity": 141.2,
+  "pct_saved": 49.8,
+  "kg_saved_yr": 1061.8,
+  "current_hour": 0,
+  "current_intensity": 172.1,
   "signal": "use_now",
   "signal_label": "Good time to use power",
-  "current_marginal_intensity": 241.0,
+  "current_marginal_intensity": 279.7,
   "next_clean_window": {
-    "hour": 21,
-    "avg_intensity": 144.3,
-    "in_hours": 1
+    "hour": 16,
+    "avg_intensity": 168.5,
+    "in_hours": 16
   },
   "marginal_avg": [
     {
       "hour": 0,
-      "marginal_intensity": 276.0
+      "marginal_intensity": 279.7
     },
     {
       "hour": 1,
@@ -111,15 +111,15 @@
     },
     {
       "hour": 21,
-      "marginal_intensity": 258.6
+      "marginal_intensity": 261.9
     },
     {
       "hour": 22,
-      "marginal_intensity": 279.4
+      "marginal_intensity": 278.9
     },
     {
       "hour": 23,
-      "marginal_intensity": 280.7
+      "marginal_intensity": 281.5
     }
   ],
   "marginal_note": "Proxy method: weights fuels by their share of each hour's generation increase, not total mix. Approximates which source served incremental demand. Not a substitute for a true dispatch-order marginal model like WattTime's MOER.",
@@ -191,7 +191,7 @@
       },
       {
         "hour": 16,
-        "quadrant": "mixed"
+        "quadrant": "clean_but_pricey"
       },
       {
         "hour": 17,
@@ -219,7 +219,7 @@
       },
       {
         "hour": 23,
-        "quadrant": "clean_but_pricey"
+        "quadrant": "mixed"
       }
     ],
     "quadrant_counts": {
@@ -313,19 +313,19 @@
     },
     {
       "hour": 20,
-      "carbon_intensity": 141.2
+      "carbon_intensity": 144.5
     },
     {
       "hour": 21,
-      "carbon_intensity": 144.3
+      "carbon_intensity": 147.8
     },
     {
       "hour": 22,
-      "carbon_intensity": 149.5
+      "carbon_intensity": 153.3
     },
     {
       "hour": 23,
-      "carbon_intensity": 158.8
+      "carbon_intensity": 162.8
     }
   ]
 }
