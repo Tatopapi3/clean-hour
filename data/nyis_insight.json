@@ -1,6 +1,6 @@
 {
   "region": "NYIS",
-  "analyzed_at": "2026-10-07T20:35:43.990369Z",
+  "analyzed_at": "2026-10-08T00:54:22.951209Z",
   "days_analyzed": 14,
   "verdict": "skip",
   "verdict_label": "Skip it",
@@ -11,23 +11,23 @@
   "cleanest_window": "8am\u201311am",
   "dirtiest_window": "11pm\u20132am",
   "min_intensity": 233.5,
-  "max_intensity": 250.0,
+  "max_intensity": 250.1,
   "pct_saved": 6.6,
-  "kg_saved_yr": 123.6,
-  "current_hour": 20,
-  "current_intensity": 238.9,
-  "signal": "use_now",
-  "signal_label": "Good time to use power",
-  "current_marginal_intensity": 265.2,
+  "kg_saved_yr": 124.3,
+  "current_hour": 0,
+  "current_intensity": 249.4,
+  "signal": "wait",
+  "signal_label": "Wait if you can",
+  "current_marginal_intensity": 206.0,
   "next_clean_window": {
     "hour": 7,
     "avg_intensity": 235.2,
-    "in_hours": 11
+    "in_hours": 7
   },
   "marginal_avg": [
     {
       "hour": 0,
-      "marginal_intensity": 192.0
+      "marginal_intensity": 206.0
     },
     {
       "hour": 1,
@@ -111,15 +111,15 @@
     },
     {
       "hour": 21,
-      "marginal_intensity": 236.4
+      "marginal_intensity": 238.4
     },
     {
       "hour": 22,
-      "marginal_intensity": 295.0
+      "marginal_intensity": 288.1
     },
     {
       "hour": 23,
-      "marginal_intensity": 314.0
+      "marginal_intensity": 312.6
     }
   ],
   "marginal_note": "Proxy method: weights fuels by their share of each hour's generation increase, not total mix. Approximates which source served incremental demand. Not a substitute for a true dispatch-order marginal model like WattTime's MOER.",
@@ -315,19 +315,19 @@
     },
     {
       "hour": 20,
-      "carbon_intensity": 238.9
+      "carbon_intensity": 239.3
     },
     {
       "hour": 21,
-      "carbon_intensity": 239.9
+      "carbon_intensity": 240.5
     },
     {
       "hour": 22,
-      "carbon_intensity": 246.3
+      "carbon_intensity": 246.5
     },
     {
       "hour": 23,
-      "carbon_intensity": 250.0
+      "carbon_intensity": 250.1
     }
   ]
 }
