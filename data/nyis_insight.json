@@ -1,6 +1,6 @@
 {
   "region": "NYIS",
-  "analyzed_at": "2026-10-09T20:47:05.637875Z",
+  "analyzed_at": "2026-10-10T00:40:56.286774Z",
   "days_analyzed": 14,
   "verdict": "skip",
   "verdict_label": "Skip it",
@@ -11,23 +11,23 @@
   "cleanest_window": "8am\u201311am",
   "dirtiest_window": "11pm\u20132am",
   "min_intensity": 226.9,
-  "max_intensity": 246.8,
+  "max_intensity": 246.9,
   "pct_saved": 8.1,
-  "kg_saved_yr": 149.0,
-  "current_hour": 20,
-  "current_intensity": 234.1,
-  "signal": "moderate",
-  "signal_label": "Moderate \u2014 not ideal, not terrible",
-  "current_marginal_intensity": 263.1,
+  "kg_saved_yr": 149.8,
+  "current_hour": 0,
+  "current_intensity": 246.6,
+  "signal": "wait",
+  "signal_label": "Wait if you can",
+  "current_marginal_intensity": 202.9,
   "next_clean_window": {
     "hour": 6,
     "avg_intensity": 234.0,
-    "in_hours": 10
+    "in_hours": 6
   },
   "marginal_avg": [
     {
       "hour": 0,
-      "marginal_intensity": 205.3
+      "marginal_intensity": 202.9
     },
     {
       "hour": 1,
@@ -111,15 +111,15 @@
     },
     {
       "hour": 21,
-      "marginal_intensity": 238.0
+      "marginal_intensity": 235.1
     },
     {
       "hour": 22,
-      "marginal_intensity": 292.4
+      "marginal_intensity": 284.7
     },
     {
       "hour": 23,
-      "marginal_intensity": 312.7
+      "marginal_intensity": 310.4
     }
   ],
   "marginal_note": "Proxy method: weights fuels by their share of each hour's generation increase, not total mix. Approximates which source served incremental demand. Not a substitute for a true dispatch-order marginal model like WattTime's MOER.",
@@ -314,19 +314,19 @@
     },
     {
       "hour": 20,
-      "carbon_intensity": 234.1
+      "carbon_intensity": 234.8
     },
     {
       "hour": 21,
-      "carbon_intensity": 235.6
+      "carbon_intensity": 236.3
     },
     {
       "hour": 22,
-      "carbon_intensity": 242.8
+      "carbon_intensity": 243.1
     },
     {
       "hour": 23,
-      "carbon_intensity": 246.8
+      "carbon_intensity": 246.9
     }
   ]
 }
