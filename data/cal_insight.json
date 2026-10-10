@@ -1,6 +1,6 @@
 {
   "region": "CAL",
-  "analyzed_at": "2026-10-10T00:40:56.232944Z",
+  "analyzed_at": "2026-10-10T06:54:23.357572Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
@@ -14,15 +14,15 @@
   "max_intensity": 295.0,
   "pct_saved": 46.4,
   "kg_saved_yr": 1025.9,
-  "current_hour": 0,
-  "current_intensity": 188.1,
-  "signal": "use_now",
-  "signal_label": "Good time to use power",
-  "current_marginal_intensity": 284.0,
+  "current_hour": 6,
+  "current_intensity": 285.1,
+  "signal": "moderate",
+  "signal_label": "Moderate \u2014 not ideal, not terrible",
+  "current_marginal_intensity": 162.5,
   "next_clean_window": {
     "hour": 16,
     "avg_intensity": 182.1,
-    "in_hours": 16
+    "in_hours": 10
   },
   "marginal_avg": [
     {
@@ -31,27 +31,27 @@
     },
     {
       "hour": 1,
-      "marginal_intensity": 284.0
+      "marginal_intensity": 284.2
     },
     {
       "hour": 2,
-      "marginal_intensity": 297.4
+      "marginal_intensity": 296.4
     },
     {
       "hour": 3,
-      "marginal_intensity": 152.3
+      "marginal_intensity": 155.9
     },
     {
       "hour": 4,
-      "marginal_intensity": 186.7
+      "marginal_intensity": 200.2
     },
     {
       "hour": 5,
-      "marginal_intensity": 199.7
+      "marginal_intensity": 181.5
     },
     {
       "hour": 6,
-      "marginal_intensity": 152.3
+      "marginal_intensity": 162.5
     },
     {
       "hour": 7,
@@ -233,27 +233,27 @@
   "hourly_avg": [
     {
       "hour": 0,
-      "carbon_intensity": 188.1
+      "carbon_intensity": 192.9
     },
     {
       "hour": 1,
-      "carbon_intensity": 235.7
+      "carbon_intensity": 240.5
     },
     {
       "hour": 2,
-      "carbon_intensity": 281.6
+      "carbon_intensity": 284.6
     },
     {
       "hour": 3,
-      "carbon_intensity": 283.7
+      "carbon_intensity": 286.6
     },
     {
       "hour": 4,
-      "carbon_intensity": 282.9
+      "carbon_intensity": 286.6
     },
     {
       "hour": 5,
-      "carbon_intensity": 285.8
+      "carbon_intensity": 289.3
     },
     {
       "hour": 6,
