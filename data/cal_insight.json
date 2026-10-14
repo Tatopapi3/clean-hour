@@ -1,6 +1,6 @@
 {
   "region": "CAL",
-  "analyzed_at": "2026-10-13T21:07:44.940501Z",
+  "analyzed_at": "2026-10-14T01:02:55.593348Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
@@ -14,20 +14,20 @@
   "max_intensity": 302.6,
   "pct_saved": 45.4,
   "kg_saved_yr": 1028.9,
-  "current_hour": 21,
-  "current_intensity": 167.6,
-  "signal": "use_now",
-  "signal_label": "Good time to use power",
-  "current_marginal_intensity": 249.4,
+  "current_hour": 1,
+  "current_intensity": 243.5,
+  "signal": "moderate",
+  "signal_label": "Moderate \u2014 not ideal, not terrible",
+  "current_marginal_intensity": 277.8,
   "next_clean_window": {
-    "hour": 22,
-    "avg_intensity": 174.0,
-    "in_hours": 1
+    "hour": 16,
+    "avg_intensity": 193.8,
+    "in_hours": 15
   },
   "marginal_avg": [
     {
       "hour": 0,
-      "marginal_intensity": 285.8
+      "marginal_intensity": 288.4
     },
     {
       "hour": 1,
@@ -115,11 +115,11 @@
     },
     {
       "hour": 22,
-      "marginal_intensity": 291.4
+      "marginal_intensity": 292.0
     },
     {
       "hour": 23,
-      "marginal_intensity": 292.0
+      "marginal_intensity": 295.8
     }
   ],
   "marginal_note": "Proxy method: weights fuels by their share of each hour's generation increase, not total mix. Approximates which source served incremental demand. Not a substitute for a true dispatch-order marginal model like WattTime's MOER.",
@@ -191,7 +191,7 @@
       },
       {
         "hour": 16,
-        "quadrant": "mixed"
+        "quadrant": "clean_but_pricey"
       },
       {
         "hour": 17,
@@ -223,11 +223,11 @@
       }
     ],
     "quadrant_counts": {
-      "mixed": 10,
+      "mixed": 9,
       "cheap_but_dirty": 7,
-      "clean_but_pricey": 7
+      "clean_but_pricey": 8
     },
-    "divergence_pct": 58.3,
+    "divergence_pct": 62.5,
     "note": "divergence_pct is the share of hours where the cheapest and cleanest times of day point in opposite directions -- i.e. optimizing for cost alone would not have also optimized for carbon."
   },
   "hourly_avg": [
@@ -317,15 +317,15 @@
     },
     {
       "hour": 21,
-      "carbon_intensity": 167.6
+      "carbon_intensity": 171.5
     },
     {
       "hour": 22,
-      "carbon_intensity": 174.0
+      "carbon_intensity": 177.9
     },
     {
       "hour": 23,
-      "carbon_intensity": 183.0
+      "carbon_intensity": 187.4
     }
   ]
 }
