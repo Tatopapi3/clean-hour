@@ -1,27 +1,27 @@
 {
   "region": "CAL",
-  "analyzed_at": "2026-10-22T19:12:28.737953Z",
+  "analyzed_at": "2026-10-22T23:08:38.514531Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
-  "verdict_reason": "Your grid swings 47.3% daily \u2014 charging at the cleanest hour instead of the dirtiest cuts roughly 38% of your charging emissions.",
-  "daily_swing_pct": 47.3,
-  "cleanest_hour": 18,
+  "verdict_reason": "Your grid swings 47.6% daily \u2014 charging at the cleanest hour instead of the dirtiest cuts roughly 38% of your charging emissions.",
+  "daily_swing_pct": 47.6,
+  "cleanest_hour": 19,
   "dirtiest_hour": 12,
-  "cleanest_window": "6pm\u20139pm",
+  "cleanest_window": "7pm\u201310pm",
   "dirtiest_window": "12pm\u20133pm",
-  "min_intensity": 157.9,
+  "min_intensity": 156.9,
   "max_intensity": 299.4,
-  "pct_saved": 47.3,
-  "kg_saved_yr": 1059.6,
-  "current_hour": 19,
-  "current_intensity": 159.8,
+  "pct_saved": 47.6,
+  "kg_saved_yr": 1067.0,
+  "current_hour": 23,
+  "current_intensity": 171.8,
   "signal": "use_now",
   "signal_label": "Good time to use power",
-  "current_marginal_intensity": 138.3,
+  "current_marginal_intensity": 289.8,
   "next_clean_window": {
-    "hour": 20,
-    "avg_intensity": 161.2,
+    "hour": 0,
+    "avg_intensity": 192.3,
     "in_hours": 1
   },
   "marginal_avg": [
@@ -107,19 +107,19 @@
     },
     {
       "hour": 20,
-      "marginal_intensity": 244.4
+      "marginal_intensity": 241.5
     },
     {
       "hour": 21,
-      "marginal_intensity": 195.6
+      "marginal_intensity": 189.1
     },
     {
       "hour": 22,
-      "marginal_intensity": 267.1
+      "marginal_intensity": 264.7
     },
     {
       "hour": 23,
-      "marginal_intensity": 288.5
+      "marginal_intensity": 289.8
     }
   ],
   "marginal_note": "Proxy method: weights fuels by their share of each hour's generation increase, not total mix. Approximates which source served incremental demand. Not a substitute for a true dispatch-order marginal model like WattTime's MOER.",
@@ -311,19 +311,19 @@
     },
     {
       "hour": 19,
-      "carbon_intensity": 159.8
+      "carbon_intensity": 156.9
     },
     {
       "hour": 20,
-      "carbon_intensity": 161.2
+      "carbon_intensity": 158.4
     },
     {
       "hour": 21,
-      "carbon_intensity": 161.7
+      "carbon_intensity": 158.9
     },
     {
       "hour": 22,
-      "carbon_intensity": 164.8
+      "carbon_intensity": 162.1
     },
     {
       "hour": 23,

@@ -1,6 +1,6 @@
 {
   "region": "TEX",
-  "analyzed_at": "2026-10-22T19:12:28.759759Z",
+  "analyzed_at": "2026-10-22T23:08:38.536599Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
@@ -14,15 +14,15 @@
   "max_intensity": 367.8,
   "pct_saved": 44.1,
   "kg_saved_yr": 1213.8,
-  "current_hour": 19,
-  "current_intensity": 215.6,
+  "current_hour": 23,
+  "current_intensity": 271.7,
   "signal": "use_now",
   "signal_label": "Good time to use power",
-  "current_marginal_intensity": 204.1,
+  "current_marginal_intensity": 324.5,
   "next_clean_window": {
-    "hour": 20,
-    "avg_intensity": 219.5,
-    "in_hours": 1
+    "hour": 15,
+    "avg_intensity": 234.1,
+    "in_hours": 16
   },
   "marginal_avg": [
     {
@@ -107,19 +107,19 @@
     },
     {
       "hour": 20,
-      "marginal_intensity": 270.9
+      "marginal_intensity": 257.2
     },
     {
       "hour": 21,
-      "marginal_intensity": 352.5
+      "marginal_intensity": 343.3
     },
     {
       "hour": 22,
-      "marginal_intensity": 338.2
+      "marginal_intensity": 320.8
     },
     {
       "hour": 23,
-      "marginal_intensity": 330.9
+      "marginal_intensity": 324.5
     }
   ],
   "marginal_note": "Proxy method: weights fuels by their share of each hour's generation increase, not total mix. Approximates which source served incremental demand. Not a substitute for a true dispatch-order marginal model like WattTime's MOER.",
@@ -310,19 +310,19 @@
     },
     {
       "hour": 19,
-      "carbon_intensity": 215.6
+      "carbon_intensity": 210.8
     },
     {
       "hour": 20,
-      "carbon_intensity": 219.5
+      "carbon_intensity": 214.4
     },
     {
       "hour": 21,
-      "carbon_intensity": 225.9
+      "carbon_intensity": 220.9
     },
     {
       "hour": 22,
-      "carbon_intensity": 237.0
+      "carbon_intensity": 231.8
     },
     {
       "hour": 23,
