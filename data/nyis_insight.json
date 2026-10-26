@@ -1,28 +1,28 @@
 {
   "region": "NYIS",
-  "analyzed_at": "2026-10-26T03:59:33.983150Z",
+  "analyzed_at": "2026-10-26T09:58:54.903155Z",
   "days_analyzed": 14,
   "verdict": "skip",
   "verdict_label": "Skip it",
-  "verdict_reason": "Your grid only swings 9.8% daily \u2014 timing barely matters here. Your grid is already relatively flat.",
-  "daily_swing_pct": 9.8,
+  "verdict_reason": "Your grid only swings 11.3% daily \u2014 timing barely matters here. Your grid is already relatively flat.",
+  "daily_swing_pct": 11.3,
   "cleanest_hour": 7,
   "dirtiest_hour": 23,
   "cleanest_window": "7am\u201310am",
   "dirtiest_window": "11pm\u20132am",
-  "min_intensity": 206.3,
+  "min_intensity": 202.9,
   "max_intensity": 228.7,
-  "pct_saved": 9.8,
-  "kg_saved_yr": 167.7,
-  "current_hour": 3,
-  "current_intensity": 225.9,
-  "signal": "wait",
-  "signal_label": "Wait if you can",
-  "current_marginal_intensity": 67.7,
+  "pct_saved": 11.3,
+  "kg_saved_yr": 193.2,
+  "current_hour": 9,
+  "current_intensity": 209.7,
+  "signal": "use_now",
+  "signal_label": "Good time to use power",
+  "current_marginal_intensity": 327.6,
   "next_clean_window": {
-    "hour": 6,
-    "avg_intensity": 208.7,
-    "in_hours": 3
+    "hour": 17,
+    "avg_intensity": 212.4,
+    "in_hours": 8
   },
   "marginal_avg": [
     {
@@ -43,11 +43,11 @@
     },
     {
       "hour": 4,
-      "marginal_intensity": 119.0
+      "marginal_intensity": 121.1
     },
     {
       "hour": 5,
-      "marginal_intensity": 146.1
+      "marginal_intensity": 115.8
     },
     {
       "hour": 6,
@@ -55,15 +55,15 @@
     },
     {
       "hour": 7,
-      "marginal_intensity": 120.9
+      "marginal_intensity": 134.7
     },
     {
       "hour": 8,
-      "marginal_intensity": 177.6
+      "marginal_intensity": 192.5
     },
     {
       "hour": 9,
-      "marginal_intensity": 303.3
+      "marginal_intensity": 327.6
     },
     {
       "hour": 10,
@@ -147,7 +147,7 @@
       },
       {
         "hour": 5,
-        "quadrant": "mixed"
+        "quadrant": "both_worth_it"
       },
       {
         "hour": 6,
@@ -191,7 +191,7 @@
       },
       {
         "hour": 16,
-        "quadrant": "clean_but_pricey"
+        "quadrant": "mixed"
       },
       {
         "hour": 17,
@@ -225,10 +225,10 @@
     "quadrant_counts": {
       "cheap_but_dirty": 5,
       "mixed": 11,
-      "clean_but_pricey": 7,
-      "both_worth_it": 1
+      "both_worth_it": 2,
+      "clean_but_pricey": 6
     },
-    "divergence_pct": 50.0,
+    "divergence_pct": 45.8,
     "note": "divergence_pct is the share of hours where the cheapest and cleanest times of day point in opposite directions -- i.e. optimizing for cost alone would not have also optimized for carbon."
   },
   "hourly_avg": [
@@ -246,27 +246,27 @@
     },
     {
       "hour": 3,
-      "carbon_intensity": 225.9
+      "carbon_intensity": 224.6
     },
     {
       "hour": 4,
-      "carbon_intensity": 221.8
+      "carbon_intensity": 219.7
     },
     {
       "hour": 5,
-      "carbon_intensity": 216.1
+      "carbon_intensity": 213.0
     },
     {
       "hour": 6,
-      "carbon_intensity": 208.7
+      "carbon_intensity": 204.9
     },
     {
       "hour": 7,
-      "carbon_intensity": 206.3
+      "carbon_intensity": 202.9
     },
     {
       "hour": 8,
-      "carbon_intensity": 206.3
+      "carbon_intensity": 203.2
     },
     {
       "hour": 9,
