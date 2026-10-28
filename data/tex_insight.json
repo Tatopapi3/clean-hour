@@ -1,6 +1,6 @@
 {
   "region": "TEX",
-  "analyzed_at": "2026-10-28T04:51:54.137041Z",
+  "analyzed_at": "2026-10-28T11:12:06.343479Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
@@ -14,15 +14,15 @@
   "max_intensity": 370.3,
   "pct_saved": 44.6,
   "kg_saved_yr": 1237.8,
-  "current_hour": 4,
-  "current_intensity": 349.8,
+  "current_hour": 11,
+  "current_intensity": 356.4,
   "signal": "wait",
   "signal_label": "Wait if you can",
-  "current_marginal_intensity": 97.1,
+  "current_marginal_intensity": 297.5,
   "next_clean_window": {
     "hour": 15,
     "avg_intensity": 239.6,
-    "in_hours": 11
+    "in_hours": 4
   },
   "marginal_avg": [
     {
@@ -47,11 +47,11 @@
     },
     {
       "hour": 5,
-      "marginal_intensity": 19.6
+      "marginal_intensity": 20.3
     },
     {
       "hour": 6,
-      "marginal_intensity": 142.0
+      "marginal_intensity": 70.5
     },
     {
       "hour": 7,
@@ -59,19 +59,19 @@
     },
     {
       "hour": 8,
-      "marginal_intensity": 115.9
+      "marginal_intensity": 125.0
     },
     {
       "hour": 9,
-      "marginal_intensity": 205.6
+      "marginal_intensity": 210.2
     },
     {
       "hour": 10,
-      "marginal_intensity": 232.0
+      "marginal_intensity": 247.2
     },
     {
       "hour": 11,
-      "marginal_intensity": 282.2
+      "marginal_intensity": 297.5
     },
     {
       "hour": 12,
@@ -179,7 +179,7 @@
       },
       {
         "hour": 13,
-        "quadrant": "mixed"
+        "quadrant": "both_skip"
       },
       {
         "hour": 14,
@@ -215,7 +215,7 @@
       },
       {
         "hour": 22,
-        "quadrant": "clean_but_pricey"
+        "quadrant": "mixed"
       },
       {
         "hour": 23,
@@ -225,10 +225,11 @@
     "quadrant_counts": {
       "cheap_but_dirty": 6,
       "mixed": 9,
-      "clean_but_pricey": 8,
+      "both_skip": 1,
+      "clean_but_pricey": 7,
       "both_worth_it": 1
     },
-    "divergence_pct": 58.3,
+    "divergence_pct": 54.2,
     "note": "divergence_pct is the share of hours where the cheapest and cleanest times of day point in opposite directions -- i.e. optimizing for cost alone would not have also optimized for carbon."
   },
   "hourly_avg": [
@@ -250,31 +251,31 @@
     },
     {
       "hour": 4,
-      "carbon_intensity": 349.8
+      "carbon_intensity": 350.6
     },
     {
       "hour": 5,
-      "carbon_intensity": 333.9
+      "carbon_intensity": 334.2
     },
     {
       "hour": 6,
-      "carbon_intensity": 326.0
+      "carbon_intensity": 325.6
     },
     {
       "hour": 7,
-      "carbon_intensity": 327.2
+      "carbon_intensity": 327.1
     },
     {
       "hour": 8,
-      "carbon_intensity": 330.1
+      "carbon_intensity": 329.9
     },
     {
       "hour": 9,
-      "carbon_intensity": 336.5
+      "carbon_intensity": 336.1
     },
     {
       "hour": 10,
-      "carbon_intensity": 347.2
+      "carbon_intensity": 347.3
     },
     {
       "hour": 11,
