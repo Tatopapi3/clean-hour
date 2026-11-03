@@ -1,33 +1,33 @@
 {
   "region": "CAL",
-  "analyzed_at": "2026-11-02T18:09:06.357711Z",
+  "analyzed_at": "2026-11-03T00:59:36.311371Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
-  "verdict_reason": "Your grid swings 48.5% daily \u2014 charging at the cleanest hour instead of the dirtiest cuts roughly 39% of your charging emissions.",
-  "daily_swing_pct": 48.5,
+  "verdict_reason": "Your grid swings 48.7% daily \u2014 charging at the cleanest hour instead of the dirtiest cuts roughly 39% of your charging emissions.",
+  "daily_swing_pct": 48.7,
   "cleanest_hour": 21,
   "dirtiest_hour": 12,
   "cleanest_window": "9pm\u201312am",
   "dirtiest_window": "12pm\u20133pm",
-  "min_intensity": 168.5,
+  "min_intensity": 167.7,
   "max_intensity": 327.2,
-  "pct_saved": 48.5,
-  "kg_saved_yr": 1188.3,
-  "current_hour": 18,
-  "current_intensity": 174.4,
+  "pct_saved": 48.7,
+  "kg_saved_yr": 1194.3,
+  "current_hour": 0,
+  "current_intensity": 207.9,
   "signal": "use_now",
   "signal_label": "Good time to use power",
-  "current_marginal_intensity": 69.3,
+  "current_marginal_intensity": 284.3,
   "next_clean_window": {
-    "hour": 19,
-    "avg_intensity": 170.4,
-    "in_hours": 1
+    "hour": 16,
+    "avg_intensity": 231.0,
+    "in_hours": 16
   },
   "marginal_avg": [
     {
       "hour": 0,
-      "marginal_intensity": 287.6
+      "marginal_intensity": 284.3
     },
     {
       "hour": 1,
@@ -99,27 +99,27 @@
     },
     {
       "hour": 18,
-      "marginal_intensity": 69.3
+      "marginal_intensity": 59.1
     },
     {
       "hour": 19,
-      "marginal_intensity": 92.7
+      "marginal_intensity": 91.1
     },
     {
       "hour": 20,
-      "marginal_intensity": 161.6
+      "marginal_intensity": 151.2
     },
     {
       "hour": 21,
-      "marginal_intensity": 148.9
+      "marginal_intensity": 143.5
     },
     {
       "hour": 22,
-      "marginal_intensity": 255.2
+      "marginal_intensity": 257.2
     },
     {
       "hour": 23,
-      "marginal_intensity": 249.4
+      "marginal_intensity": 249.2
     }
   ],
   "marginal_note": "Proxy method: weights fuels by their share of each hour's generation increase, not total mix. Approximates which source served incremental demand. Not a substitute for a true dispatch-order marginal model like WattTime's MOER.",
@@ -303,27 +303,27 @@
     },
     {
       "hour": 17,
-      "carbon_intensity": 188.6
+      "carbon_intensity": 189.9
     },
     {
       "hour": 18,
-      "carbon_intensity": 174.4
+      "carbon_intensity": 174.5
     },
     {
       "hour": 19,
-      "carbon_intensity": 170.4
+      "carbon_intensity": 170.2
     },
     {
       "hour": 20,
-      "carbon_intensity": 169.7
+      "carbon_intensity": 169.2
     },
     {
       "hour": 21,
-      "carbon_intensity": 168.5
+      "carbon_intensity": 167.7
     },
     {
       "hour": 22,
-      "carbon_intensity": 171.8
+      "carbon_intensity": 171.6
     },
     {
       "hour": 23,
