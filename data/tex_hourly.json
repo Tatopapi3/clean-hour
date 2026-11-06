@@ -1,89 +1,9 @@
 {
   "region": "TEX",
-  "fetched_at": "2026-11-05T21:23:19.346219Z",
+  "fetched_at": "2026-11-06T02:04:10.941975Z",
   "days_back": 14,
-  "records": 321,
+  "records": 316,
   "data": [
-    {
-      "period": "2026-10-22T21",
-      "hour": 21,
-      "total_mwh": 63956.0,
-      "carbon_intensity": 248.8,
-      "fuel_mix": {
-        "BAT": -1814.0,
-        "COL": 5590.0,
-        "NG": 19592.0,
-        "NUC": 3845.0,
-        "OTH": 53.0,
-        "SUN": 28672.0,
-        "WAT": 0.0,
-        "WND": 6204.0
-      }
-    },
-    {
-      "period": "2026-10-22T22",
-      "hour": 22,
-      "total_mwh": 64204.0,
-      "carbon_intensity": 256.6,
-      "fuel_mix": {
-        "BAT": -756.0,
-        "COL": 5584.0,
-        "NG": 21049.0,
-        "NUC": 3844.0,
-        "OTH": 52.0,
-        "SUN": 26597.0,
-        "WAT": 0.0,
-        "WND": 7078.0
-      }
-    },
-    {
-      "period": "2026-10-22T23",
-      "hour": 23,
-      "total_mwh": 63046.0,
-      "carbon_intensity": 314.0,
-      "fuel_mix": {
-        "BAT": 2359.0,
-        "COL": 6406.0,
-        "NG": 26115.0,
-        "NUC": 3845.0,
-        "OTH": 53.0,
-        "SUN": 16257.0,
-        "WAT": 2.0,
-        "WND": 8009.0
-      }
-    },
-    {
-      "period": "2026-10-23T00",
-      "hour": 0,
-      "total_mwh": 60931.0,
-      "carbon_intensity": 396.7,
-      "fuel_mix": {
-        "BAT": 8015.0,
-        "COL": 7994.0,
-        "NG": 30011.0,
-        "NUC": 3845.0,
-        "OTH": 53.0,
-        "SUN": 2268.0,
-        "WAT": 69.0,
-        "WND": 8676.0
-      }
-    },
-    {
-      "period": "2026-10-23T01",
-      "hour": 1,
-      "total_mwh": 59539.0,
-      "carbon_intensity": 398.1,
-      "fuel_mix": {
-        "BAT": 6415.0,
-        "COL": 8204.0,
-        "NG": 29749.0,
-        "NUC": 3846.0,
-        "OTH": 52.0,
-        "SUN": 6.0,
-        "WAT": 75.0,
-        "WND": 11192.0
-      }
-    },
     {
       "period": "2026-10-23T02",
       "hour": 2,
