@@ -1,33 +1,33 @@
 {
   "region": "CAL",
-  "analyzed_at": "2026-11-07T20:49:04.169925Z",
+  "analyzed_at": "2026-11-08T00:22:06.375951Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
-  "verdict_reason": "Your grid swings 53.2% daily \u2014 charging at the cleanest hour instead of the dirtiest cuts roughly 43% of your charging emissions.",
-  "daily_swing_pct": 53.2,
+  "verdict_reason": "Your grid swings 52.2% daily \u2014 charging at the cleanest hour instead of the dirtiest cuts roughly 42% of your charging emissions.",
+  "daily_swing_pct": 52.2,
   "cleanest_hour": 21,
   "dirtiest_hour": 12,
   "cleanest_window": "9pm\u201312am",
   "dirtiest_window": "12pm\u20133pm",
-  "min_intensity": 148.2,
+  "min_intensity": 151.3,
   "max_intensity": 316.6,
-  "pct_saved": 53.2,
-  "kg_saved_yr": 1261.0,
-  "current_hour": 20,
-  "current_intensity": 149.7,
+  "pct_saved": 52.2,
+  "kg_saved_yr": 1237.8,
+  "current_hour": 0,
+  "current_intensity": 196.2,
   "signal": "use_now",
   "signal_label": "Good time to use power",
-  "current_marginal_intensity": 132.2,
+  "current_marginal_intensity": 304.4,
   "next_clean_window": {
-    "hour": 21,
-    "avg_intensity": 148.2,
-    "in_hours": 1
+    "hour": 16,
+    "avg_intensity": 223.7,
+    "in_hours": 16
   },
   "marginal_avg": [
     {
       "hour": 0,
-      "marginal_intensity": 304.6
+      "marginal_intensity": 304.4
     },
     {
       "hour": 1,
@@ -111,15 +111,15 @@
     },
     {
       "hour": 21,
-      "marginal_intensity": 152.3
+      "marginal_intensity": 152.7
     },
     {
       "hour": 22,
-      "marginal_intensity": 235.0
+      "marginal_intensity": 230.8
     },
     {
       "hour": 23,
-      "marginal_intensity": 270.8
+      "marginal_intensity": 268.6
     }
   ],
   "marginal_note": "Proxy method: weights fuels by their share of each hour's generation increase, not total mix. Approximates which source served incremental demand. Not a substitute for a true dispatch-order marginal model like WattTime's MOER.",
@@ -195,7 +195,7 @@
       },
       {
         "hour": 17,
-        "quadrant": "mixed"
+        "quadrant": "clean_but_pricey"
       },
       {
         "hour": 18,
@@ -215,7 +215,7 @@
       },
       {
         "hour": 22,
-        "quadrant": "clean_but_pricey"
+        "quadrant": "mixed"
       },
       {
         "hour": 23,
@@ -315,19 +315,19 @@
     },
     {
       "hour": 20,
-      "carbon_intensity": 149.7
+      "carbon_intensity": 152.9
     },
     {
       "hour": 21,
-      "carbon_intensity": 148.2
+      "carbon_intensity": 151.3
     },
     {
       "hour": 22,
-      "carbon_intensity": 150.6
+      "carbon_intensity": 153.6
     },
     {
       "hour": 23,
-      "carbon_intensity": 158.2
+      "carbon_intensity": 161.4
     }
   ]
 }
