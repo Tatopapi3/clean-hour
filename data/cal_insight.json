@@ -1,27 +1,27 @@
 {
   "region": "CAL",
-  "analyzed_at": "2026-11-12T18:08:01.372471Z",
+  "analyzed_at": "2026-11-12T23:38:23.951189Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
-  "verdict_reason": "Your grid swings 52.2% daily \u2014 charging at the cleanest hour instead of the dirtiest cuts roughly 42% of your charging emissions.",
-  "daily_swing_pct": 52.2,
+  "verdict_reason": "Your grid swings 53.5% daily \u2014 charging at the cleanest hour instead of the dirtiest cuts roughly 43% of your charging emissions.",
+  "daily_swing_pct": 53.5,
   "cleanest_hour": 21,
   "dirtiest_hour": 12,
   "cleanest_window": "9pm\u201312am",
   "dirtiest_window": "12pm\u20133pm",
-  "min_intensity": 151.1,
+  "min_intensity": 146.8,
   "max_intensity": 315.9,
-  "pct_saved": 52.2,
-  "kg_saved_yr": 1234.0,
-  "current_hour": 18,
-  "current_intensity": 154.6,
+  "pct_saved": 53.5,
+  "kg_saved_yr": 1266.2,
+  "current_hour": 23,
+  "current_intensity": 164.4,
   "signal": "use_now",
   "signal_label": "Good time to use power",
-  "current_marginal_intensity": 64.2,
+  "current_marginal_intensity": 287.8,
   "next_clean_window": {
-    "hour": 19,
-    "avg_intensity": 152.1,
+    "hour": 0,
+    "avg_intensity": 211.7,
     "in_hours": 1
   },
   "marginal_avg": [
@@ -99,27 +99,27 @@
     },
     {
       "hour": 18,
-      "marginal_intensity": 64.2
+      "marginal_intensity": 65.6
     },
     {
       "hour": 19,
-      "marginal_intensity": 123.3
+      "marginal_intensity": 128.6
     },
     {
       "hour": 20,
-      "marginal_intensity": 193.9
+      "marginal_intensity": 191.0
     },
     {
       "hour": 21,
-      "marginal_intensity": 201.7
+      "marginal_intensity": 208.1
     },
     {
       "hour": 22,
-      "marginal_intensity": 258.7
+      "marginal_intensity": 253.7
     },
     {
       "hour": 23,
-      "marginal_intensity": 288.6
+      "marginal_intensity": 287.8
     }
   ],
   "marginal_note": "Proxy method: weights fuels by their share of each hour's generation increase, not total mix. Approximates which source served incremental demand. Not a substitute for a true dispatch-order marginal model like WattTime's MOER.",
@@ -301,27 +301,27 @@
     },
     {
       "hour": 17,
-      "carbon_intensity": 165.8
+      "carbon_intensity": 161.8
     },
     {
       "hour": 18,
-      "carbon_intensity": 154.6
+      "carbon_intensity": 149.9
     },
     {
       "hour": 19,
-      "carbon_intensity": 152.1
+      "carbon_intensity": 147.9
     },
     {
       "hour": 20,
-      "carbon_intensity": 151.4
+      "carbon_intensity": 147.1
     },
     {
       "hour": 21,
-      "carbon_intensity": 151.1
+      "carbon_intensity": 146.8
     },
     {
       "hour": 22,
-      "carbon_intensity": 154.1
+      "carbon_intensity": 149.0
     },
     {
       "hour": 23,
