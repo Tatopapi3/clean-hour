@@ -1,37 +1,37 @@
 {
   "region": "NYIS",
-  "analyzed_at": "2026-11-16T20:10:33.323627Z",
+  "analyzed_at": "2026-11-17T03:37:20.196175Z",
   "days_analyzed": 14,
   "verdict": "skip",
   "verdict_label": "Skip it",
-  "verdict_reason": "Your grid only swings 5.2% daily \u2014 timing barely matters here. Your grid is already relatively flat.",
-  "daily_swing_pct": 5.2,
+  "verdict_reason": "Your grid only swings 5.5% daily \u2014 timing barely matters here. Your grid is already relatively flat.",
+  "daily_swing_pct": 5.5,
   "cleanest_hour": 8,
-  "dirtiest_hour": 4,
+  "dirtiest_hour": 1,
   "cleanest_window": "8am\u201311am",
-  "dirtiest_window": "4am\u20137am",
+  "dirtiest_window": "1am\u20134am",
   "min_intensity": 216.1,
-  "max_intensity": 228.0,
-  "pct_saved": 5.2,
-  "kg_saved_yr": 89.1,
-  "current_hour": 20,
-  "current_intensity": 223.9,
+  "max_intensity": 228.7,
+  "pct_saved": 5.5,
+  "kg_saved_yr": 94.3,
+  "current_hour": 3,
+  "current_intensity": 224.5,
   "signal": "moderate",
   "signal_label": "Moderate \u2014 not ideal, not terrible",
-  "current_marginal_intensity": 245.2,
+  "current_marginal_intensity": 97.5,
   "next_clean_window": {
     "hour": 5,
     "avg_intensity": 220.8,
-    "in_hours": 9
+    "in_hours": 2
   },
   "marginal_avg": [
     {
       "hour": 0,
-      "marginal_intensity": 99.0
+      "marginal_intensity": 105.2
     },
     {
       "hour": 1,
-      "marginal_intensity": 52.5
+      "marginal_intensity": 53.7
     },
     {
       "hour": 2,
@@ -111,15 +111,15 @@
     },
     {
       "hour": 21,
-      "marginal_intensity": 250.9
+      "marginal_intensity": 252.1
     },
     {
       "hour": 22,
-      "marginal_intensity": 248.1
+      "marginal_intensity": 247.7
     },
     {
       "hour": 23,
-      "marginal_intensity": 219.0
+      "marginal_intensity": 227.2
     }
   ],
   "marginal_note": "Proxy method: weights fuels by their share of each hour's generation increase, not total mix. Approximates which source served incremental demand. Not a substitute for a true dispatch-order marginal model like WattTime's MOER.",
@@ -234,15 +234,15 @@
   "hourly_avg": [
     {
       "hour": 0,
-      "carbon_intensity": 227.8
+      "carbon_intensity": 228.5
     },
     {
       "hour": 1,
-      "carbon_intensity": 227.9
+      "carbon_intensity": 228.7
     },
     {
       "hour": 2,
-      "carbon_intensity": 226.2
+      "carbon_intensity": 226.4
     },
     {
       "hour": 3,
@@ -314,19 +314,19 @@
     },
     {
       "hour": 20,
-      "carbon_intensity": 223.9
+      "carbon_intensity": 224.1
     },
     {
       "hour": 21,
-      "carbon_intensity": 225.5
+      "carbon_intensity": 225.6
     },
     {
       "hour": 22,
-      "carbon_intensity": 227.4
+      "carbon_intensity": 227.5
     },
     {
       "hour": 23,
-      "carbon_intensity": 228.0
+      "carbon_intensity": 228.6
     }
   ]
 }
