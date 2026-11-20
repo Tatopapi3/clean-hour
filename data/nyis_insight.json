@@ -1,6 +1,6 @@
 {
   "region": "NYIS",
-  "analyzed_at": "2026-11-20T02:13:11.028085Z",
+  "analyzed_at": "2026-11-20T11:09:13.391720Z",
   "days_analyzed": 14,
   "verdict": "skip",
   "verdict_label": "Skip it",
@@ -14,15 +14,15 @@
   "max_intensity": 234.9,
   "pct_saved": 4.2,
   "kg_saved_yr": 73.4,
-  "current_hour": 2,
-  "current_intensity": 232.0,
-  "signal": "moderate",
-  "signal_label": "Moderate \u2014 not ideal, not terrible",
-  "current_marginal_intensity": 65.2,
+  "current_hour": 11,
+  "current_intensity": 234.2,
+  "signal": "wait",
+  "signal_label": "Wait if you can",
+  "current_marginal_intensity": 316.1,
   "next_clean_window": {
-    "hour": 7,
-    "avg_intensity": 227.5,
-    "in_hours": 5
+    "hour": 15,
+    "avg_intensity": 229.6,
+    "in_hours": 4
   },
   "marginal_avg": [
     {
@@ -47,19 +47,19 @@
     },
     {
       "hour": 5,
-      "marginal_intensity": 60.4
+      "marginal_intensity": 64.2
     },
     {
       "hour": 6,
-      "marginal_intensity": 131.0
+      "marginal_intensity": 134.1
     },
     {
       "hour": 7,
-      "marginal_intensity": 47.3
+      "marginal_intensity": 53.2
     },
     {
       "hour": 8,
-      "marginal_intensity": 104.2
+      "marginal_intensity": 84.6
     },
     {
       "hour": 9,
@@ -67,11 +67,11 @@
     },
     {
       "hour": 10,
-      "marginal_intensity": 282.3
+      "marginal_intensity": 299.9
     },
     {
       "hour": 11,
-      "marginal_intensity": 311.6
+      "marginal_intensity": 316.1
     },
     {
       "hour": 12,
@@ -143,7 +143,7 @@
       },
       {
         "hour": 4,
-        "quadrant": "mixed"
+        "quadrant": "cheap_but_dirty"
       },
       {
         "hour": 5,
@@ -167,7 +167,7 @@
       },
       {
         "hour": 10,
-        "quadrant": "both_worth_it"
+        "quadrant": "mixed"
       },
       {
         "hour": 11,
@@ -223,12 +223,12 @@
       }
     ],
     "quadrant_counts": {
-      "cheap_but_dirty": 3,
+      "cheap_but_dirty": 4,
       "mixed": 12,
       "clean_but_pricey": 7,
-      "both_worth_it": 2
+      "both_worth_it": 1
     },
-    "divergence_pct": 41.7,
+    "divergence_pct": 45.8,
     "note": "divergence_pct is the share of hours where the cheapest and cleanest times of day point in opposite directions -- i.e. optimizing for cost alone would not have also optimized for carbon."
   },
   "hourly_avg": [
@@ -242,39 +242,39 @@
     },
     {
       "hour": 2,
-      "carbon_intensity": 232.0
+      "carbon_intensity": 232.7
     },
     {
       "hour": 3,
-      "carbon_intensity": 229.4
+      "carbon_intensity": 230.1
     },
     {
       "hour": 4,
-      "carbon_intensity": 232.5
+      "carbon_intensity": 233.3
     },
     {
       "hour": 5,
-      "carbon_intensity": 229.7
+      "carbon_intensity": 231.1
     },
     {
       "hour": 6,
-      "carbon_intensity": 229.8
+      "carbon_intensity": 231.1
     },
     {
       "hour": 7,
-      "carbon_intensity": 227.5
+      "carbon_intensity": 228.4
     },
     {
       "hour": 8,
-      "carbon_intensity": 226.0
+      "carbon_intensity": 227.1
     },
     {
       "hour": 9,
-      "carbon_intensity": 226.1
+      "carbon_intensity": 227.0
     },
     {
       "hour": 10,
-      "carbon_intensity": 229.0
+      "carbon_intensity": 230.1
     },
     {
       "hour": 11,
