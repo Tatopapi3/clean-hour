@@ -1,28 +1,28 @@
 {
   "region": "CAL",
-  "analyzed_at": "2026-11-21T01:18:18.291224Z",
+  "analyzed_at": "2026-11-21T09:29:54.251174Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
-  "verdict_reason": "Your grid swings 51.5% daily \u2014 charging at the cleanest hour instead of the dirtiest cuts roughly 41% of your charging emissions.",
-  "daily_swing_pct": 51.5,
+  "verdict_reason": "Your grid swings 51.4% daily \u2014 charging at the cleanest hour instead of the dirtiest cuts roughly 41% of your charging emissions.",
+  "daily_swing_pct": 51.4,
   "cleanest_hour": 21,
-  "dirtiest_hour": 6,
+  "dirtiest_hour": 9,
   "cleanest_window": "9pm\u201312am",
-  "dirtiest_window": "6am\u20139am",
+  "dirtiest_window": "9am\u201312pm",
   "min_intensity": 142.7,
-  "max_intensity": 294.3,
-  "pct_saved": 51.5,
-  "kg_saved_yr": 1135.2,
-  "current_hour": 1,
-  "current_intensity": 278.1,
-  "signal": "moderate",
-  "signal_label": "Moderate \u2014 not ideal, not terrible",
-  "current_marginal_intensity": 301.4,
+  "max_intensity": 293.7,
+  "pct_saved": 51.4,
+  "kg_saved_yr": 1130.7,
+  "current_hour": 9,
+  "current_intensity": 293.7,
+  "signal": "wait",
+  "signal_label": "Wait if you can",
+  "current_marginal_intensity": 194.1,
   "next_clean_window": {
     "hour": 16,
     "avg_intensity": 199.6,
-    "in_hours": 15
+    "in_hours": 7
   },
   "marginal_avg": [
     {
@@ -35,19 +35,19 @@
     },
     {
       "hour": 2,
-      "marginal_intensity": 267.7
+      "marginal_intensity": 265.3
     },
     {
       "hour": 3,
-      "marginal_intensity": 170.9
+      "marginal_intensity": 181.1
     },
     {
       "hour": 4,
-      "marginal_intensity": 151.9
+      "marginal_intensity": 148.0
     },
     {
       "hour": 5,
-      "marginal_intensity": 145.7
+      "marginal_intensity": 155.2
     },
     {
       "hour": 6,
@@ -55,15 +55,15 @@
     },
     {
       "hour": 7,
-      "marginal_intensity": 99.5
+      "marginal_intensity": 95.7
     },
     {
       "hour": 8,
-      "marginal_intensity": 149.0
+      "marginal_intensity": 139.3
     },
     {
       "hour": 9,
-      "marginal_intensity": 195.9
+      "marginal_intensity": 194.1
     },
     {
       "hour": 10,
@@ -155,7 +155,7 @@
       },
       {
         "hour": 7,
-        "quadrant": "both_skip"
+        "quadrant": "mixed"
       },
       {
         "hour": 8,
@@ -179,7 +179,7 @@
       },
       {
         "hour": 13,
-        "quadrant": "mixed"
+        "quadrant": "cheap_but_dirty"
       },
       {
         "hour": 14,
@@ -219,17 +219,15 @@
       },
       {
         "hour": 23,
-        "quadrant": "both_worth_it"
+        "quadrant": "mixed"
       }
     ],
     "quadrant_counts": {
-      "mixed": 12,
-      "both_skip": 1,
-      "cheap_but_dirty": 4,
-      "clean_but_pricey": 6,
-      "both_worth_it": 1
+      "mixed": 13,
+      "cheap_but_dirty": 5,
+      "clean_but_pricey": 6
     },
-    "divergence_pct": 41.7,
+    "divergence_pct": 45.8,
     "note": "divergence_pct is the share of hours where the cheapest and cleanest times of day point in opposite directions -- i.e. optimizing for cost alone would not have also optimized for carbon."
   },
   "hourly_avg": [
@@ -239,35 +237,35 @@
     },
     {
       "hour": 1,
-      "carbon_intensity": 278.1
+      "carbon_intensity": 278.7
     },
     {
       "hour": 2,
-      "carbon_intensity": 290.1
+      "carbon_intensity": 287.9
     },
     {
       "hour": 3,
-      "carbon_intensity": 290.5
+      "carbon_intensity": 288.4
     },
     {
       "hour": 4,
-      "carbon_intensity": 291.0
+      "carbon_intensity": 288.6
     },
     {
       "hour": 5,
-      "carbon_intensity": 293.1
+      "carbon_intensity": 291.0
     },
     {
       "hour": 6,
-      "carbon_intensity": 294.3
+      "carbon_intensity": 292.1
     },
     {
       "hour": 7,
-      "carbon_intensity": 292.0
+      "carbon_intensity": 289.5
     },
     {
       "hour": 8,
-      "carbon_intensity": 294.1
+      "carbon_intensity": 291.4
     },
     {
       "hour": 9,

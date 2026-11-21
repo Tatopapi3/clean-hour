@@ -1,6 +1,6 @@
 {
   "region": "TEX",
-  "analyzed_at": "2026-11-21T01:18:18.323219Z",
+  "analyzed_at": "2026-11-21T09:29:54.274484Z",
   "days_analyzed": 14,
   "verdict": "worth_it",
   "verdict_label": "Worth it",
@@ -14,15 +14,15 @@
   "max_intensity": 432.8,
   "pct_saved": 33.2,
   "kg_saved_yr": 1075.3,
-  "current_hour": 1,
-  "current_intensity": 416.5,
+  "current_hour": 9,
+  "current_intensity": 418.5,
   "signal": "wait",
   "signal_label": "Wait if you can",
-  "current_marginal_intensity": 224.1,
+  "current_marginal_intensity": 357.4,
   "next_clean_window": {
     "hour": 15,
     "avg_intensity": 339.1,
-    "in_hours": 14
+    "in_hours": 6
   },
   "marginal_avg": [
     {
@@ -35,31 +35,31 @@
     },
     {
       "hour": 2,
-      "marginal_intensity": 131.3
+      "marginal_intensity": 131.1
     },
     {
       "hour": 3,
-      "marginal_intensity": 193.1
+      "marginal_intensity": 208.1
     },
     {
       "hour": 4,
-      "marginal_intensity": 217.6
+      "marginal_intensity": 180.7
     },
     {
       "hour": 5,
-      "marginal_intensity": 207.9
+      "marginal_intensity": 223.0
     },
     {
       "hour": 6,
-      "marginal_intensity": 365.7
+      "marginal_intensity": 313.4
     },
     {
       "hour": 7,
-      "marginal_intensity": 266.2
+      "marginal_intensity": 284.2
     },
     {
       "hour": 8,
-      "marginal_intensity": 307.3
+      "marginal_intensity": 334.3
     },
     {
       "hour": 9,
@@ -127,7 +127,7 @@
     "hourly_quadrant": [
       {
         "hour": 0,
-        "quadrant": "mixed"
+        "quadrant": "cheap_but_dirty"
       },
       {
         "hour": 1,
@@ -223,12 +223,12 @@
       }
     ],
     "quadrant_counts": {
-      "mixed": 11,
-      "cheap_but_dirty": 6,
+      "cheap_but_dirty": 7,
+      "mixed": 10,
       "both_worth_it": 2,
       "clean_but_pricey": 5
     },
-    "divergence_pct": 45.8,
+    "divergence_pct": 50.0,
     "note": "divergence_pct is the share of hours where the cheapest and cleanest times of day point in opposite directions -- i.e. optimizing for cost alone would not have also optimized for carbon."
   },
   "hourly_avg": [
@@ -238,35 +238,35 @@
     },
     {
       "hour": 1,
-      "carbon_intensity": 416.5
+      "carbon_intensity": 414.6
     },
     {
       "hour": 2,
-      "carbon_intensity": 410.7
+      "carbon_intensity": 408.3
     },
     {
       "hour": 3,
-      "carbon_intensity": 406.5
+      "carbon_intensity": 403.8
     },
     {
       "hour": 4,
-      "carbon_intensity": 403.6
+      "carbon_intensity": 400.5
     },
     {
       "hour": 5,
-      "carbon_intensity": 402.4
+      "carbon_intensity": 398.8
     },
     {
       "hour": 6,
-      "carbon_intensity": 410.5
+      "carbon_intensity": 406.5
     },
     {
       "hour": 7,
-      "carbon_intensity": 409.6
+      "carbon_intensity": 405.5
     },
     {
       "hour": 8,
-      "carbon_intensity": 413.2
+      "carbon_intensity": 409.5
     },
     {
       "hour": 9,
